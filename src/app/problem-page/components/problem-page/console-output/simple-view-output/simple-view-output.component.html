@@ -1,0 +1,22 @@
+<div class="row justify-content-center awaiting-code-submission-field">
+  <div class="col-11 description-sample-container">
+    <span class="description-sample-content font-poppins-600">{{
+      (codeRunStage | outcomeTypeToSimpleView: codeRunOutcome)?.header
+    }}</span>
+  </div>
+  <div class="col-1">
+    <awaiting-icon
+      *ngIf="(codeRunStage | outcomeTypeToSimpleView: codeRunOutcome)?.isAwaitingIcon"
+      [isAnimate]="(codeRunStage | outcomeTypeToSimpleView: codeRunOutcome)?.isAnimate!"
+      [inputParameters]="(codeRunStage | outcomeTypeToSimpleView: codeRunOutcome )?.iconState!"
+    ></awaiting-icon>
+    <succeeded-icon
+      *ngIf="(codeRunStage | outcomeTypeToSimpleView: codeRunOutcome )?.isSucceededIcon"
+      [inputIconParameters]="(codeRunStage | outcomeTypeToSimpleView: codeRunOutcome )?.iconState!"
+    ></succeeded-icon>
+    <error-icon
+      *ngIf="(codeRunStage | outcomeTypeToSimpleView: codeRunOutcome)?.isErrorIcon" 
+      [iconState]="(codeRunStage | outcomeTypeToSimpleView: codeRunOutcome )?.iconState!"
+    ></error-icon>
+  </div>
+</div>

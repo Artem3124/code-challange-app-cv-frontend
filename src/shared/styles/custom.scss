@@ -1,0 +1,12 @@
+.form-select {
+  --bs-form-select-bg-img: url('../../assets/svg/selector-icon/selector.svg') !important;
+  color: #4D7F9D !important;
+  border-radius: 15px !important;
+}
+
+.form-select:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";

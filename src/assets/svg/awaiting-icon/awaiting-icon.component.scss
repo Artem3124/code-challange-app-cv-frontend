@@ -1,0 +1,18 @@
+@keyframes rotate { 
+  from { 
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(360deg);
+  }
+}
+
+.clock-arrow-hours { 
+  animation: rotate 2s linear infinite;
+  transform-origin: center center;
+}
+
+.clock-arrow-minutes { 
+  animation: rotate 4.3s linear infinite;
+  transform-origin: center center;
+}

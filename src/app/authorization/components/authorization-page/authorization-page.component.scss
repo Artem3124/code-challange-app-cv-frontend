@@ -1,0 +1,12 @@
+.sidebar-bg {
+  background: 10% -5% no-repeat url('../../../../assets/svg/code-background-sidebar/code-background-sidebar.svg') ;
+  z-index: -3;
+}
+
+.sidebar-col { 
+  background-color: #4D7F9D; 
+  z-index: -2;
+  min-height: 600px;
+  position: absolute;
+  left: 0px;
+}

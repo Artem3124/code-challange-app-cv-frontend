@@ -1,0 +1,79 @@
+<div class="container global-content-container">
+  <div class="row">
+    <div class="col-1 statistic-part">
+      <div class="row">
+        <div class="container rarity-icon-container">
+          <complexity-icon [complexity]="descriptionState?.problemComplexity!"></complexity-icon>
+        </div>
+      </div>
+      <div class="row"></div>
+    </div>
+    <div class="col-11 description-part">
+      <div class="row">
+        <div
+          class="container description-element description-title font-poppins-600"
+        >
+          {{ descriptionState?.title }}
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="container description-element description-body font-poppins-400"
+        >
+          {{ descriptionState?.body }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="container description-element description-sample-input">
+          <div class="row">
+            <div class="container description-sample-title font-poppins-600">
+              Sample Input:
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="container description-sample-content font-poppins-600 code-output-text"
+            >
+              {{ descriptionState?.sampleInput }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="container description-element description-sample-output">
+          <div class="row">
+            <div class="container description-sample-title font-poppins-600">
+              Sample Output:
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="container description-sample-content font-poppins-600 code-output-text"
+            >
+              {{ descriptionState?.sampleOutput }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="container">
+          <div class="row">
+            <div class="container description-sample-title font-poppins-600">
+              Constraints:
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="container description-element description-constraints font-poppins-600"
+            >
+              {{ descriptionState?.constraints }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-custom">
+        <tag-component class="container" [tagName]="descriptionState?.tags!"></tag-component>
+      </div>
+    </div>
+  </div>
+</div>

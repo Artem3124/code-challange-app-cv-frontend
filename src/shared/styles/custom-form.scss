@@ -1,0 +1,34 @@
+.form-control {
+  font-weight: 600 !important;
+  font-family: Poppins, sans-serif !important;
+  color: #535153;
+  border-radius: 20px !important;
+  background-color: #FBFAFA !important;
+}
+
+.form-control::placeholder {
+  font-family: Poppins, sans-serif !important;
+  font-weight: 600 !important;
+  color: rgba(137, 134, 137, 1);
+  font-size: 80%;
+}
+
+.form-control:focus {
+  border-color: #4d7f9d;
+  box-shadow: none !important;
+}
+
+.form-submit-color { 
+  color: #379A3C;
+}
+
+.form-default-color { 
+  color: #535153;
+}
+
+.form-header { 
+  background-color: #FBFAFA;
+  border-radius: 35px;
+  font-size: 130%;
+  padding: 0.5em 1em;
+}

@@ -1,0 +1,13 @@
+<div class="container global-content-container console-output" [ngSwitch]="codeRunOutcome">
+  <simple-view-output
+    [codeRunStage]="codeRunStage"
+    [codeRunOutcome]="codeRunOutcome"
+    *ngIf="(codeRunStage | outcomeTypeToSimpleView : codeRunOutcome) !== null"
+  ></simple-view-output>
+  <detailed-view-output
+    *ngIf="(codeRunOutcome | outcomeTypeToDetailedView) !== null"
+    [codeRunOutcome]="codeRunOutcome"
+    [errorFlow]="errorFlow"
+    style="width: 100%"
+  ></detailed-view-output>
+</div>

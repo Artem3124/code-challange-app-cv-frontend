@@ -1,0 +1,22 @@
+.runtime-error-description-section, .runtime-error-test-case { 
+  color: #535153;
+}
+
+.runtime-error-section {
+  margin-bottom: 1em;
+}
+
+.runtime-error-header { 
+  color: #D14A4A;
+}
+
+.font-poppins-600 {
+  font-family: Poppins, sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.runtime-error-detail {
+  @extend .font-poppins-600;
+  font-size: 14px;
+  color: #535153;
+}

@@ -1,0 +1,5 @@
+<div class="container error-output-details font-poppins-600">
+  <span *ngFor="let error of (errorsInput | compileErrorView)">
+    {{error.message}};<br />
+  </span>
+</div>

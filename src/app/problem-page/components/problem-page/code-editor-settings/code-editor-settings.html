@@ -1,0 +1,19 @@
+<div class="container code-editor-settings">
+  <select
+    #codeLanguageSelect
+    (change)="onSetLanguage(codeLanguageSelect.value)"
+    name="language-picker"
+    id="language-selection"
+    class="form-select font-poppins-700 code-change-menu"
+  >
+    <option 
+    #codeLanguageOption
+      *ngFor="let language of availableLanguagesInput" 
+      id="language"
+      [value]="language"
+      class="custom-option"
+      >
+      {{language | codeLanguage}}
+    </option>
+  </select>
+</div>
