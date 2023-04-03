@@ -42,6 +42,7 @@ export class CodeEditorComponent implements AfterViewInit {
     this.codeTemplate.subscribe((codeTemplate: string) => {
       this.setEditorTemplate(codeTemplate);
     })
+    this.emitCodeState();
   }
 
   private configureEditor(languageToSet: string) {
@@ -87,6 +88,8 @@ export class CodeEditorComponent implements AfterViewInit {
   }
 
   emitCodeState() { 
+    console.log(this.codeEditor.getSession().getDocument().getValue());
+    
     this.codeValueEmitter.emit(this.codeEditor.getSession().getDocument().getValue());
   }
 }

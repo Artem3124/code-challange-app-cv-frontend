@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, map } from 'rxjs';
 import {
   CodeProblem,
   CodeRunProgress,
@@ -30,10 +31,11 @@ export class ProblemPageComponent implements OnInit {
   constructor(
     private codeProblemHttp: CodeProblemHttpService,
     private codeSubmissionHttp: CodeSubmissionHttpService,
-    private codeTemplateHttp: CodeTemplateHttpService
+    private codeTemplateHttp: CodeTemplateHttpService,
+    private router: Router
   ) {}
 
-  readonly codeProblemUUID: string = '2fe1620c-9009-4c27-91eb-e91c32e31875';
+  readonly codeProblemUUID: string = this.router.url.slice(-36);
 
   currentLanguageObserver: Subject<CodeLanguages> =
     new Subject<CodeLanguages>();
@@ -56,6 +58,8 @@ export class ProblemPageComponent implements OnInit {
   outputErrorView: CompilationError[] | TestCaseResult;
 
   ngOnInit(): void {
+    console.log(this.codeProblemUUID);
+    
     this.fetchCodeProblem(this.codeProblemUUID);
     this.getCodeTemplate(this.codeProblemUUID);
   }
@@ -64,6 +68,7 @@ export class ProblemPageComponent implements OnInit {
     this.codeTemplateHttp.getCodeTemplate(codeProblemUUID, 1).subscribe({
       next: (codeTemplate: any) => { 
         console.log(codeTemplate);
+        this.sourceCode = codeTemplate;
         this.codeTemplateObserver.next(codeTemplate.template);
       },
       error: (err: Error) => console.error(err)

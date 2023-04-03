@@ -8,7 +8,7 @@ import { Observable, tap } from "rxjs";
 }) export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('in works');
+    console.log('interceptor works');
 
     return next.handle(req).pipe(tap(() => { }, 
       (err: Error) => { 

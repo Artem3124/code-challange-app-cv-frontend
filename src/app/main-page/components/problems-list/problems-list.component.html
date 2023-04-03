@@ -1,8 +1,7 @@
 <div class="row">
   <div class="container">
     <div class="row" *ngFor="let item of codeProblems">
-      nigga
-      <div class="col">{{item.name}}</div>
+      <a [routerLink]="['problem/', item.uuid]" class="col">{{item.name}}</a>
       <div class="col">{{item.description}}</div>
     </div>
   </div>

@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { ActiveSelectorMenu } from 'src/shared/directives/active-selector-menu.directive';
 import { ConsoleOutputModule } from './console-output.module';
-import { PageHeaderComponent } from '../page-header/page-header.component';
 import { CodeEditorComponent } from './components/problem-page/code-editor/code-editor.component';
 import { ProblemPageComponent } from './components/problem-page/problem-page.component';
 import { CodeEditorSettingsComponent } from './components/problem-page/code-editor-settings/code-editor-settings';
@@ -14,9 +12,7 @@ import { ManageableIconColor } from 'src/shared/directives/icon/manageable-icon-
 import { ProblemTagComponent } from '../problem-tag/problem-tag.component';
 import { ProblemComplexityPipe } from 'src/shared/pipes/problem-complexity.pipe';
 import { CodingLanguagesPipe } from './pipes/coding-languages.pipe';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { AuthInterceptor } from 'src/shared/services/intererceptors/authentication.interceptor';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,7 +29,7 @@ import { AuthInterceptor } from 'src/shared/services/intererceptors/authenticati
     ProblemTagComponent,
   ],
   exports: [ProblemPageComponent],
-  imports: [FormsModule, ConsoleOutputModule],
+  imports: [CommonModule, FormsModule, ConsoleOutputModule],
   providers: [],
 })
 export class ProblemPageModule {}

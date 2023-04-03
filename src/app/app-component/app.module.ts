@@ -11,6 +11,7 @@ import { AuthInterceptor } from 'src/shared/services/intererceptors/authenticati
 import { AuthGuard } from 'src/shared/services/guards/authentication.guard';
 import { MainPageModule } from '../main-page/main-page.module';
 import { CommonModule } from '@angular/common';
+import { AuthHttpService } from 'src/shared/services/http/authentication.service';
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,11 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProblemPageComponent } from './problem-page/components/problem-page/problem-page.component';
-import { LoginComponent } from './authorization/components/login/login.component';
-import { RegisterComponent } from './authorization/components/register/register.component';
-import { AuthorizationPageComponent } from './authorization/components/authorization-page/authorization-page.component';
-import { MainPageComponent } from './main-page/components/main-page/main-page.component';
-import { ProblemsListComponent } from './main-page/components/problems-list/problems-list.component';
 
 const routes: Routes = [
   {
@@ -22,6 +16,9 @@ const routes: Routes = [
         (module) => module.MainPageModule
       ),
   },
+  {
+    path: '**', redirectTo: 'home'
+  }
 ];
 
 @NgModule({

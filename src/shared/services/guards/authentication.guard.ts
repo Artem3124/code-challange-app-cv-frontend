@@ -6,35 +6,27 @@ import { HttpBase } from "../http/http-base.service";
 import { HttpClient } from "@angular/common/http";
 import { User } from "src/models";
 
-@Injectable({
-  providedIn: 'root'
-}) export class AuthGuard implements CanActivate {
+@Injectable() export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthHttpService, private router: Router) {
   }
 
-  canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.isSignIn();
   } 
 
   private isSignIn(): Observable<boolean> { 
-    console.log('guard works');
-    
-    return this.isSignIn().pipe(
+    console.log('guard works')
+
+    return this.authService.isSignIn().pipe(
       map((isSignIn: boolean) => {
-        console.log('guard')
-        console.log(isSignIn);
-        return isSignIn ?
-           true :
-        
-        
-         false;
-      }),
-      catchError(async (err: Error) => {
-        console.error(err);
-      return false;
-    }),
+        if (isSignIn) { 
+          this.router.navigate(['/home']);
+          return false;
+        }
+
+        return true;
+      })
       )
   }
-  
 }

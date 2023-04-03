@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
@@ -11,11 +11,15 @@ export class HttpBase {
 
   constructor(private http: HttpClient) {}
 
+  options = {
+    withCredentials: true,
+  }
+
   post<P, R>(payload: P, url: string): Observable<R> { 
-    return this.http.post<R>(`${this.route}/${url}`, payload);
+    return this.http.post<R>(`${this.route}/${url}`, payload, this.options);
   }
 
   get<R>(url: string): Observable<R> { 
-    return this.http.get<R>(`${this.route}/${url}`);
+    return this.http.get<R>(`${this.route}/${url}`, this.options);
   }
 }

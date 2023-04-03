@@ -9,18 +9,17 @@ const routes = RouterModule.forChild([
   {
     path: '',
     component: AuthorizationPageComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
         redirectTo: 'login',
-        pathMatch:  'full'
+        pathMatch: 'full',
       },
       {
         path: 'register',
         children: [
-          { path: '', component: RegisterComponent, outlet: 'authRouter',
-  },
+          { path: '', component: RegisterComponent, outlet: 'authRouter' },
         ],
       },
       {
