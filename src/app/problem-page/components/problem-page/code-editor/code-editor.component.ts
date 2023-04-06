@@ -14,7 +14,7 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/theme-cloud9_day.js';
 import { map, Observable } from 'rxjs';
-import CodeLanguages from 'src/models/enums/coding-languages.enum';
+import CodeLanguage from 'src/models/enums/coding-languages.enum';
 
 const THEME: string = 'ace/theme/cloud9_day';
 
@@ -28,7 +28,7 @@ export class CodeEditorComponent implements AfterViewInit {
   codeEditor: ace.Ace.Editor;
 
   @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
-  @Input() currentLanguage: Observable<CodeLanguages>;
+  @Input() currentLanguage: Observable<CodeLanguage>;
   @Input() codeTemplate: Observable<string>;
   @Output() codeValueEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -36,8 +36,8 @@ export class CodeEditorComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.configureEditor('csharp');
-    this.currentLanguage.subscribe((inputLanguage: CodeLanguages) => {
-      this.setEditorLanguage(CodeLanguages[inputLanguage]);
+    this.currentLanguage.subscribe((inputLanguage: CodeLanguage) => {
+      this.setEditorLanguage(CodeLanguage[inputLanguage]);
     });
     this.codeTemplate.subscribe((codeTemplate: string) => {
       this.setEditorTemplate(codeTemplate);

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subject, map } from 'rxjs';
 import {
   CodeProblem,
@@ -10,13 +11,15 @@ import {
 } from 'src/models';
 import { CodeRunOutcome } from 'src/models/enums/code-run-outcome.enum';
 import { CodeRunStage } from 'src/models/enums/code-run-stage.enum';
-import CodeLanguages from 'src/models/enums/coding-languages.enum';
+import CodeLanguage from 'src/models/enums/coding-languages.enum';
 import { ConsoleOutputType } from 'src/models/enums/console-output-type.enum';
 import { RunType } from 'src/models/enums/run-type.enum';
 import ProblemDescriptionView from 'src/models/view/problem-description-view.model';
 import { CodeProblemHttpService } from 'src/shared/services/http/code-problem.service';
 import { CodeSubmissionHttpService } from 'src/shared/services/http/code-submission.service';
 import { CodeTemplateHttpService } from 'src/shared/services/http/code-template.service';
+import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
+import { CurrentProblemState, selectCodeProblemState } from '../../state';
 
 @Component({
   selector: 'problem-page-component',
@@ -27,31 +30,30 @@ import { CodeTemplateHttpService } from 'src/shared/services/http/code-template.
   ],
 })
 export class ProblemPageComponent implements OnInit {
-
   constructor(
     private codeProblemHttp: CodeProblemHttpService,
     private codeSubmissionHttp: CodeSubmissionHttpService,
     private codeTemplateHttp: CodeTemplateHttpService,
-    private router: Router
+    private router: Router,
+    private problemStore: ProblemStoreService,
   ) {}
 
   readonly codeProblemUUID: string = this.router.url.slice(-36);
 
-  currentLanguageObserver: Subject<CodeLanguages> =
-    new Subject<CodeLanguages>();
+  currentLanguageObserver: Subject<CodeLanguage> =
+    new Subject<CodeLanguage>();
   codeTemplateObserver: Subject<string> = new Subject<string>();
 
-
-  availableLanguages: Array<CodeLanguages> = [
-    CodeLanguages.csharp,
-    CodeLanguages.javascript,
-    CodeLanguages.c_cpp,
+  availableLanguages: Array<CodeLanguage> = [
+    CodeLanguage.csharp,
+    CodeLanguage.javascript,
+    CodeLanguage.c_cpp,
   ];
 
   codeProblemState: CodeProblem;
   descriptionCodeProblemState: ProblemDescriptionView;
   sourceCode: string;
-  currentLanguage: CodeLanguages;
+  currentLanguage: CodeLanguage;
   awaitingForSubmissionResults: boolean = false;
   codeRunStage: CodeRunStage = CodeRunStage.Unset;
   codeRunOutcome: CodeRunOutcome = CodeRunOutcome.Unknown;
@@ -59,44 +61,57 @@ export class ProblemPageComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.codeProblemUUID);
-    
     this.fetchCodeProblem(this.codeProblemUUID);
     this.getCodeTemplate(this.codeProblemUUID);
   }
 
-  getCodeTemplate(codeProblemUUID: string) { 
+  getCodeTemplate(codeProblemUUID: string) {
     this.codeTemplateHttp.getCodeTemplate(codeProblemUUID, 1).subscribe({
-      next: (codeTemplate: any) => { 
+      next: (codeTemplate: any) => {
         console.log(codeTemplate);
         this.sourceCode = codeTemplate;
         this.codeTemplateObserver.next(codeTemplate.template);
       },
-      error: (err: Error) => console.error(err)
-    })
+      error: (err: Error) => console.error(err),
+    });
   }
 
   fetchCodeProblem(codeProblemUUID: string): void {
-    this.codeProblemHttp
-      .getCodeProblem(codeProblemUUID)
-      .subscribe({
-        next: (response: CodeProblem) => {
-          console.log(response);
-          this.codeProblemState = response;
-          this.descriptionCodeProblemState = this.convertToDescription(
-            this.codeProblemState
-          );
-          console.log(this.descriptionCodeProblemState);
-        },
-        error: (err: Error) => {
-          console.error(err);
-        },
-      });
+    this.problemStore.getProblemState().subscribe({
+      next: (response: CodeProblem) => {
+        console.log(response);
+        this.codeProblemState = response;
+        this.descriptionCodeProblemState = this.convertToDescription(
+          this.codeProblemState
+        );
+        console.log(this.descriptionCodeProblemState);
+      },
+      error: (err: Error) => {
+        console.error(err);
+      },
+    });
+
+    
+
+    // this.codeProblemHttp
+    //   .getCodeProblem(codeProblemUUID)
+    //   .subscribe({
+    //     next: (response: CodeProblem) => {
+    //       console.log(response);
+    //       this.codeProblemState = response;
+    //       this.descriptionCodeProblemState = this.convertToDescription(
+    //         this.codeProblemState
+    //       );
+    //       console.log(this.descriptionCodeProblemState);
+    //     },
+    //     error: (err: Error) => {
+    //       console.error(err);
+    //     },
+    //   });
   }
 
-
-
-  setCurrentLanguage(language: CodeLanguages) {
-    console.log(CodeLanguages[language]);
+  setCurrentLanguage(language: CodeLanguage) {
+    console.log(CodeLanguage[language]);
     this.currentLanguage = language;
     this.currentLanguageObserver.next(language);
   }
@@ -170,18 +185,22 @@ export class ProblemPageComponent implements OnInit {
   convertToCompilationErrorOutput(
     codeRunResult: CodeRunResult
   ): CompilationError[] {
-    return codeRunResult.compilationErrors;
+    return codeRunResult.compilationErrors!;
   }
 
   convertToRuntimeErrorOutput(codeRunResult: CodeRunResult): TestCaseResult {
-    codeRunResult.failedTest.actual = codeRunResult.exceptionMessage;
+    var testCaseResult: TestCaseResult = codeRunResult.failedTest!;
 
-    return codeRunResult.failedTest;
+    testCaseResult.actual = codeRunResult.exceptionMessage!;
+
+    return testCaseResult;
   }
 
   private convertToDescription(
     codeProblem: CodeProblem
   ): ProblemDescriptionView {
+    console.log(codeProblem);
+
     return {
       problemComplexity: codeProblem.complexityTypeId,
       title: codeProblem.name,

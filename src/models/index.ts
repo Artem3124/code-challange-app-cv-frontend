@@ -1,6 +1,6 @@
 import { CodeRunOutcome } from "./enums/code-run-outcome.enum";
 import { CodeRunStage } from "./enums/code-run-stage.enum";
-import CodeLanguages from "./enums/coding-languages.enum";
+import CodeLanguage from "./enums/coding-languages.enum";
 import CodeProblemComplexity from "./enums/problem-rarity.enum";
 import { RunType } from "./enums/run-type.enum";
 import { SubscriptionType } from "./enums/subscription-type.enum";
@@ -25,7 +25,7 @@ interface Example {
 
 export interface CodeSubmission { 
   codeProblemUUID: string;
-  codeLanguage: CodeLanguages;
+  codeLanguage: CodeLanguage;
   sourceCode: string;
   runType: RunType;
 }
@@ -37,11 +37,16 @@ export interface CodeRunProgress {
 
 export interface CodeRunResult { 
   uuid: string;
-  failedTest: TestCaseResult;
-  compilationErrors: CompilationError[];
-  exceptionMessage: string;
+  failedTest?: TestCaseResult;
+  compilationErrors?: CompilationError[];
+  exceptionMessage?: string;
   codeRunOutcomeId: CodeRunOutcome;
   duration: number;
+}
+
+export interface CodeRunResultExpanded extends CodeRunResult { 
+  sourceCode: string, 
+  codeLanguage: CodeLanguage, 
 }
 
 export interface CompilationError {

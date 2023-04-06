@@ -15,6 +15,7 @@
         Solutions
       </div>
       <div
+        [routerLink]="['submissions']"
         class="col global-selection-menu-element option-menu-element"
         appHighlight
       >
@@ -38,6 +39,7 @@
 <div class="row problem-page-fulfillness">
   <div class="col probem-page-description">
     <div class="row">
+      <router-outlet name="problemPage"></router-outlet>
       <problem-description
         [descriptionState]="descriptionCodeProblemState"
       ></problem-description>

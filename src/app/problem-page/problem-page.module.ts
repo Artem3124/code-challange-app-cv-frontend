@@ -13,6 +13,15 @@ import { ProblemTagComponent } from '../problem-tag/problem-tag.component';
 import { ProblemComplexityPipe } from 'src/shared/pipes/problem-complexity.pipe';
 import { CodingLanguagesPipe } from './pipes/coding-languages.pipe';
 import { CommonModule } from '@angular/common';
+import { ReducerManager, StoreModule } from '@ngrx/store';
+import { codeProblemReducer, codeRunsReducer } from './state/reducers/problem.reducer';
+import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
+import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
+import { EffectsModule } from '@ngrx/effects';
+import { ProblemListEffects } from '../main-page/store/effects/problem-list.effect';
+import { ProblemStateEffects } from './state/effects/code-runs.effect';
+import { AppRoutingModule } from '../app-routing.module';
+import { ProblemPageRoutingModule } from './problem-page.routing';
 
 @NgModule({
   declarations: [
@@ -29,7 +38,15 @@ import { CommonModule } from '@angular/common';
     ProblemTagComponent,
   ],
   exports: [ProblemPageComponent],
-  imports: [CommonModule, FormsModule, ConsoleOutputModule],
-  providers: [],
+
+  imports: [
+    CommonModule,
+    FormsModule,
+    ConsoleOutputModule,
+    ProblemPageRoutingModule,
+    StoreModule.forFeature('problemState', codeProblemReducer),
+    EffectsModule.forFeature(ProblemListEffects)
+  ],
+  providers: [ProblemStoreService, ReducerManager],
 })
 export class ProblemPageModule {}

@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import CodeLanguages from 'src/models/enums/coding-languages.enum';
+import CodeLanguage from 'src/models/enums/coding-languages.enum';
 
 @Component({
   selector: 'code-editor-settings',
@@ -21,13 +21,13 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
 
   constructor() {}
   ngAfterViewInit(): void {
-    this.onSetLanguage(CodeLanguages.csharp);
+    this.onSetLanguage(CodeLanguage.csharp);
   }
 
-  @Input() availableLanguagesInput: Array<CodeLanguages>;
-  @Output() currentLanguageEvent: EventEmitter<CodeLanguages> = new EventEmitter<CodeLanguages>();
+  @Input() availableLanguagesInput: Array<CodeLanguage>;
+  @Output() currentLanguageEvent: EventEmitter<CodeLanguage> = new EventEmitter<CodeLanguage>();
 
-  onSetLanguage(language: string | CodeLanguages) {
-    this.currentLanguageEvent.emit(language as CodeLanguages);
+  onSetLanguage(language: string | CodeLanguage) {
+    this.currentLanguageEvent.emit(language as CodeLanguage);
   }
 }

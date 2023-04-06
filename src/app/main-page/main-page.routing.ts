@@ -1,6 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { ProblemsListComponent } from './components/problems-list/problems-list.component';
+import { ProblemsListComponent } from './components/main-page/problems-list/problems-list.component';
 import { NgModule } from '@angular/core';
 import { ProblemPageComponent } from '../problem-page/components/problem-page/problem-page.component';
 
@@ -21,7 +21,8 @@ const routes = [
           {
             outlet: 'mainPage',
             path: '',
-            component: ProblemPageComponent,
+            loadChildren: () => 
+            import('../problem-page/problem-page.module').then((module) => module.ProblemPageModule)
           },
         ],
       },

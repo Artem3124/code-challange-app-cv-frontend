@@ -1,4 +1,4 @@
-enum CodeLanguages { 
+enum CodeLanguage { 
   undefined = 0,
   csharp = 1,
   c_cpp = 2,
@@ -6,4 +6,4 @@ enum CodeLanguages {
   Java = 4,
 }
 
-export default CodeLanguages;
+export default CodeLanguage;
