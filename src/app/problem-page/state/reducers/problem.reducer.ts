@@ -1,39 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
-import { CurrentProblemState } from "..";
-import { insertDataToProblemState } from "src/app/main-page/store/actions/problem-list.action";
-import ProblemComplexity from "src/models/enums/problem-rarity.enum";
-import { gettingCodeRunsHistorySucceeded } from "../actions/code-runs.actions";
+import { doneFetchingCodeProblem, insertDataToProblemState } from "src/app/main-page/store/actions/problems.actions";
+import { CurrentProblemDataState } from "../selectors/problem.selector";
 
-export const initialState: CurrentProblemState = { 
-  codeProblem: {
-    uuid: 'string',
-      name: 'string',
-      complexityTypeId: ProblemComplexity.Easy,
-      description: 'string',
-      constraints: [],
-      examples: [],
-      tags: [],
-      testSubjectName: 'string',
-  },
-  codeRunsHistory: []
+const initialState: CurrentProblemDataState = { 
+  codeProblem: null,
 }
 
 export const codeProblemReducer = createReducer(
   initialState, 
-  on(insertDataToProblemState, (state, action) => {
+  on(insertDataToProblemState, doneFetchingCodeProblem, (state, action) => {
     return {
       ...state,
       codeProblem: action.problem,
-    }
-  })
-)
-
-export const codeRunsReducer = createReducer( 
-  initialState, 
-  on(gettingCodeRunsHistorySucceeded, (state, action) => {
-    return {
-      ...state,
-      codeRunsHistory: action.codeRunsHistory,
     }
   })
 )

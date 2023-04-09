@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Actions, act, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MainPageState, getProblemList } from '..';
 import {
-  doneFetchingCodeProblems,
+  doneFetchingCodeProblem,
+  doneFetchingCodeProblemList,
+  errorFetchingCodeProblem,
   errorFetchingProblemList,
+  initiateFetchingCodeProblem,
   initiateFetchingProblemList,
   insertDataToProblemState,
   searchProblem,
   testAction,
-} from '../actions/problem-list.action';
-import {
-  catchError,
-  concat,
-  exhaustMap,
-  filter,
-  find,
-  map,
-  withLatestFrom,
-} from 'rxjs';
-import { selectCodeProblemState } from 'src/app/problem-page/state';
+} from '../actions/problems.actions';
+import { catchError, exhaustMap, map, withLatestFrom } from 'rxjs';
 import { CodeProblem } from 'src/models';
 import { Store } from '@ngrx/store';
 import { CodeProblemHttpService } from 'src/shared/services/http/code-problem.service';
@@ -37,22 +31,44 @@ export class ProblemListEffects {
           (problem: CodeProblem) => problem.uuid === action.problemUUID
         );
 
+          console.log(problem);
+
         if (!problem) {
-          return testAction();
+          return initiateFetchingCodeProblem({ problemUUID: action.problemUUID   });
         }
+        console.log(action.problemUUID);
+        console.log(problem);
 
         return insertDataToProblemState({ problem: problem });
       })
     )
   );
 
+  getProblem$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(initiateFetchingCodeProblem),
+      exhaustMap((action) =>
+        this.problemHttp.getCodeProblem(action.problemUUID).pipe(
+          map((response: CodeProblem) => {
+            return doneFetchingCodeProblem({ problem: response });
+          }),
+          catchError(async (error: Error) => {
+            return errorFetchingCodeProblem({
+              error: error as HttpErrorResponse,
+            });
+          })
+        )
+      )
+    )
+  );
+
   getProblemList$ = createEffect(() =>
-    this.actions$.pipe( 
+    this.actions$.pipe(
       ofType(initiateFetchingProblemList),
       exhaustMap(() =>
-        this.problemListHttp.getAllProblems().pipe(
+        this.problemHttp.getAllProblems().pipe(
           map((list: CodeProblem[]) => {
-            return doneFetchingCodeProblems({ problemsList: list });
+            return doneFetchingCodeProblemList({ problemsList: list });
           }),
           catchError(async (err: Error) => {
             return errorFetchingProblemList({ error: err });
@@ -65,6 +81,6 @@ export class ProblemListEffects {
   constructor(
     private actions$: Actions,
     private store: Store<MainPageState>,
-    private problemListHttp: CodeProblemHttpService
+    private problemHttp: CodeProblemHttpService
   ) {}
 }

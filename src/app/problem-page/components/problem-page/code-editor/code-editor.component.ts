@@ -15,6 +15,7 @@ import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/theme-cloud9_day.js';
 import { map, Observable } from 'rxjs';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
+import { SourceCodeStoreService } from 'src/shared/services/store/source-code.service';
 
 const THEME: string = 'ace/theme/cloud9_day';
 
@@ -23,7 +24,6 @@ const THEME: string = 'ace/theme/cloud9_day';
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.scss'],
 })
-
 export class CodeEditorComponent implements AfterViewInit {
   codeEditor: ace.Ace.Editor;
 
@@ -41,7 +41,7 @@ export class CodeEditorComponent implements AfterViewInit {
     });
     this.codeTemplate.subscribe((codeTemplate: string) => {
       this.setEditorTemplate(codeTemplate);
-    })
+    });
     this.emitCodeState();
   }
 
@@ -55,16 +55,16 @@ export class CodeEditorComponent implements AfterViewInit {
     this.codeEditor.setShowFoldWidgets(true);
   }
 
-  private setEditorLanguage(languageToUpdate: string) { 
+  private setEditorLanguage(languageToUpdate: string) {
     console.log(`ace/mode/${languageToUpdate}`);
     this.codeEditor.getSession().setMode(`ace/mode/${languageToUpdate}`);
   }
 
-  private setEditorTheme(theme: string) { 
+  private setEditorTheme(theme: string) {
     this.codeEditor.setTheme(theme);
   }
 
-  private setEditorTemplate(codeTemplate: string) { 
+  private setEditorTemplate(codeTemplate: string) {
     console.log(this.codeTemplate);
     this.codeEditor.setValue(codeTemplate, -1);
     this.codeEditor.moveCursorTo(4, 8);
@@ -87,9 +87,11 @@ export class CodeEditorComponent implements AfterViewInit {
     return mergedOptions;
   }
 
-  emitCodeState() { 
+  emitCodeState() {
     console.log(this.codeEditor.getSession().getDocument().getValue());
-    
-    this.codeValueEmitter.emit(this.codeEditor.getSession().getDocument().getValue());
+
+    this.codeValueEmitter.emit(
+      this.codeEditor.getSession().getDocument().getValue()
+    );
   }
 }

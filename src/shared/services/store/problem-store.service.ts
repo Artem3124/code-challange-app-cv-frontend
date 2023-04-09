@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
-import { searchProblem } from "src/app/main-page/store/actions/problem-list.action";
-import { CurrentProblemState, selectState, selectCodeProblemState } from "src/app/problem-page/state";
-import { CodeProblem } from "src/models";
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import {
+  initiateFetchingCodeProblem,
+} from 'src/app/main-page/store/actions/problems.actions';
+import { CurrentProblemDataState, selectCodeProblem, selectProblemDataState } from 'src/app/problem-page/state/selectors/problem.selector';
+import { CodeProblem } from 'src/models';
 
 @Injectable()
 export class ProblemStoreService {
-  constructor(private store: Store<CurrentProblemState>) {}
+  constructor(private store: Store<CurrentProblemDataState>) {}
 
-  private problem$: Observable<CodeProblem> = this.store.select(selectCodeProblemState);
-  
-  getProblemState(): Observable<CodeProblem> { 
-    return this.problem$;
+  getProblemState(): Observable<CodeProblem | null> {
+    return this.store.select(selectCodeProblem);
   }
 }

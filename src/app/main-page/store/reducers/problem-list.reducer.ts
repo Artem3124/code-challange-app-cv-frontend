@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store"
 import { MainPageState } from ".."
-import { doneFetchingCodeProblems } from "../actions/problem-list.action"
+import { doneFetchingCodeProblemList } from "../actions/problems.actions"
 
 export const initialState: MainPageState = { 
   problemList: [],
@@ -8,7 +8,7 @@ export const initialState: MainPageState = {
 
 export const problemListReducer = createReducer(
   initialState,
-  on(doneFetchingCodeProblems, (state, action) => {
+  on(doneFetchingCodeProblemList, (state, action) => {
     return {
       ...state,
       problemList: action.problemsList,

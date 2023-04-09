@@ -13,8 +13,6 @@ interface DetailedViewOutputActions {
   name: 'outcomeTypeToDetailedView'
 }) export class CodeStageToDetailedViewPipe implements PipeTransform {
   transform(inputOutcome: CodeRunOutcome): DetailedViewOutputActions | null {
-    console.log('code stage detailed view pipe works');
-    console.log(inputOutcome);
     switch (inputOutcome) { 
       case CodeRunOutcome.CompilationError: { 
         return { header: 'Compile Error', isCompilationError: true }

@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Subject, map } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   CodeProblem,
+  CodeProblemTemplate,
   CodeRunProgress,
   CodeRunResult,
   CompilationError,
@@ -12,14 +12,14 @@ import {
 import { CodeRunOutcome } from 'src/models/enums/code-run-outcome.enum';
 import { CodeRunStage } from 'src/models/enums/code-run-stage.enum';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
-import { ConsoleOutputType } from 'src/models/enums/console-output-type.enum';
 import { RunType } from 'src/models/enums/run-type.enum';
 import ProblemDescriptionView from 'src/models/view/problem-description-view.model';
 import { CodeProblemHttpService } from 'src/shared/services/http/code-problem.service';
 import { CodeSubmissionHttpService } from 'src/shared/services/http/code-submission.service';
 import { CodeTemplateHttpService } from 'src/shared/services/http/code-template.service';
-import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
-import { CurrentProblemState, selectCodeProblemState } from '../../state';
+import { CodeRunsStoreService } from 'src/shared/services/store/code-runs-store.service';
+import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
+import { SourceCodeStoreService } from 'src/shared/services/store/source-code.service';
 
 @Component({
   selector: 'problem-page-component',
@@ -31,14 +31,18 @@ import { CurrentProblemState, selectCodeProblemState } from '../../state';
 })
 export class ProblemPageComponent implements OnInit {
   constructor(
-    private codeProblemHttp: CodeProblemHttpService,
     private codeSubmissionHttp: CodeSubmissionHttpService,
     private codeTemplateHttp: CodeTemplateHttpService,
     private router: Router,
-    private problemStore: ProblemStoreService,
-  ) {}
+    private problemStore: ProblemListStoreService,
+    private runsStore: CodeRunsStoreService,
+    private sourceCodeStore: SourceCodeStoreService,
+  ) {
+    this.runsStore.initiateGettingCodeSubmissions(this.codeProblemUUID);
+    this.problemStore.findProblem(this.codeProblemUUID);
+  }
 
-  readonly codeProblemUUID: string = this.router.url.slice(-36);
+  readonly codeProblemUUID: string = this.router.url.slice(9, 45);
 
   currentLanguageObserver: Subject<CodeLanguage> =
     new Subject<CodeLanguage>();
@@ -50,64 +54,45 @@ export class ProblemPageComponent implements OnInit {
     CodeLanguage.c_cpp,
   ];
 
-  codeProblemState: CodeProblem;
-  descriptionCodeProblemState: ProblemDescriptionView;
   sourceCode: string;
-  currentLanguage: CodeLanguage;
-  awaitingForSubmissionResults: boolean = false;
   codeRunStage: CodeRunStage = CodeRunStage.Unset;
   codeRunOutcome: CodeRunOutcome = CodeRunOutcome.Unknown;
+  currentLanguage: CodeLanguage;
   outputErrorView: CompilationError[] | TestCaseResult;
+  codeProblemState: CodeProblem;
+  descriptionCodeProblemState: ProblemDescriptionView;
+  awaitingForSubmissionResults: boolean = false;
 
   ngOnInit(): void {
-    console.log(this.codeProblemUUID);
-    this.fetchCodeProblem(this.codeProblemUUID);
+    this.subscribeSourceCode(this.currentLanguage);
     this.getCodeTemplate(this.codeProblemUUID);
+  }
+
+  private subscribeSourceCode(codeLanguage: CodeLanguage) { 
+    this.sourceCodeStore.getSourceCodeState().subscribe({
+      next: (sourceCodeDict) => { 
+        if (sourceCodeDict === null) { 
+          return;
+        }
+
+        this.sourceCode = sourceCodeDict[codeLanguage]
+      }
+    })
   }
 
   getCodeTemplate(codeProblemUUID: string) {
     this.codeTemplateHttp.getCodeTemplate(codeProblemUUID, 1).subscribe({
-      next: (codeTemplate: any) => {
+      next: (codeTemplate: CodeProblemTemplate) => {
         console.log(codeTemplate);
-        this.sourceCode = codeTemplate;
+        this.sourceCode = codeTemplate.template;
         this.codeTemplateObserver.next(codeTemplate.template);
       },
       error: (err: Error) => console.error(err),
     });
   }
 
-  fetchCodeProblem(codeProblemUUID: string): void {
-    this.problemStore.getProblemState().subscribe({
-      next: (response: CodeProblem) => {
-        console.log(response);
-        this.codeProblemState = response;
-        this.descriptionCodeProblemState = this.convertToDescription(
-          this.codeProblemState
-        );
-        console.log(this.descriptionCodeProblemState);
-      },
-      error: (err: Error) => {
-        console.error(err);
-      },
-    });
-
-    
-
-    // this.codeProblemHttp
-    //   .getCodeProblem(codeProblemUUID)
-    //   .subscribe({
-    //     next: (response: CodeProblem) => {
-    //       console.log(response);
-    //       this.codeProblemState = response;
-    //       this.descriptionCodeProblemState = this.convertToDescription(
-    //         this.codeProblemState
-    //       );
-    //       console.log(this.descriptionCodeProblemState);
-    //     },
-    //     error: (err: Error) => {
-    //       console.error(err);
-    //     },
-    //   });
+  redirectTo(route: string) { 
+    this.router.navigate([route]);
   }
 
   setCurrentLanguage(language: CodeLanguage) {
@@ -117,8 +102,7 @@ export class ProblemPageComponent implements OnInit {
   }
 
   setSourceCodeState(codeEditorState: string) {
-    console.log(codeEditorState);
-    this.sourceCode = codeEditorState;
+    this.sourceCodeStore.setSourceCodeState(codeEditorState, this.currentLanguage);
   }
 
   submitCode(runType: RunType) {
@@ -130,6 +114,8 @@ export class ProblemPageComponent implements OnInit {
       sourceCode: this.sourceCode,
       runType: runType,
     };
+
+    this.sourceCodeStore.getSourceCodeState()
 
     console.log(codeSubmissionRequest);
 
@@ -194,21 +180,5 @@ export class ProblemPageComponent implements OnInit {
     testCaseResult.actual = codeRunResult.exceptionMessage!;
 
     return testCaseResult;
-  }
-
-  private convertToDescription(
-    codeProblem: CodeProblem
-  ): ProblemDescriptionView {
-    console.log(codeProblem);
-
-    return {
-      problemComplexity: codeProblem.complexityTypeId,
-      title: codeProblem.name,
-      body: codeProblem.description,
-      sampleInput: codeProblem.examples[0].input,
-      sampleOutput: codeProblem.examples[0].output,
-      constraints: codeProblem.constraints.join('\n'),
-      tags: codeProblem.tags,
-    };
   }
 }

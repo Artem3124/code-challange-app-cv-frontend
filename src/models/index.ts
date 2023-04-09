@@ -83,3 +83,8 @@ export interface LoginRequest {
   password: string;
   rememberMe: true;
 }
+
+export interface CodeProblemTemplate { 
+  codeLanguage: CodeLanguage,
+  template: string;
+}

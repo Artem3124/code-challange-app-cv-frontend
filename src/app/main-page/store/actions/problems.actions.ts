@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { CodeProblem } from 'src/models';
-import { ProblemsActions } from '../action-types/problem-list.action-types';
+import { ProblemsActions } from '../action-types/problems.action-types';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const insertDataToProblemState = createAction(
@@ -17,7 +17,7 @@ export const initiateFetchingProblemList = createAction(
   ProblemsActions.INITIATE_FETCHING_CODE_PROBLEMS,
 )
 
-export const doneFetchingCodeProblems = createAction(
+export const doneFetchingCodeProblemList = createAction(
   ProblemsActions.DONE_FETCHING_CODE_PROBLEMS,
   props<{ problemsList: CodeProblem[]}>()
 )
@@ -25,6 +25,21 @@ export const doneFetchingCodeProblems = createAction(
 export const errorFetchingProblemList = createAction(
   ProblemsActions.ERROR_FETCHING_CODE_PROBLEMS,
   props<{error: Error}>()
+)
+
+export const initiateFetchingCodeProblem = createAction(
+  ProblemsActions.INITIATE_FETCHING_CODE_PROBLEM,
+  props<{problemUUID: string}>()
+) 
+
+export const doneFetchingCodeProblem = createAction(
+  ProblemsActions.DONE_FETCHING_CODE_PROBLEM,
+  props<{problem: CodeProblem}>()
+)
+
+export const errorFetchingCodeProblem = createAction(
+  ProblemsActions.ERROR_FETCHING_CODE_PROBLEM,
+  props<{error: HttpErrorResponse}>()
 )
 
 export const testAction = createAction(

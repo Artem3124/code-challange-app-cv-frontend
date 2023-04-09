@@ -1,16 +1,18 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CodeProblem, CodeRunResultExpanded } from 'src/models';
 import ProblemComplexity from 'src/models/enums/problem-rarity.enum';
+import { CodeRunsHistoryState } from './selectors/code-runs.selector';
+import { CurrentProblemDataState } from './selectors/problem.selector';
+import { SourceCodeDictionary } from './selectors/source-code.selector';
+import { CodeTemplatesDictionary } from './selectors/code-template.selector';
 
 export interface CurrentProblemState {
-  codeProblem: CodeProblem;
-  codeRunsHistory: CodeRunResultExpanded[];
+  codeProblemDescriptionState: CurrentProblemDataState,
+  codeRunsHistory: CodeRunsHistoryState,
+  sourceCodeState: SourceCodeDictionary,
+  codeTemplates: CodeTemplatesDictionary,
 }
 
-const featureKey = 'problemState'
+export const featureKey = 'problemState'
 
-export const selectState = createFeatureSelector<CurrentProblemState>(featureKey);
-
-export const selectCodeProblemState = createSelector(selectState, state => state.codeProblem);
-
-export const selectSubmissionProblemHistory = createSelector(selectState, state => state.codeRunsHistory);
+export const selectProblemState = createFeatureSelector<CurrentProblemState>(featureKey);

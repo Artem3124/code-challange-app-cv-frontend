@@ -1,7 +1,7 @@
 import { MainPageState } from "../main-page/store";
 import { CurrentProblemState } from "../problem-page/state";
 
-export interface State { 
+export interface AppState { 
   mainPageState: MainPageState;
   currentProblemState: CurrentProblemState;
 }

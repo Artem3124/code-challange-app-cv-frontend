@@ -14,17 +14,21 @@ import { ProblemComplexityPipe } from 'src/shared/pipes/problem-complexity.pipe'
 import { CodingLanguagesPipe } from './pipes/coding-languages.pipe';
 import { CommonModule } from '@angular/common';
 import { ReducerManager, StoreModule } from '@ngrx/store';
-import { codeProblemReducer, codeRunsReducer } from './state/reducers/problem.reducer';
-import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
+import { codeProblemReducer as codeProblemDescriptionState } from './state/reducers/problem.reducer';
 import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
 import { EffectsModule } from '@ngrx/effects';
-import { ProblemListEffects } from '../main-page/store/effects/problem-list.effect';
-import { ProblemStateEffects } from './state/effects/code-runs.effect';
-import { AppRoutingModule } from '../app-routing.module';
+import { ProblemListEffects } from '../main-page/store/effects/problems.effects';
 import { ProblemPageRoutingModule } from './problem-page.routing';
+import { PageHeaderModule } from '../page-header/page-header.component';
+import { CodeRunsHistoryComponent } from './components/problem-page/submission-history/code-runs-history.component';
+import { ProblemStateEffects } from './state/effects/code-runs.effect';
+import { CodeRunResultHttpService } from 'src/shared/services/http/code-run-results.service';
+import { CodeRunsStoreService } from 'src/shared/services/store/code-runs-store.service';
+import { codeRunsReducer as codeRunsHistory } from './state/reducers/code-runs.reducer';
 
 @NgModule({
   declarations: [
+    CodeRunsHistoryComponent,
     CodingLanguagesPipe,
     ProblemComplexityPipe,
     RarityIconComponent,
@@ -37,16 +41,24 @@ import { ProblemPageRoutingModule } from './problem-page.routing';
     ProblemPageDescriptionComponent,
     ProblemTagComponent,
   ],
-  exports: [ProblemPageComponent],
-
+  exports: [],
   imports: [
+    PageHeaderModule,
     CommonModule,
     FormsModule,
     ConsoleOutputModule,
     ProblemPageRoutingModule,
-    StoreModule.forFeature('problemState', codeProblemReducer),
-    EffectsModule.forFeature(ProblemListEffects)
+    EffectsModule.forFeature(ProblemStateEffects),
+    StoreModule.forFeature('problemState', {
+      codeProblemDescriptionState,
+      codeRunsHistory,
+    }),
   ],
-  providers: [ProblemStoreService, ReducerManager],
+  providers: [
+    ProblemStoreService,
+    ReducerManager,
+    CodeRunResultHttpService,
+    CodeRunsStoreService,
+  ],
 })
 export class ProblemPageModule {}

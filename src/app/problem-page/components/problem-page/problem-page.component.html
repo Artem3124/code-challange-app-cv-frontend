@@ -1,9 +1,14 @@
+<div class="container">
+  <div class="row problem-page-header">
+    <page-header></page-header>
+  </div>
 <div class="row">
   <div class="col description-manage-section">
     <div class="row">
       <div
         class="col global-selection-menu-element option-menu-element"
         appHighlight
+        [routerLink]="['description']"     
         [isActive]="true"
       >
         Description
@@ -15,7 +20,7 @@
         Solutions
       </div>
       <div
-        [routerLink]="['submissions']"
+        [routerLink]="['submissions']"        
         class="col global-selection-menu-element option-menu-element"
         appHighlight
       >
@@ -40,9 +45,10 @@
   <div class="col probem-page-description">
     <div class="row">
       <router-outlet name="problemPage"></router-outlet>
-      <problem-description
+      
+      <!-- <problem-description
         [descriptionState]="descriptionCodeProblemState"
-      ></problem-description>
+      ></problem-description> -->
     </div>
   </div>
   <div class="col">
@@ -66,4 +72,5 @@
       ></console-output>
     </div>
   </div>
+</div>
 </div>

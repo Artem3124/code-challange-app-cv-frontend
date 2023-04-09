@@ -17,6 +17,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'problem/:id',
+    loadChildren: () =>
+      import('./problem-page/problem-page.module').then(
+        (module) => module.ProblemPageModule
+      ),
+  },
+  {
     path: '**', redirectTo: 'home'
   }
 ];

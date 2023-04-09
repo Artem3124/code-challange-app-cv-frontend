@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 
 @Component({
   templateUrl: './page-header.component.html',
@@ -12,3 +12,9 @@ import { Component } from '@angular/core';
 export class PageHeaderComponent {
   constructor() {}
 }
+
+
+@NgModule({
+  declarations: [PageHeaderComponent],
+  exports: [PageHeaderComponent]
+}) export class PageHeaderModule {}
