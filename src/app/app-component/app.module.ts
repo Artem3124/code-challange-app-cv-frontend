@@ -14,7 +14,6 @@ import { EffectsModule } from '@ngrx/effects'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { ProblemPageModule } from '../problem-page/problem-page.module';
-import { effects } from '../state/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +26,7 @@ import { effects } from '../state/effects';
     MainPageModule,
     AuthorizationModule,
     StoreModule.forRoot(),
-    EffectsModule.forRoot(effects),
+    EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

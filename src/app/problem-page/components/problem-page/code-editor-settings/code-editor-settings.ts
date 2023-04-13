@@ -6,6 +6,8 @@ import {
   Output,
 } from '@angular/core';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
+import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
+import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
 
 @Component({
   selector: 'code-editor-settings',
@@ -17,17 +19,34 @@ import CodeLanguage from 'src/models/enums/coding-languages.enum';
   ],
 })
 export class CodeEditorSettingsComponent implements AfterViewInit {
-  currentCodeLanguage: string = 'C#';
+  currentCodeLanguage: CodeLanguage = CodeLanguage.csharp;
 
-  constructor() {}
+  isReadonlyCodeView: boolean = false;
+
+  constructor(private sourceCodeStore: SourceCodeStoreService) {}
+
   ngAfterViewInit(): void {
     this.onSetLanguage(CodeLanguage.csharp);
+
+    this.sourceCodeStore.getReadonlySourceCode().subscribe({
+      next: (source: Dictionary<string> | null) => {
+        if (source !== null) { 
+          this.isReadonlyCodeView = true;
+        }
+      }
+    })
   }
 
   @Input() availableLanguagesInput: Array<CodeLanguage>;
   @Output() currentLanguageEvent: EventEmitter<CodeLanguage> = new EventEmitter<CodeLanguage>();
 
   onSetLanguage(language: string | CodeLanguage) {
+    console.log(language);
     this.currentLanguageEvent.emit(language as CodeLanguage);
+  }
+
+  onClick(): void { 
+    this.isReadonlyCodeView = false;
+    this.sourceCodeStore.defaultReadonlyCode();
   }
 }

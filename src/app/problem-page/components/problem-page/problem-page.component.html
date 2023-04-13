@@ -6,23 +6,28 @@
   <div class="col description-manage-section">
     <div class="row">
       <div
+        id="des"
         class="col global-selection-menu-element option-menu-element"
-        appHighlight
-        [routerLink]="['description']"     
-        [isActive]="true"
+        [routerLink]="['description']"  
+        [ngClass]="{'highlight': activeComponent === 'des'}"   
+        (click)="setActive('des')"
       >
         Description
       </div>
       <div
+        id="sol"
         class="col global-selection-menu-element option-menu-element"
-        appHighlight
+        [ngClass]="{'highlight': activeComponent === 'sol'}"   
+        (click)="setActive('sol')"
       >
         Solutions
       </div>
       <div
+        id="sub"
         [routerLink]="['submissions']"        
         class="col global-selection-menu-element option-menu-element"
-        appHighlight
+        [ngClass]="{'highlight': activeComponent === 'sub'}"   
+        (click)="setActive('sub')"
       >
         Submissions
       </div>
@@ -30,8 +35,6 @@
   </div>
   <div class="col code-editor-manage-section">
     <div class="row h-100-prc">
-      <div class="col-3 h-100-prc">
-        <div class="row h-100-prc">
           <code-editor-settings
             (currentLanguageEvent)="setCurrentLanguage($event)"
             [availableLanguagesInput]="availableLanguages"
@@ -39,8 +42,6 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 <div class="row problem-page-fulfillness">
   <div class="col probem-page-description">
     <div class="row">
@@ -56,7 +57,7 @@
       <code-editor
         [codeTemplate]="codeTemplateObserver"
         (codeValueEmitter)="setSourceCodeState($event)"
-        [currentLanguage]="currentLanguageObserver"
+        [currentLanguageObservable]="currentLanguageObserver"
       ></code-editor>
     </div>
     <div class="row">

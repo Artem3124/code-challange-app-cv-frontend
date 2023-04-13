@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProblemListEffects } from './store/effects/problems.effects';
 import { problemListReducer } from './store/reducers/problem-list.reducer';
+import { mainPageEffects } from 'src/app/state/effects';
 
 @NgModule({
   declarations: [ProblemsListComponent, MainPageComponent ],
@@ -20,7 +21,7 @@ import { problemListReducer } from './store/reducers/problem-list.reducer';
     MainPageRoutingModule,
     CommonModule,
     StoreModule.forFeature('mainPageState', problemListReducer),
-    EffectsModule.forFeature(ProblemListEffects),
+    EffectsModule.forFeature(mainPageEffects),
   ],
 })
 export class MainPageModule {}

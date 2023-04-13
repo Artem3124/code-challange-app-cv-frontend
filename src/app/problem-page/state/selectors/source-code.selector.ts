@@ -1,9 +1,13 @@
 import { createSelector } from '@ngrx/store';
-import { CurrentProblemState, selectProblemState } from '..';
+import {
+  selectProblemState,
+  CurrentProblemState,
+} from 'src/app/problem-page/state';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 
 export interface SourceCodeDictionary {
   sourceCode: Dictionary<string> | null;
+  readonlySourceCode: Dictionary<string> | null;
 }
 
 const selectSourceCodeState = createSelector(
@@ -13,6 +17,11 @@ const selectSourceCodeState = createSelector(
 
 export const selectSourceCode = createSelector(
   selectSourceCodeState,
+  (state: SourceCodeDictionary): Dictionary<string> | null => state.sourceCode
+);
+
+export const selectReadonlyCode = createSelector(
+  selectSourceCodeState,
   (state: SourceCodeDictionary): Dictionary<string> | null =>
-    state.sourceCode
+    state.readonlySourceCode
 );

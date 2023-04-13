@@ -1,19 +1,26 @@
-<div class="container code-editor-settings">
-  <select
-    #codeLanguageSelect
-    (change)="onSetLanguage(codeLanguageSelect.value)"
-    name="language-picker"
-    id="language-selection"
-    class="form-select font-poppins-700 code-change-menu"
-  >
-    <option 
-    #codeLanguageOption
-      *ngFor="let language of availableLanguagesInput" 
-      id="language"
-      [value]="language"
-      class="custom-option"
-      >
-      {{language | codeLanguage}}
-    </option>
-  </select>
+<div class="container font-poppins-700 code-editor-settings">
+  <div class="row">
+    <div class="col">
+      <select
+      #codeLanguageSelect
+      (change)="onSetLanguage(codeLanguageSelect.value)"
+      name="language-picker"
+      id="language-selection"
+      class="form-select code-change-menu"
+    >
+      <option 
+      #codeLanguageOption
+        *ngFor="let language of availableLanguagesInput" 
+        id="language"
+        [value]="language"
+        class="custom-option"
+        >
+        {{language | codeLanguage}}
+      </option>
+    </select>
+    </div>
+    <div class="col align-items-center d-flex" style="color: #535153; font-size: 20px" *ngIf="isReadonlyCodeView">Running Code:</div>
+    <div class="col" *ngIf="isReadonlyCodeView" (click)="onClick()">Back to Solving the Problem</div>
+  </div>
+  
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import {
@@ -14,12 +14,14 @@ import { CodeRunStage } from 'src/models/enums/code-run-stage.enum';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
 import { RunType } from 'src/models/enums/run-type.enum';
 import ProblemDescriptionView from 'src/models/view/problem-description-view.model';
-import { CodeProblemHttpService } from 'src/shared/services/http/code-problem.service';
+import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 import { CodeSubmissionHttpService } from 'src/shared/services/http/code-submission.service';
 import { CodeTemplateHttpService } from 'src/shared/services/http/code-template.service';
 import { CodeRunsStoreService } from 'src/shared/services/store/code-runs-store.service';
+import { CodeTemplateStoreService } from 'src/shared/services/store/code-template.service';
 import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
-import { SourceCodeStoreService } from 'src/shared/services/store/source-code.service';
+import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
+import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
 
 @Component({
   selector: 'problem-page-component',
@@ -29,19 +31,19 @@ import { SourceCodeStoreService } from 'src/shared/services/store/source-code.se
     '../../../../shared/styles/global-elements.scss',
   ],
 })
-export class ProblemPageComponent implements OnInit {
+export class ProblemPageComponent implements OnInit, AfterViewInit {
   constructor(
     private codeSubmissionHttp: CodeSubmissionHttpService,
-    private codeTemplateHttp: CodeTemplateHttpService,
     private router: Router,
+    private problemDataStore: ProblemStoreService,
     private problemStore: ProblemListStoreService,
-    private runsStore: CodeRunsStoreService,
     private sourceCodeStore: SourceCodeStoreService,
+    private codeTemplateStore: CodeTemplateStoreService,
   ) {
-    this.runsStore.initiateGettingCodeSubmissions(this.codeProblemUUID);
+    this.codeTemplateStore.initiateCodeTemplatesGetting(this.codeProblemUUID);
     this.problemStore.findProblem(this.codeProblemUUID);
   }
-
+  
   readonly codeProblemUUID: string = this.router.url.slice(9, 45);
 
   currentLanguageObserver: Subject<CodeLanguage> =
@@ -53,11 +55,11 @@ export class ProblemPageComponent implements OnInit {
     CodeLanguage.javascript,
     CodeLanguage.c_cpp,
   ];
-
+  activeComponent: string = this.router.url.slice(46, 49);
   sourceCode: string;
   codeRunStage: CodeRunStage = CodeRunStage.Unset;
   codeRunOutcome: CodeRunOutcome = CodeRunOutcome.Unknown;
-  currentLanguage: CodeLanguage;
+  currentLanguage: CodeLanguage = CodeLanguage.csharp;
   outputErrorView: CompilationError[] | TestCaseResult;
   codeProblemState: CodeProblem;
   descriptionCodeProblemState: ProblemDescriptionView;
@@ -65,30 +67,57 @@ export class ProblemPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeSourceCode(this.currentLanguage);
-    this.getCodeTemplate(this.codeProblemUUID);
+    this.subscribeCodeProblem();
+  }
+
+  ngAfterViewInit(): void {
+    this.getCodeTemplateOrSetExisting();
+  }
+  
+  private subscribeCodeProblem() {
+    this.problemDataStore.getProblemState().subscribe(
+      {
+        next: (problem: CodeProblem | null) => { 
+          if (problem === null) { 
+            return;
+          }
+
+          this.codeProblemState = problem;
+        }
+      }
+    )
   }
 
   private subscribeSourceCode(codeLanguage: CodeLanguage) { 
-    this.sourceCodeStore.getSourceCodeState().subscribe({
+    this.sourceCodeStore.getSourceCode().subscribe({
       next: (sourceCodeDict) => { 
         if (sourceCodeDict === null) { 
           return;
         }
-
         this.sourceCode = sourceCodeDict[codeLanguage]
       }
     })
   }
 
-  getCodeTemplate(codeProblemUUID: string) {
-    this.codeTemplateHttp.getCodeTemplate(codeProblemUUID, 1).subscribe({
-      next: (codeTemplate: CodeProblemTemplate) => {
-        console.log(codeTemplate);
-        this.sourceCode = codeTemplate.template;
-        this.codeTemplateObserver.next(codeTemplate.template);
+  getCodeTemplateOrSetExisting() {
+    var savedSourceCode = localStorage.getItem(this.currentLanguage.toString());
+    
+    if (savedSourceCode)
+    {
+      this.codeTemplateObserver.next(savedSourceCode);
+      return;
+    }
+
+    this.codeTemplateStore.getCodeTemplates().subscribe({
+      next: (templates: Dictionary<string> | null) => {
+        if (templates === null) { 
+          return;
+        }
+
+        this.codeTemplateObserver.next(templates[this.currentLanguage]);
       },
-      error: (err: Error) => console.error(err),
-    });
+      error: (err: Error) => console.error(err)
+    })
   }
 
   redirectTo(route: string) { 
@@ -106,7 +135,9 @@ export class ProblemPageComponent implements OnInit {
   }
 
   submitCode(runType: RunType) {
-    this.awaitingForSubmissionResults = true;
+    this.codeRunStage = CodeRunStage.Queued;
+
+    console.log(this.codeProblemState)
 
     var codeSubmissionRequest = {
       codeProblemUUID: this.codeProblemState.uuid,
@@ -115,13 +146,12 @@ export class ProblemPageComponent implements OnInit {
       runType: runType,
     };
 
-    this.sourceCodeStore.getSourceCodeState()
-
     console.log(codeSubmissionRequest);
 
     this.codeSubmissionHttp.submitCode(codeSubmissionRequest).subscribe({
       next: (data: string) => {
-        console.log(data);
+        this.codeRunOutcome = CodeRunOutcome.Unknown;
+
         if (!data) {
           throw new Error();
         }
@@ -180,5 +210,9 @@ export class ProblemPageComponent implements OnInit {
     testCaseResult.actual = codeRunResult.exceptionMessage!;
 
     return testCaseResult;
+  }
+
+  setActive(componentName: string) { 
+    this.activeComponent = componentName;
   }
 }

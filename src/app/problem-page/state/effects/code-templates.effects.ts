@@ -18,11 +18,14 @@ export class CodeTemplatesEffects {
       exhaustMap((action) =>
         this.codeTemplatesHttp.getCodeTemplates(action.problemUUID).pipe(
           map((codeTemplates: CodeProblemTemplate[]) => {
+            console.log(codeTemplates);
             var dictionary: Dictionary<string> = {};
 
             codeTemplates.forEach((template) => {
               dictionary[template.codeLanguage] = template.template;
             });
+
+            console.log(dictionary)
 
             return successFetchingCodeTemplates({ dict: dictionary });
           }),

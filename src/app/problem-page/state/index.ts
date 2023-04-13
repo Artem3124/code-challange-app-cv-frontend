@@ -1,10 +1,8 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CodeProblem, CodeRunResultExpanded } from 'src/models';
-import ProblemComplexity from 'src/models/enums/problem-rarity.enum';
-import { CodeRunsHistoryState } from './selectors/code-runs.selector';
-import { CurrentProblemDataState } from './selectors/problem.selector';
-import { SourceCodeDictionary } from './selectors/source-code.selector';
-import { CodeTemplatesDictionary } from './selectors/code-template.selector';
+import { createFeatureSelector } from '@ngrx/store';
+import { CodeRunsHistoryState } from 'src/app/problem-page/state/selectors/code-runs.selector';
+import { CodeTemplatesDictionary } from 'src/app/problem-page/state/selectors/code-template.selector';
+import { CurrentProblemDataState } from 'src/app/problem-page/state/selectors/problem.selector';
+import { SourceCodeDictionary } from 'src/app/problem-page/state/selectors/source-code.selector';
 
 export interface CurrentProblemState {
   codeProblemDescriptionState: CurrentProblemDataState,

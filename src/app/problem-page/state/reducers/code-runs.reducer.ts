@@ -9,7 +9,6 @@ const initialState: CodeRunsHistoryState = {
 export const codeRunsReducer = createReducer( 
   initialState, 
   on(gettingCodeRunsHistorySucceeded, (state, action) => {
-    console.log([action, state]);
     return {
       ...state,
       codeRuns: action.codeRunsHistory,

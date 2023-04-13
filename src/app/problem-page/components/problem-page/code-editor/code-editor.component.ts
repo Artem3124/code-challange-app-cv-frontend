@@ -7,15 +7,15 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-
 import * as ace from 'ace-builds';
 import 'ace-builds/src-noconflict/mode-csharp';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/theme-cloud9_day.js';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
-import { SourceCodeStoreService } from 'src/shared/services/store/source-code.service';
+import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
+import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 
 const THEME: string = 'ace/theme/cloud9_day';
 
@@ -28,35 +28,75 @@ export class CodeEditorComponent implements AfterViewInit {
   codeEditor: ace.Ace.Editor;
 
   @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
-  @Input() currentLanguage: Observable<CodeLanguage>;
+  @Input() currentLanguageObservable: Observable<CodeLanguage>;
   @Input() codeTemplate: Observable<string>;
   @Output() codeValueEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {}
+  private currentLanguage: CodeLanguage = CodeLanguage.csharp;
+  private isReadonlyCode: boolean = false;
+  constructor(
+    private sourceCodeStore: SourceCodeStoreService
+  ) {}
 
   ngAfterViewInit(): void {
-    this.configureEditor('csharp');
-    this.currentLanguage.subscribe((inputLanguage: CodeLanguage) => {
+    this.codeEditor = ace.edit(this.codeEditorElmRef.nativeElement, this.getEditorOptions());
+
+    this.basicEditorConfiguration(
+      'csharp'
+    );
+
+    this.sourceCodeStore.getReadonlySourceCode().subscribe({
+      next: (readonlyCode: Dictionary<string> | null) => {
+        if (readonlyCode === null) {
+          this.isReadonlyCode = false
+
+          this.setToView(localStorage.getItem(this.currentLanguage.toString()), this.isReadonlyCode);
+          return;
+        }
+        this.isReadonlyCode = true;
+        console.log(readonlyCode, this.currentLanguage);
+
+        this.setToView(readonlyCode[this.currentLanguage], this.isReadonlyCode);
+      },
+    });
+
+    this.currentLanguageObservable.subscribe((inputLanguage: CodeLanguage) => {
+      this.currentLanguage = inputLanguage;
       this.setEditorLanguage(CodeLanguage[inputLanguage]);
     });
+
     this.codeTemplate.subscribe((codeTemplate: string) => {
       this.setEditorTemplate(codeTemplate);
     });
-    this.emitCodeState();
+
   }
 
-  private configureEditor(languageToSet: string) {
-    const element = this.codeEditorElmRef.nativeElement;
-    const editorOptions = this.getEditorOptions();
+  private setToView(code: string | null, isReadonly: boolean) { 
+    this.codeEditor.session.setUseWorker(false);
+    this.codeEditor.setShowPrintMargin(false);
+    this.codeEditor.setReadOnly(isReadonly);
+    if (code === null) { 
+      return;
+    }
+    this.codeEditor.setValue(code, -1);
+  }
 
-    this.codeEditor = ace.edit(element, editorOptions);
+  private basicEditorConfiguration(
+    languageToSet: string,
+  ) {
     this.setEditorTheme(THEME);
     this.setEditorLanguage(languageToSet);
     this.codeEditor.setShowFoldWidgets(true);
+    this.codeEditor.on('change', () => {
+      if (this.isReadonlyCode) {
+        return;
+      }  
+
+      this.emitCodeState();
+    });
   }
 
   private setEditorLanguage(languageToUpdate: string) {
-    console.log(`ace/mode/${languageToUpdate}`);
     this.codeEditor.getSession().setMode(`ace/mode/${languageToUpdate}`);
   }
 
@@ -65,31 +105,21 @@ export class CodeEditorComponent implements AfterViewInit {
   }
 
   private setEditorTemplate(codeTemplate: string) {
-    console.log(this.codeTemplate);
     this.codeEditor.setValue(codeTemplate, -1);
     this.codeEditor.moveCursorTo(4, 8);
   }
 
   private getEditorOptions(): Partial<ace.Ace.EditorOptions> {
-    const basicEditorOptions: Partial<ace.Ace.EditorOptions> = {
+    return {
       highlightActiveLine: true,
       minLines: 21,
       maxLines: 21,
       fontSize: 18,
-    };
-
-    const extraEditorOptions = {
       fontFamily: 'Cascadia Code',
-    };
-
-    const mergedOptions = Object.assign(basicEditorOptions, extraEditorOptions);
-
-    return mergedOptions;
+    }
   }
 
   emitCodeState() {
-    console.log(this.codeEditor.getSession().getDocument().getValue());
-
     this.codeValueEmitter.emit(
       this.codeEditor.getSession().getDocument().getValue()
     );
