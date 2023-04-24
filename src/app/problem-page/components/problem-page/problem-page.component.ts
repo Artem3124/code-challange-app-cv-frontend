@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import {
   CodeProblem,
-  CodeProblemTemplate,
   CodeRunProgress,
   CodeRunResult,
   CompilationError,
@@ -16,9 +15,8 @@ import { RunType } from 'src/models/enums/run-type.enum';
 import ProblemDescriptionView from 'src/models/view/problem-description-view.model';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 import { CodeSubmissionHttpService } from 'src/shared/services/http/code-submission.service';
-import { CodeTemplateHttpService } from 'src/shared/services/http/code-template.service';
-import { CodeRunsStoreService } from 'src/shared/services/store/code-runs-store.service';
 import { CodeTemplateStoreService } from 'src/shared/services/store/code-template.service';
+import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
 import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
 import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
@@ -39,22 +37,18 @@ export class ProblemPageComponent implements OnInit, AfterViewInit {
     private problemStore: ProblemListStoreService,
     private sourceCodeStore: SourceCodeStoreService,
     private codeTemplateStore: CodeTemplateStoreService,
+    private consoleOutputStore: ConsoleOutputStoreService
   ) {
     this.codeTemplateStore.initiateCodeTemplatesGetting(this.codeProblemUUID);
     this.problemStore.findProblem(this.codeProblemUUID);
   }
-  
+
   readonly codeProblemUUID: string = this.router.url.slice(9, 45);
 
-  currentLanguageObserver: Subject<CodeLanguage> =
-    new Subject<CodeLanguage>();
+  currentLanguageObserver: Subject<CodeLanguage> = new Subject<CodeLanguage>();
   codeTemplateObserver: Subject<string> = new Subject<string>();
 
-  availableLanguages: Array<CodeLanguage> = [
-    CodeLanguage.csharp,
-    CodeLanguage.javascript,
-    CodeLanguage.c_cpp,
-  ];
+  availableLanguages: Array<CodeLanguage> = [];
   activeComponent: string = this.router.url.slice(46, 49);
   sourceCode: string;
   codeRunStage: CodeRunStage = CodeRunStage.Unset;
@@ -73,54 +67,59 @@ export class ProblemPageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.getCodeTemplateOrSetExisting();
   }
-  
+
   private subscribeCodeProblem() {
-    this.problemDataStore.getProblemState().subscribe(
-      {
-        next: (problem: CodeProblem | null) => { 
-          if (problem === null) { 
-            return;
-          }
-
-          this.codeProblemState = problem;
-        }
-      }
-    )
-  }
-
-  private subscribeSourceCode(codeLanguage: CodeLanguage) { 
-    this.sourceCodeStore.getSourceCode().subscribe({
-      next: (sourceCodeDict) => { 
-        if (sourceCodeDict === null) { 
+    this.problemDataStore.getProblemState().subscribe({
+      next: (problem: CodeProblem | null) => {
+        if (problem === null) {
           return;
         }
-        this.sourceCode = sourceCodeDict[codeLanguage]
-      }
-    })
+
+        this.codeProblemState = problem;
+      },
+    });
+  }
+
+  private subscribeSourceCode(codeLanguage: CodeLanguage) {
+    this.sourceCodeStore.getSourceCode().subscribe({
+      next: (sourceCodeDict) => {
+        if (sourceCodeDict === null) {
+          return;
+        }
+        this.sourceCode = sourceCodeDict[codeLanguage];
+      },
+    });
   }
 
   getCodeTemplateOrSetExisting() {
     var savedSourceCode = localStorage.getItem(this.currentLanguage.toString());
-    
-    if (savedSourceCode)
-    {
-      this.codeTemplateObserver.next(savedSourceCode);
-      return;
-    }
 
     this.codeTemplateStore.getCodeTemplates().subscribe({
       next: (templates: Dictionary<string> | null) => {
-        if (templates === null) { 
+        if (templates === null) {
+          return;
+        }
+
+        this.availableLanguages = Object.keys(templates).map(
+          (language: number | string): number => {
+            return parseInt(language as string);
+          }
+        );
+
+        console.log(this.availableLanguages);
+
+        if (savedSourceCode) {
+          this.codeTemplateObserver.next(savedSourceCode);
           return;
         }
 
         this.codeTemplateObserver.next(templates[this.currentLanguage]);
       },
-      error: (err: Error) => console.error(err)
-    })
+      error: (err: Error) => console.error(err),
+    });
   }
 
-  redirectTo(route: string) { 
+  redirectTo(route: string) {
     this.router.navigate([route]);
   }
 
@@ -131,13 +130,16 @@ export class ProblemPageComponent implements OnInit, AfterViewInit {
   }
 
   setSourceCodeState(codeEditorState: string) {
-    this.sourceCodeStore.setSourceCodeState(codeEditorState, this.currentLanguage);
+    this.sourceCodeStore.setSourceCodeState(
+      codeEditorState,
+      this.currentLanguage
+    );
   }
 
   submitCode(runType: RunType) {
     this.codeRunStage = CodeRunStage.Queued;
 
-    console.log(this.codeProblemState)
+    console.log(this.codeProblemState);
 
     var codeSubmissionRequest = {
       codeProblemUUID: this.codeProblemState.uuid,
@@ -149,32 +151,26 @@ export class ProblemPageComponent implements OnInit, AfterViewInit {
     console.log(codeSubmissionRequest);
 
     this.codeSubmissionHttp.submitCode(codeSubmissionRequest).subscribe({
-      next: (data: string) => {
+      next: (problemUUID: string) => {
         this.codeRunOutcome = CodeRunOutcome.Unknown;
 
-        if (!data) {
+        if (!problemUUID) {
           throw new Error();
         }
 
         var getRunStatusInterval = setInterval(() => {
-          this.codeSubmissionHttp.checkSubmissionStatus(data).subscribe({
-            next: (data: CodeRunProgress) => {
-              console.log(data);
-
-              this.codeRunStage = data.stage;
-
-              if (data.result && this.codeRunStage === CodeRunStage.Completed) {
-                console.log('result exists');
-                this.codeRunOutcome = data.result.codeRunOutcomeId;
-                this.handleRunOutcomeOutput(data);
-                return clearInterval(getRunStatusInterval);
-              }
-            },
-            error: (err: Error) => {
-              console.error(err);
-            },
-          });
+          this.consoleOutputStore.initializeGettingCodeRunProgress(problemUUID);
         }, 1000);
+
+        this.consoleOutputStore.getRunResult().subscribe({
+          next: (codeRunResult: CodeRunResult | null) => {
+            console.log('subsc');
+
+            if (codeRunResult !== null) {
+              return clearInterval(getRunStatusInterval);
+            }
+          },
+        });
       },
       error: (err: Error) => {
         console.error(err);
@@ -182,37 +178,7 @@ export class ProblemPageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  handleRunOutcomeOutput(codeRunProgress: CodeRunProgress) {
-    switch (codeRunProgress.result?.codeRunOutcomeId) {
-      case CodeRunOutcome.CompilationError:
-        return (this.outputErrorView = this.convertToCompilationErrorOutput(
-          codeRunProgress.result
-        ));
-      case CodeRunOutcome.TestFailed && CodeRunOutcome.RuntimeError:
-        return (this.outputErrorView = this.convertToRuntimeErrorOutput(
-          codeRunProgress.result
-        ));
-      default:
-        return (this.codeRunOutcome =
-          codeRunProgress.result?.codeRunOutcomeId!);
-    }
-  }
-
-  convertToCompilationErrorOutput(
-    codeRunResult: CodeRunResult
-  ): CompilationError[] {
-    return codeRunResult.compilationErrors!;
-  }
-
-  convertToRuntimeErrorOutput(codeRunResult: CodeRunResult): TestCaseResult {
-    var testCaseResult: TestCaseResult = codeRunResult.failedTest!;
-
-    testCaseResult.actual = codeRunResult.exceptionMessage!;
-
-    return testCaseResult;
-  }
-
-  setActive(componentName: string) { 
+  setActive(componentName: string) {
     this.activeComponent = componentName;
   }
 }

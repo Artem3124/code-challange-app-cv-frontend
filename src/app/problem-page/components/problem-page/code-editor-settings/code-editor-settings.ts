@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
+import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
 
 @Component({
@@ -23,30 +24,35 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
 
   isReadonlyCodeView: boolean = false;
 
-  constructor(private sourceCodeStore: SourceCodeStoreService) {}
+  constructor(
+    private sourceCodeStore: SourceCodeStoreService,
+    private consoleOutputStore: ConsoleOutputStoreService
+  ) {}
 
   ngAfterViewInit(): void {
     this.onSetLanguage(CodeLanguage.csharp);
 
     this.sourceCodeStore.getReadonlySourceCode().subscribe({
       next: (source: Dictionary<string> | null) => {
-        if (source !== null) { 
+        if (source !== null) {
           this.isReadonlyCodeView = true;
         }
-      }
-    })
+      },
+    });
   }
 
   @Input() availableLanguagesInput: Array<CodeLanguage>;
-  @Output() currentLanguageEvent: EventEmitter<CodeLanguage> = new EventEmitter<CodeLanguage>();
+  @Output() currentLanguageEvent: EventEmitter<CodeLanguage> =
+    new EventEmitter<CodeLanguage>();
 
   onSetLanguage(language: string | CodeLanguage) {
     console.log(language);
     this.currentLanguageEvent.emit(language as CodeLanguage);
   }
 
-  onClick(): void { 
+  onClick(): void {
     this.isReadonlyCodeView = false;
     this.sourceCodeStore.defaultReadonlyCode();
+    this.consoleOutputStore.defaultResultView();
   }
 }

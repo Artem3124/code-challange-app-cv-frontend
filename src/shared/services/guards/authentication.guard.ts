@@ -16,8 +16,6 @@ import { User } from "src/models";
   } 
 
   private isSignIn(): Observable<boolean> { 
-    console.log('guard works')
-
     return this.authService.isSignIn().pipe(
       map((isSignIn: boolean) => {
         if (isSignIn) { 

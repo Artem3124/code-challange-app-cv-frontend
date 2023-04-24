@@ -8,7 +8,8 @@ import { AuthHttpService } from "src/shared/services/http/authentication.service
   styleUrls: ['./register.component.scss',
   '../../../../shared/styles/global-elements.scss',
   '../../../../shared/styles/custom-form.scss',
-  '../../../../shared/styles/fonts.scss' 
+  '../../../../shared/styles/fonts.scss',
+  '../../../../shared/styles/alerts.scss',
 ]
 }) export class RegisterComponent { 
 

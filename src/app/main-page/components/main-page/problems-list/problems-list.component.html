@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row problem-list">
   <div class="container">
     <div class="row" *ngFor="let item of codeProblems">
       <a [routerLink]="['/problem/', item.uuid]" (click)="setProblemState(item)" class="col">{{item.name}}</a>

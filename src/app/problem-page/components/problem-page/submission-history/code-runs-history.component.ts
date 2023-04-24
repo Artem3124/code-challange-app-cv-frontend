@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CodeRunResultExpanded } from 'src/models';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 import { CodeRunsStoreService } from 'src/shared/services/store/code-runs-store.service';
+import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
 import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
 
@@ -17,7 +18,8 @@ export class CodeRunsHistoryComponent implements OnInit {
   constructor(
     private sourceCodeStore: SourceCodeStoreService,
     private codeRunsStore: CodeRunsStoreService,
-    private router: Router
+    private router: Router,
+    private consoleOutputStore: ConsoleOutputStoreService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,8 @@ export class CodeRunsHistoryComponent implements OnInit {
 
   setCodeRun(_index: number, codeRun: CodeRunResultExpanded) { 
     this.selectedIndex = _index;
+
+    this.consoleOutputStore.setRunResultView(codeRun);
 
     this.sourceCodeStore.setReadonlySourceCode(
       codeRun.sourceCode,

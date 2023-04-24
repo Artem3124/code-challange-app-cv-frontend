@@ -30,6 +30,9 @@ import { codeRunsReducer as codeRunsHistory } from 'src/app/problem-page/state/r
 import { problemStateEffects } from 'src/app/state/effects';
 import { CodeRunComponent } from 'src/app/problem-page/components/problem-page/submission-history/code-run/code-run.component';
 import { CodeRunOutcomeDirective } from 'src/shared/directives/output-style.directive';
+import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
+import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/state/reducers/console-output.reducer';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +64,7 @@ import { CodeRunOutcomeDirective } from 'src/shared/directives/output-style.dire
       codeRunsHistory,
       sourceCodeState,
       codeTemplates,
+      codeRunProgress,
     }),
   ],
   providers: [
@@ -70,6 +74,7 @@ import { CodeRunOutcomeDirective } from 'src/shared/directives/output-style.dire
     CodeRunsStoreService,
     SourceCodeStoreService,
     CodeTemplateStoreService,
+    ConsoleOutputStoreService,
   ],
 })
 export class ProblemPageModule {}

@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpBase } from "./http-base.service";
 import { LoginRequest, RegistrationRequest, User } from "src/models";
 import { Observable, catchError, map } from "rxjs";
-import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class AuthHttpService {
@@ -25,7 +24,6 @@ export class AuthHttpService {
 
     return this.user().pipe(
       map((user: User) => { 
-        
         return user ? true : false;
       }),
       catchError(async (error: Error) => { 

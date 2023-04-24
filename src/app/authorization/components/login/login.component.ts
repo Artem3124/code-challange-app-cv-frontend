@@ -10,7 +10,9 @@ import { Router } from "@angular/router";
   styleUrls: ['../register/register.component.scss',
   '../../../../shared/styles/global-elements.scss',
   '../../../../shared/styles/custom-form.scss',
-  '../../../../shared/styles/fonts.scss']
+  '../../../../shared/styles/fonts.scss',
+  '../../../../shared/styles/alerts.scss',
+]
 }) export class LoginComponent { 
 
   loginForm: LoginFormModel = new LoginFormModel();
