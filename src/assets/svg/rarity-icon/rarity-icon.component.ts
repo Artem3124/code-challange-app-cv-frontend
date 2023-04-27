@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, NgModule } from "@angular/core";
 import ProblemComplexity from "src/models/enums/problem-rarity.enum";
 import { IconStateBase } from "src/models/icon/icon-state.model";
 
@@ -18,3 +18,8 @@ export class RarityIconComponent {
 
   @Input() complexity: ProblemComplexity;
 }
+
+@NgModule({
+  declarations: [RarityIconComponent],
+  exports: [RarityIconComponent]
+}) export class RarityIconModule {}

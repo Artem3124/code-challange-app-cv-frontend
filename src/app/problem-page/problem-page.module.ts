@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActiveSelectorMenu } from 'src/shared/directives/active-selector-menu.directive';
-import { RarityIconComponent } from 'src/assets/svg/rarity-icon/rarity-icon.component';
+import { RarityIconComponent, RarityIconModule } from 'src/assets/svg/rarity-icon/rarity-icon.component';
 import { ManageableIconColor } from 'src/shared/directives/icon/manageable-icon-color.directive';
 import { ProblemComplexityPipe } from 'src/shared/pipes/problem-complexity.pipe';
 import { CommonModule } from '@angular/common';
@@ -39,7 +39,6 @@ import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/st
     CodeRunsHistoryComponent,
     CodingLanguagesPipe,
     ProblemComplexityPipe,
-    RarityIconComponent,
     ActiveSelectorMenu,
     CodeEditorComponent,
     ManageableIconColor,
@@ -51,8 +50,8 @@ import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/st
     CodeRunComponent,
     CodeRunOutcomeDirective,
   ],
-  exports: [],
   imports: [
+    RarityIconModule,
     PageHeaderModule,
     CommonModule,
     FormsModule,

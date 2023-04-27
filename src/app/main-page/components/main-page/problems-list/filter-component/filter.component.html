@@ -1,0 +1,32 @@
+<div class="container font-color-base">
+  <div class="row">
+    <div class="container font-poppins-700">Find problem</div>
+  </div>
+  <div class="row">
+    <div class="container filter-search-field">
+      <div class="input-group">
+        <div class="input-group-text search-logo"></div>
+        <div
+          class="form-control custom-search-input"
+          placeholder="Type name of the problem"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">Active Filters</div>
+    <div class="col-9">{{currentFilters}}</div>
+  </div>
+  <div class="row">
+    <div class="col-3">Complexity</div>
+    <div class="col-9">
+      <div class="row" *ngFor="let complexity of availableComplexities">
+        <complexity-icon [complexity]="complexity"></complexity-icon>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">Choose Filters:</div>
+    <div class="col-9">{{availableFilters}}</div>
+  </div>
+</div>
