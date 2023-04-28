@@ -14,7 +14,6 @@ export class ProblemsFilterComponent {
   constructor() {
     this.availableComplexities = this.identifyAvailableComplexities();
   }
-
   
   currentFilters: string[];
   currentComplexities: ProblemComplexity[];

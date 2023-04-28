@@ -18,6 +18,7 @@ import { DetailedViewOutputComponent } from './components/problem-page/console-o
 import { RuntimeErrorViewPipe } from './components/problem-page/console-output/detailed-view-output/components/runtime-error-output/pipes/runtime-error-view.pipe';
 import { CompileErrorViewPipe } from './components/problem-page/console-output/detailed-view-output/components/compile-error-output/pipes/compile-error-view.pipe';
 import { CommonModule } from '@angular/common';
+import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
 
 @NgModule({
   declarations: [
@@ -33,13 +34,12 @@ import { CommonModule } from '@angular/common';
     CompileErrorOutputComponent,
     AwaitingCodeSubmissionComponent,
     AwaitingIconComponent,
-    ManageableSvgPathSize,
     AwaitIconAnimation,
     CompletedProblemIconComponent,
     CompletedProblemOutputComponent,
   ],
-  exports: [ConsoleOutputComponent, ManageableSvgPathSize],
-  imports: [FormsModule, CommonModule],
+  exports: [ConsoleOutputComponent],
+  imports: [FormsModule, CommonModule, ManageableIconModule],
   providers: [],
 })
 export class ConsoleOutputModule {}

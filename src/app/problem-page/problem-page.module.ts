@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ActiveSelectorMenu } from 'src/shared/directives/active-selector-menu.directive';
 import { RarityIconComponent, RarityIconModule } from 'src/assets/svg/rarity-icon/rarity-icon.component';
 import { ManageableIconColor } from 'src/shared/directives/icon/manageable-icon-color.directive';
-import { ProblemComplexityPipe } from 'src/shared/pipes/problem-complexity.pipe';
+import { ProblemComplexityPipe, ProblemComplexityPipeModule } from 'src/shared/pipes/problem-complexity.pipe';
 import { CommonModule } from '@angular/common';
 import { ReducerManager, StoreModule } from '@ngrx/store';
 import { codeProblemReducer as codeProblemDescriptionState } from './state/reducers/problem.reducer';
@@ -32,16 +32,15 @@ import { CodeRunComponent } from 'src/app/problem-page/components/problem-page/s
 import { CodeRunOutcomeDirective } from 'src/shared/directives/output-style.directive';
 import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/state/reducers/console-output.reducer';
+import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
 
 
 @NgModule({
   declarations: [
     CodeRunsHistoryComponent,
     CodingLanguagesPipe,
-    ProblemComplexityPipe,
     ActiveSelectorMenu,
     CodeEditorComponent,
-    ManageableIconColor,
     ProblemPageComponent,
     CodeEditorSettingsComponent,
     ConsoleOutputSettingsComponent,
@@ -52,6 +51,8 @@ import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/st
   ],
   imports: [
     RarityIconModule,
+    ProblemComplexityPipeModule,
+    ManageableIconModule,
     PageHeaderModule,
     CommonModule,
     FormsModule,

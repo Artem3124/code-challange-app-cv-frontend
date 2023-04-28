@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import ProblemComplexity from 'src/models/enums/problem-rarity.enum';
 import { ColorIconState } from 'src/models/icon/color-icon-state.model';
 import { IconStateBase } from 'src/models/icon/icon-state.model';
@@ -43,6 +43,14 @@ export class ProblemComplexityPipe implements PipeTransform {
       };
     }
 
+    if (problemComplexity === ProblemComplexity.NonTrivial) { 
+      return { 
+        strokeColor: '#B258D2',
+        fill: '#C591E1',
+        fillOpacity: 100,
+      }
+    }
+
     if (problemComplexity === ProblemComplexity.Easy) {
       return {
         strokeColor: '#A8AAA4',
@@ -54,3 +62,8 @@ export class ProblemComplexityPipe implements PipeTransform {
     }
   }
 }
+
+@NgModule({
+  declarations: [ProblemComplexityPipe],
+  exports: [ProblemComplexityPipe]
+}) export class ProblemComplexityPipeModule {}

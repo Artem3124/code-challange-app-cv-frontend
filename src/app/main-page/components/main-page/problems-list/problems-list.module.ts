@@ -7,8 +7,10 @@ import { RarityIconModule } from "src/assets/svg/rarity-icon/rarity-icon.compone
 
 @NgModule({
   declarations: [ProblemsFilterComponent, ProblemsListComponent],
-  imports: [RarityIconModule, 
+  imports: [
+    RarityIconModule, 
     CommonModule,
     RouterModule
   ],
+  exports: [ProblemsListComponent]
 }) export class ProblemListModule {}

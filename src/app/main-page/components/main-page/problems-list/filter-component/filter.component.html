@@ -1,4 +1,3 @@
-<div class="container font-color-base">
   <div class="row">
     <div class="container font-poppins-700">Find problem</div>
   </div>
@@ -20,8 +19,10 @@
   <div class="row">
     <div class="col-3">Complexity</div>
     <div class="col-9">
-      <div class="row" *ngFor="let complexity of availableComplexities">
-        <complexity-icon [complexity]="complexity"></complexity-icon>
+      <div class="row">
+        <div class="col-1" *ngFor="let complexity of availableComplexities">
+          <complexity-icon [complexity]="complexity" [iconSize]="20"></complexity-icon>
+        </div>
       </div>
     </div>
   </div>
@@ -29,4 +30,3 @@
     <div class="col-3">Choose Filters:</div>
     <div class="col-9">{{availableFilters}}</div>
   </div>
-</div>

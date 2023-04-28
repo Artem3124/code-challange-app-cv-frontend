@@ -6,7 +6,7 @@ import { ProblemListStoreService } from "src/shared/services/store/problem-list-
 @Component({
   selector: 'problems-list',
   templateUrl: './problems-list.component.html',
-  styleUrls: ['./problems-list.component.scss']
+  styleUrls: ['./problems-list.component.scss', '../../../../../shared/styles/global-elements.scss']
 }) export class ProblemsListComponent implements OnInit {
 
   codeProblems: CodeProblem[] = [];

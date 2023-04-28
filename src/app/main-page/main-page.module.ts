@@ -11,16 +11,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProblemListEffects } from './store/effects/problems.effects';
 import { problemListReducer } from './store/reducers/problem-list.reducer';
 import { mainPageEffects } from 'src/app/state/effects';
-import { ProblemComplexityPipe } from 'src/shared/pipes/problem-complexity.pipe';
+import { ProblemComplexityPipe, ProblemComplexityPipeModule } from 'src/shared/pipes/problem-complexity.pipe';
 import { ProblemsFilterComponent } from 'src/app/main-page/components/main-page/problems-list/filter-component/filter.component';
 import { RarityIconComponent } from 'src/assets/svg/rarity-icon/rarity-icon.component';
 import { ProblemListModule } from 'src/app/main-page/components/main-page/problems-list/problems-list.module';
 
 @NgModule({
   declarations: [MainPageComponent],
-  providers: [CodeProblemHttpService, ProblemListStoreService, ProblemComplexityPipe],
+  providers: [CodeProblemHttpService, ProblemListStoreService],
   exports: [MainPageComponent],
   imports: [
+    ProblemComplexityPipeModule,
     ProblemListModule,
     PageHeaderModule,
     MainPageRoutingModule,
