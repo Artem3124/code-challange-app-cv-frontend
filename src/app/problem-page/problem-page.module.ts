@@ -33,6 +33,7 @@ import { CodeRunOutcomeDirective } from 'src/shared/directives/output-style.dire
 import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/state/reducers/console-output.reducer';
 import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
+import { AlertModule } from '@coreui/angular';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon
     ProblemTagComponent,
     CodeRunComponent,
     CodeRunOutcomeDirective,
+
   ],
   imports: [
     RarityIconModule,

@@ -14,6 +14,9 @@ import { EffectsModule } from '@ngrx/effects'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { ProblemPageModule } from '../problem-page/problem-page.module';
+import { globalEffects } from 'src/app/state/effects';
+import { authorizationReducer } from 'src/app/authorization/state/reducers/authorization.reducers';
+import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +36,7 @@ import { ProblemPageModule } from '../problem-page/problem-page.module';
     }),
   ],
   providers: [
+    AuthStoreService,
     {
       provide: HTTP_INTERCEPTORS,
       useFactory: (router: Router) => {

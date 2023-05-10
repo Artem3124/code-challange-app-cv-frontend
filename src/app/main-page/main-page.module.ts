@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProblemListEffects } from './store/effects/problems.effects';
 import { problemListReducer } from './store/reducers/problem-list.reducer';
-import { mainPageEffects } from 'src/app/state/effects';
+import { globalEffects, mainPageEffects } from 'src/app/state/effects';
 import { ProblemComplexityPipe, ProblemComplexityPipeModule } from 'src/shared/pipes/problem-complexity.pipe';
 import { ProblemsFilterComponent } from 'src/app/main-page/components/main-page/problems-list/filter-component/filter.component';
 import { RarityIconComponent } from 'src/assets/svg/rarity-icon/rarity-icon.component';

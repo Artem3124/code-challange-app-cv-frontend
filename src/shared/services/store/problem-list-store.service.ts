@@ -23,7 +23,7 @@ export class ProblemListStoreService {
     return this.store.dispatch(initiateFetchingProblemList());
   }
 
-  getProblemList() { 
+  getProblemList(): Observable<CodeProblem[]> { 
     return this.problemListState$;
   }
 }

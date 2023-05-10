@@ -1,24 +1,25 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { LoginRequest } from "src/models";
+import { AuthValidator } from "src/shared/services/validators/auth.validator";
 
 export class LoginFormModel {
   
   form: FormGroup;
   
-  constructor() {
+  constructor(private authValidator: AuthValidator) {
     this.form = new FormGroup({
-      'inputEmail': new FormControl('', [
+      'inputEmailOrLogin': new FormControl('', [
         Validators.required,
-        Validators.email,
       ]),
       'inputPassword': new FormControl('', [
         Validators.required,
+        this.authValidator.inputLengthValidation('Password', 8, 16)
       ])
     })
   }
   
-  get inputEmail() { 
-    return this.form.controls['inputEmail'];
+  get inputEmailOrLogin() { 
+    return this.form.controls['inputEmailOrLogin'];
   }
 
   get inputPassword() { 
@@ -27,7 +28,7 @@ export class LoginFormModel {
 
   toObj(): LoginRequest {
     return { 
-      email: this.form.value.inputEmail,
+      email: this.form.value.inputEmailOrLogin,
       password: this.form.value.inputPassword,
       rememberMe: true
     }

@@ -80,6 +80,25 @@
   color: #535153;
 }
 
-.custom-search-input { 
-
+.custom-search-input {
+  background-color: inherit !important; 
+  border: none !important;
+  border-radius: 0px !important;
+  border-bottom: 1px solid #535153 !important;
 }
+
+.custom-search-input:focus { 
+  border: none !important;
+  border-bottom: 1px solid #535153 !important;
+  box-shadow: none !important;
+}
+
+.unavailable-btn { 
+  color: #535153a4 !important;
+  cursor: default !important;
+}
+
+.unavailable-btn:hover { 
+  background-color: transparent !important;
+}
+

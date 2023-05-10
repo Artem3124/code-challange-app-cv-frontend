@@ -12,7 +12,7 @@
       [formGroup]="registrationForm!.form"
       (ngSubmit)="submitRegistration()"
     >
-      <div class="form-group ">
+      <div class="form-group">
         <input
           type="email"
           formControlName="inputEmail"
@@ -22,30 +22,82 @@
           required
         />
       </div>
-      <div class="alert alert-danger"
-        *ngIf="registrationForm.inputEmail.invalid &&
-        registrationForm.inputEmail.touched">
-        Email length should be 4-50 letters</div>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          registrationForm.inputEmail.invalid &&
+          registrationForm.inputEmail.touched
+        "
+      >
+        Email is invalid
+      </div>
       <div class="form-group mb-5 mt-form-custom-4em">
         <input
-          formControlName="inputPassword"
+          formControlName="inputFirstPassword"
           type="password"
           class="form-control"
-          id="registrationPassword"
+          id="registrationFirstPassword"
           placeholder="Password from 4 to 30 symbols"
           required
         />
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            registrationForm.inputFirstPassword.hasError(
+              'inputLengthError'
+            )
+          "
+        >
+          {{
+            registrationForm.inputFirstPassword.getError(
+              "inputLengthError"
+            )
+          }}
+        </div>
+        <div class="form-group mb-5 mt-form-custom-4em">
+          <input
+            formControlName="inputSecondPassword"
+            type="password"
+            class="form-control"
+            id="registrationSecondPassword"
+            placeholder="Password from 4 to 30 symbols"
+            required
+          />
 
-        <div class="alert alert-danger"
-        *ngIf="registrationForm.inputPassword.invalid &&
-        registrationForm.inputPassword.touched">
-        Password length should be 4-30 letters
-    </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registrationForm.inputSecondPassword.hasError(
+                'inputLengthError'
+              )
+            "
+          >
+            {{
+              registrationForm.inputSecondPassword.getError(
+                "inputLengthError"
+              )
+            }}
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registrationForm.inputSecondPassword.hasError(
+                'passwordMatchError'
+              ) &&
+              registrationForm.inputFirstPassword.hasError('passwordMatchError')
+            "
+          >
+            {{
+              registrationForm.inputSecondPassword.getError(
+                "passwordMatchError"
+              )
+            }}
+          </div>
+        </div>
       </div>
       <div class="row justify-content-between">
         <div class="col-4">
           <a
-            
             class="form-default-color custom-button justify-content-center w-100"
             routerLink="/login"
           >

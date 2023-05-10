@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
 import { RegisterFormModel } from "./register.form";
 import { AuthHttpService } from "src/shared/services/http/authentication.service";
+import { AuthValidator } from "src/shared/services/validators/auth.validator";
+import { AuthStoreService } from "src/shared/services/store/auth-store.service";
+import { RegistrationRequest } from "src/models";
 
 @Component({
   selector: 'register-component',
@@ -13,18 +16,16 @@ import { AuthHttpService } from "src/shared/services/http/authentication.service
 ]
 }) export class RegisterComponent { 
 
-  registrationForm: RegisterFormModel = new RegisterFormModel();
+  registrationForm: RegisterFormModel = new RegisterFormModel(new AuthValidator());
 
-  constructor(private authService: AuthHttpService) {}
+  constructor(private authService: AuthHttpService, private authStore: AuthStoreService) {
+  }
 
   submitRegistration() { 
-    var registRequest = this.registrationForm.toObj();
+    var registrationRequest: RegistrationRequest = this.registrationForm.toObj();
 
-    console.log(registRequest);
+    console.log(registrationRequest);
 
-    this.authService.register(registRequest).subscribe({
-      next: (response: any) => console.log(response),
-      error: (error: Error) => console.error(error)
-    })
+    this.authStore.initiateRegistration(registrationRequest);
   }
 }

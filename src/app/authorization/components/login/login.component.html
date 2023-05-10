@@ -12,22 +12,23 @@
       [formGroup]="loginForm!.form"
       (ngSubmit)="submitLogin()"
     >
-    
       <div class="form-group mt-form-custom-4e">
         <input
-          type="email"
-          formControlName="inputEmail"
+          type="emailOrLogin"
+          formControlName="inputEmailOrLogin"
           class="form-control"
           id="registrationEmail"
-          placeholder="Enter email"
+          placeholder="Enter email \ login"
           required
         />
-        <div class="alert alert-danger"
-        *ngIf="loginForm.inputEmail.invalid &&
-        loginForm.inputEmail.touched">
-        Email length should be 4-30 letters</div>
+        <div
+          class="alert alert-danger"
+          *ngIf="loginForm.inputEmailOrLogin.invalid && loginForm.inputEmailOrLogin.touched"
+        >
+          Email is invalid
+        </div>
       </div>
-      
+
       <div class="form-group mb-5 mt-form-custom-4em">
         <input
           formControlName="inputPassword"
@@ -38,16 +39,19 @@
           required
         />
 
-        <div class="alert alert-danger"
-        *ngIf="loginForm.inputPassword.invalid &&
-        loginForm.inputPassword.touched">
-        Password length should be 4-30 letters
-    </div>
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            loginForm.inputPassword.hasError('inputLengthError')
+          "
+        >
+          {{loginForm.inputPassword.getError('inputLengthError')}}
+        </div>
       </div>
+      <!--checkbox remember me-->
       <div class="row justify-content-between">
         <div class="col-5">
           <a
-            
             class="form-default-color custom-button justify-content-center w-100"
             routerLink="/register"
           >

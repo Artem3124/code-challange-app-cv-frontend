@@ -1,30 +1,27 @@
-import { Component } from "@angular/core";
-import { LoginFormModel } from "./login.form";
-import { AuthHttpService } from "src/shared/services/http/authentication.service";
-import { User } from "src/models";
-import { Router } from "@angular/router";
+import { Component } from '@angular/core';
+import { LoginFormModel } from './login.form';
+import { AuthHttpService } from 'src/shared/services/http/authentication.service';
+import { Router } from '@angular/router';
+import { AuthValidator } from 'src/shared/services/validators/auth.validator';
+import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 
 @Component({
   selector: 'login-component',
   templateUrl: './login.component.html',
-  styleUrls: ['../register/register.component.scss',
-  '../../../../shared/styles/global-elements.scss',
-  '../../../../shared/styles/custom-form.scss',
-  '../../../../shared/styles/fonts.scss',
-  '../../../../shared/styles/alerts.scss',
-]
-}) export class LoginComponent { 
+  styleUrls: [
+    '../register/register.component.scss',
+    '../../../../shared/styles/global-elements.scss',
+    '../../../../shared/styles/custom-form.scss',
+    '../../../../shared/styles/fonts.scss',
+    '../../../../shared/styles/alerts.scss',
+  ],
+})
+export class LoginComponent {
+  loginForm: LoginFormModel = new LoginFormModel(new AuthValidator());
 
-  loginForm: LoginFormModel = new LoginFormModel();
+  constructor(private authStore: AuthStoreService, private authService: AuthHttpService, private router: Router) {}
 
-  constructor(private authService: AuthHttpService, private router: Router) {}
-
-  submitLogin() { 
-    this.authService.login(this.loginForm.toObj()).subscribe({
-      next: (data: User) => {
-       // this.router.navigate(['problem/task1']);
-        console.log(data)},
-      error: (err: Error) => console.error(err),
-    })
+  submitLogin() {
+    this.authStore.initiateLogin(this.loginForm.toObj());
   }
 }

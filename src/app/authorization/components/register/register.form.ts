@@ -1,38 +1,49 @@
-import { Injectable } from "@angular/core";
-import { Validators } from "@angular/forms";
-import { FormControl, FormGroup } from "@angular/forms";
-import { RegistrationRequest } from "src/models";
+import {
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { RegistrationRequest } from 'src/models';
+import { AuthValidator } from 'src/shared/services/validators/auth.validator';
 
 export class RegisterFormModel {
   form: FormGroup;
-  
-  constructor() {
+
+  constructor(private authValidator: AuthValidator) {
     this.form = new FormGroup({
-      "inputEmail": new FormControl('', [
+      inputEmail: new FormControl('', [Validators.required, Validators.email]),
+      inputFirstPassword: new FormControl('', [
         Validators.required,
-        Validators.email,
+        this.authValidator.inputLengthValidation('Password', 8, 16),
+        this.authValidator.checkPasswordMatchValidator(),
       ]),
-      "inputPassword": new FormControl('', [
+      inputSecondPassword: new FormControl('', [
         Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(30),
+        this.authValidator.inputLengthValidation('Password', 8, 16),
+        this.authValidator.checkPasswordMatchValidator(),
       ]),
-    })
+    });
   }
 
-  get inputPassword() { 
-    return this.form.controls['inputPassword'];
+  get inputSecondPassword() {
+    return this.form.controls['inputSecondPassword'];
+  }
+
+  get inputFirstPassword() {
+    return this.form.controls['inputFirstPassword'];
   }
 
   get inputEmail() {
     return this.form.controls['inputEmail'];
-  }  
+  }
 
-  toObj(): RegistrationRequest { 
-    return { 
+  toObj(): RegistrationRequest {
+    return {
       email: this.form.value.inputEmail,
-      password: this.form.value.inputPassword,
+      password: this.form.value.inputFirstPassword,
       rememberMe: true,
-    }
+    };
   }
 }

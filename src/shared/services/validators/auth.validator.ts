@@ -1,0 +1,90 @@
+import { Injectable } from "@angular/core";
+import { ValidatorFn, AbstractControl, ValidationErrors } from "@angular/forms";
+
+@Injectable()
+export class AuthValidator {
+  constructor() {}
+
+  inputLoginValidator = (
+    userFriendlyInputName: string
+  ) => {
+    return (control: AbstractControl): ValidationErrors | null => {
+      var errors: ValidationErrors | null = null;
+
+      var value = (control.value) as string;
+
+      if (value.includes('@') || value.includes(' ') || value.includes('"')) {
+        errors = {
+          ['inputLoginError']: `${userFriendlyInputName} contains unsupported syntax`
+        };
+      }
+
+      return errors;
+    }
+  }
+
+  inputLengthValidation = (
+    userFriendlyInputName: string,
+    requiredMinLength?: number,
+    requiredMaxLength?: number
+  ): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+     
+      var result = null;
+     
+      if (!requiredMaxLength && !requiredMinLength) {
+        return result;
+      }
+  
+      if (requiredMinLength && control.value.length < requiredMinLength) {
+        result = {
+          ['inputLengthError']: `${userFriendlyInputName} length should be more than ${requiredMinLength}`,
+        };
+      }
+      if (requiredMaxLength && control.value.length > requiredMaxLength) {
+        result = {
+          ['inputLengthError']: `${userFriendlyInputName} length should be less than ${requiredMaxLength}`,
+        };
+      }
+  
+      console.log([control.errors,control.parent]);
+      
+      return result;
+    };
+  };
+
+  checkPasswordMatchValidator = (): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+  
+      if (!value) {
+        return null;
+      }
+  
+      const firstPasswordInput = control.root.get('inputFirstPassword')?.value;
+  
+      const secondPasswordInput = control.root.get('inputSecondPassword')?.value;
+  
+      const passwordsMatch: boolean =
+        firstPasswordInput === secondPasswordInput &&
+        firstPasswordInput &&
+        secondPasswordInput
+          ? true
+          : false;
+  
+      console.log([passwordsMatch, secondPasswordInput.length, firstPasswordInput.length]);
+  
+      var response = passwordsMatch
+        ? null
+        : { ['passwordMatchError']: 'Passwords Mismatch' };
+  
+      if (control.parent?.get('inputFirstPassword') === control) { 
+        control.root.get('inputSecondPassword')?.setErrors({...control.root.get('inputSecondPassword')?.errors, response});
+      }
+  
+      return response;
+    };
+  };
+
+
+}

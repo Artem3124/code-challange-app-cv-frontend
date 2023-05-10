@@ -1,0 +1,30 @@
+<div class="row mt-3 mb-3">
+  <div class="container font-poppins-600">Available problems</div>
+</div>
+<div
+  class="row list-element-section"
+  *ngFor="let item of codeProblems; let problemNumber = index"
+>
+  <div
+    class="col-1"
+    style="
+      font-size: 1.7em;
+      padding: 0 !important;
+      max-width: fit-content !important;"
+  >
+    {{ problemNumber + 1 }}.
+  </div>
+  <a
+    [routerLink]="['/problem/', item.uuid]"
+    (click)="setProblemState(item)"
+    class="col-7 list-element d-flex align-items-center"
+    style="font-size: 1.2em;padding-left: none !important"
+  >
+    <complexity-icon
+      [complexity]="item.complexityTypeId"
+      [iconSize]="20"
+      style="padding: 0em 1em"
+    ></complexity-icon>
+    {{ item.name }}</a
+  >
+</div>

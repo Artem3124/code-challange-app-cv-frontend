@@ -1,11 +1,9 @@
-<div class="container"><div class="row justify-content-between problem-list mt-4">
+<div class="container" style="color: #535153 !important"><div class="row justify-content-between problem-list mt-4">
   <div class="col-4 global-content-container">
     <problems-filter></problems-filter>
   </div>
+
   <div class="col problems-list global-content-container">
-    <div class="row" *ngFor="let item of codeProblems">
-      <a [routerLink]="['/problem/', item.uuid]" (click)="setProblemState(item)" class="col">{{item.name}}</a>
-      <div class="col">{{item.description}}</div>
-    </div>
+   <list-component></list-component>
   </div>
 </div></div>

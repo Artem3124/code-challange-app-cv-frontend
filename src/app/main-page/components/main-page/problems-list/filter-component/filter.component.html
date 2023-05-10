@@ -1,32 +1,39 @@
-  <div class="row">
+<div class="font-poppins-600">
+  <div class="row filter-component">
     <div class="container font-poppins-700">Find problem</div>
   </div>
   <div class="row">
     <div class="container filter-search-field">
       <div class="input-group">
-        <div class="input-group-text search-logo"></div>
-        <div
-          class="form-control custom-search-input"
+        <input
+          class="form-control custom-search-input search-logo"
           placeholder="Type name of the problem"
-        ></div>
+        />
+        <span class="input-group-text custom-search-input">
+          <find-icon [iconSize]="22"></find-icon>
+        </span>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-3">Active Filters</div>
-    <div class="col-9">{{currentFilters}}</div>
+  <div class="row filter-component">
+    <div class="col-4">Active Filters</div>
+    <div class="col-8">{{ currentFilters }}</div>
   </div>
-  <div class="row">
+  <div class="row filter-component">
     <div class="col-3">Complexity</div>
     <div class="col-9">
       <div class="row">
         <div class="col-1" *ngFor="let complexity of availableComplexities">
-          <complexity-icon [complexity]="complexity" [iconSize]="20"></complexity-icon>
+          <complexity-icon
+            [complexity]="complexity"
+            [iconSize]="20"
+          ></complexity-icon>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-3">Choose Filters:</div>
-    <div class="col-9">{{availableFilters}}</div>
+  <div class="row filter-component">
+    <div class="col-5">Choose Filters:</div>
+    <div class="col-7">{{ availableFilters }}</div>
   </div>
+</div>
