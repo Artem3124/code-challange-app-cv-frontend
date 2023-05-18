@@ -19,7 +19,8 @@ import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 export class LoginComponent {
   loginForm: LoginFormModel = new LoginFormModel(new AuthValidator());
 
-  constructor(private authStore: AuthStoreService, private authService: AuthHttpService, private router: Router) {}
+  constructor(private authStore: AuthStoreService, private authService: AuthHttpService, private router: Router) {
+  }
 
   submitLogin() {
     this.authStore.initiateLogin(this.loginForm.toObj());

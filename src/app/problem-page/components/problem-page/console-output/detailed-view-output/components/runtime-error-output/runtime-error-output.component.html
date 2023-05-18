@@ -5,17 +5,17 @@
   <div class="container  error-output-details">
     <div class="row runtime-error-section">
       <div class="container input-section runtime-error-detail">
-        Input: {{(errorsInput | errorView).input}}
+        Input: {{(errorsInput | runtimeErrorView).inputs}}
       </div>
     </div>
     <div class="row runtime-error-section">
       <div class="container actual-section runtime-error-detail">
-        Actual: {{(errorsInput | errorView).actual}} 
+        Actual: {{(errorsInput | runtimeErrorView).message}} 
       </div>
     </div>
     <div class="row">
       <div class="container expected-section runtime-error-detail">
-        Expected: {{(errorsInput | errorView).expected}}
+        Expected: {{(errorsInput | runtimeErrorView).expected}}
       </div>
     </div>
   </div>

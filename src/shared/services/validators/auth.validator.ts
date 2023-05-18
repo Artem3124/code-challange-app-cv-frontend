@@ -46,8 +46,6 @@ export class AuthValidator {
           ['inputLengthError']: `${userFriendlyInputName} length should be less than ${requiredMaxLength}`,
         };
       }
-  
-      console.log([control.errors,control.parent]);
       
       return result;
     };
@@ -61,26 +59,31 @@ export class AuthValidator {
         return null;
       }
   
-      const firstPasswordInput = control.root.get('inputFirstPassword')?.value;
+      const firstPasswordInput = control.root.get('inputFirstPassword');
   
-      const secondPasswordInput = control.root.get('inputSecondPassword')?.value;
+      const secondPasswordInput = control.root.get('inputSecondPassword');
   
       const passwordsMatch: boolean =
-        firstPasswordInput === secondPasswordInput &&
-        firstPasswordInput &&
-        secondPasswordInput
+        firstPasswordInput?.value === secondPasswordInput?.value &&
+        firstPasswordInput?.value &&
+        secondPasswordInput?.value
           ? true
           : false;
   
-      console.log([passwordsMatch, secondPasswordInput.length, firstPasswordInput.length]);
+      console.log([passwordsMatch, secondPasswordInput?.value.length, firstPasswordInput?.value.length]);
   
       var response = passwordsMatch
         ? null
         : { ['passwordMatchError']: 'Passwords Mismatch' };
   
       if (control.parent?.get('inputFirstPassword') === control) { 
-        control.root.get('inputSecondPassword')?.setErrors({...control.root.get('inputSecondPassword')?.errors, response});
+        secondPasswordInput?.setErrors(response);
+
+        console.log([firstPasswordInput?.errors, secondPasswordInput?.errors])
+
+        return null;
       }
+      console.log([firstPasswordInput?.errors, secondPasswordInput?.errors])
   
       return response;
     };

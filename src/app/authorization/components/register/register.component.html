@@ -12,9 +12,8 @@
       [formGroup]="registrationForm!.form"
       (ngSubmit)="submitRegistration()"
     >
-      <div class="form-group">
-        <input
-          type="email"
+      <div class="form-group mb-3">
+        <input type="email"
           formControlName="inputEmail"
           class="form-control"
           id="registrationEmail"
@@ -22,8 +21,7 @@
           required
         />
       </div>
-      <div
-        class="alert alert-danger"
+      <div class="alert alert-danger"
         *ngIf="
           registrationForm.inputEmail.invalid &&
           registrationForm.inputEmail.touched
@@ -31,11 +29,41 @@
       >
         Email is invalid
       </div>
-      <div class="form-group mb-5 mt-form-custom-4em">
+      <div class="form-group">
+        <input
+          type="login"
+          formControlName="inputLogin"
+          class="form-control mb-3"
+          id="registrationLogin"
+          placeholder="Enter Login"
+          required
+        />
+      </div>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+        registrationForm.inputLogin.hasError(
+          'inputLengthError'
+        ) && registrationForm.inputLogin.touched
+        "
+      >
+        {{registrationForm.inputLogin.getError('inputLengthError')}}
+      </div>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+        registrationForm.inputLogin.hasError(
+          'inputLoginError'
+        ) && registrationForm.inputLogin.touched
+        "
+      >
+        {{registrationForm.inputLogin.getError('inputLoginError')}}
+      </div>
+      <div class="form-group">
         <input
           formControlName="inputFirstPassword"
           type="password"
-          class="form-control"
+          class="form-control mb-3"
           id="registrationFirstPassword"
           placeholder="Password from 4 to 30 symbols"
           required
@@ -45,7 +73,7 @@
           *ngIf="
             registrationForm.inputFirstPassword.hasError(
               'inputLengthError'
-            )
+            ) && registrationForm.inputFirstPassword.touched
           "
         >
           {{
@@ -54,11 +82,11 @@
             )
           }}
         </div>
-        <div class="form-group mb-5 mt-form-custom-4em">
+        <div class="form-group">
           <input
             formControlName="inputSecondPassword"
             type="password"
-            class="form-control"
+            class="form-control mb-3"
             id="registrationSecondPassword"
             placeholder="Password from 4 to 30 symbols"
             required
@@ -69,7 +97,7 @@
             *ngIf="
               registrationForm.inputSecondPassword.hasError(
                 'inputLengthError'
-              )
+              ) && registrationForm.inputSecondPassword.touched
             "
           >
             {{
@@ -81,10 +109,10 @@
           <div
             class="alert alert-danger"
             *ngIf="
-              registrationForm.inputSecondPassword.hasError(
+              (registrationForm.inputSecondPassword.hasError(
                 'passwordMatchError'
-              ) &&
-              registrationForm.inputFirstPassword.hasError('passwordMatchError')
+              ) ||
+              registrationForm.inputFirstPassword.hasError('passwordMatchError')) && registrationForm.inputFirstPassword.touched
             "
           >
             {{

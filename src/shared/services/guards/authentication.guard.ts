@@ -14,7 +14,8 @@ import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authStore: AuthStoreService
+    private authStore: AuthStoreService,
+    private authHttp: AuthHttpService
   ) {
     this.authStore.initiateAuthCheck();
   }
@@ -27,32 +28,33 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
+
     return this.isSignIn();
   }
 
-  // private isSignIn(): Observable<boolean> {
-  //   return this.authService.isSignIn().pipe(
-  //     map((isSignIn: boolean) => {
-  //       if (isSignIn) {
-  //         this.router.navigate(['/home']);
-  //         return false;
-  //       }
-
-  //       return true;
-  //     })
-  //     )
-  // }
-
-  private isSignIn(): Observable<boolean> { 
-    return this.authStore.isSignIn().pipe(
-      map((isSignIn: boolean) => { 
-        if (isSignIn) { 
+  private isSignIn(): Observable<boolean> {
+    return this.authHttp.isSignIn().pipe(
+      map((isSignIn: boolean) => {
+        if (isSignIn) {
           this.router.navigate(['/home']);
           return false;
         }
 
         return true;
       })
-    )
+      )
   }
+
+  // private isSignIn(): Observable<boolean> {
+  //   return this.authStore.isSignIn().pipe(
+  //     map((isSignIn: boolean) => {
+  //       if (isSignIn) {
+  //         this.router.navigate(['/home']);
+  //         return !isSignIn;
+  //       }
+
+  //       return !isSignIn;
+  //     })
+  //   );
+  // }
 }

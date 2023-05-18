@@ -55,10 +55,13 @@ export interface CompilationError {
 
 export interface TestCaseResult extends TestCase { 
   actual: string;
+  id: number; 
+  message: string;
+  result: string;
 }
 
 interface TestCase { 
-  input: string;
+  inputs: string;
   expected: string;
 }
 
@@ -70,12 +73,14 @@ export interface CodeRunProgress {
 export interface User { 
   uuid: string;
   role: Role;
+  login: string;
   email: string;
   subscriptionType: SubscriptionType;
 }
 
 export interface RegistrationRequest extends LoginRequest { 
-
+  login: string;
+  repeatPassword: string;
 }
 
 export interface LoginRequest { 

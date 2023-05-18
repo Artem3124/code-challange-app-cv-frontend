@@ -16,7 +16,9 @@ import { LoginRequest, RegistrationRequest, User } from 'src/models';
 
 @Injectable()
 export class AuthStoreService {
-  isSignIn(): Observable<boolean> {
+  isSignIn(): Observable<any> {
+    console.log(this.store.select(isAuthenticated));
+    
     return this.store.select(isAuthenticated);
   }
 

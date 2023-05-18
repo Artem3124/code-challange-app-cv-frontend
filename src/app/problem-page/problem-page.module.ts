@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActiveSelectorMenu } from 'src/shared/directives/active-selector-menu.directive';
-import { RarityIconComponent, RarityIconModule } from 'src/assets/svg/rarity-icon/rarity-icon.component';
-import { ManageableIconColor } from 'src/shared/directives/icon/manageable-icon-color.directive';
-import { ProblemComplexityPipe, ProblemComplexityPipeModule } from 'src/shared/pipes/problem-complexity.pipe';
+import { RarityIconModule } from 'src/assets/svg/rarity-icon/rarity-icon.component';
+import { ProblemComplexityPipeModule } from 'src/shared/pipes/problem-complexity.pipe';
 import { CommonModule } from '@angular/common';
 import { ReducerManager, StoreModule } from '@ngrx/store';
 import { codeProblemReducer as codeProblemDescriptionState } from './state/reducers/problem.reducer';
@@ -33,7 +32,6 @@ import { CodeRunOutcomeDirective } from 'src/shared/directives/output-style.dire
 import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/state/reducers/console-output.reducer';
 import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
-import { AlertModule } from '@coreui/angular';
 
 
 @NgModule({

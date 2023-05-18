@@ -30,6 +30,8 @@ import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
     AuthorizationModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
+    StoreModule.forFeature('authState', authorizationReducer),
+    EffectsModule.forFeature(globalEffects),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

@@ -1,9 +1,12 @@
 <div class="container" style="color: #535153 !important"><div class="row justify-content-between problem-list mt-4">
-  <div class="col-4 global-content-container">
-    <problems-filter></problems-filter>
+  <div class="col-4 global-content-container filter-col">
+    <problems-filter (filterEmitter)="findProblem($event)" (cancelFilterEmitter)="cancelFind()"></problems-filter>
   </div>
 
   <div class="col problems-list global-content-container">
-   <list-component></list-component>
+    <div class="row mt-3 mb-3">
+      <div class="container font-poppins-600">Available problems</div>
+    </div>
+   <list-component [codeProblems]="codeProblemsView"></list-component>
   </div>
 </div></div>

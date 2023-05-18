@@ -19,8 +19,6 @@ import { globalEffects } from 'src/app/state/effects';
     AuthorizationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('authState', authorizationReducer),
-    EffectsModule.forFeature(globalEffects),
   ],
   declarations: [
     LoginComponent,

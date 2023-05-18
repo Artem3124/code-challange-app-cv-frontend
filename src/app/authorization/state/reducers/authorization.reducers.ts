@@ -27,7 +27,7 @@ export const authorizationReducer = createReducer(
     registrationSucceeded,
     registrationFailed,
     unauthorized,
-    (state, action) => {
+    (state) => {
       return {
         ...state,
         user: null,

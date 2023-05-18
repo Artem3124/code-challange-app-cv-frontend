@@ -28,6 +28,7 @@ export class AuthorizationEffects {
       exhaustMap((action) =>
         this.authService.login(action.loginRequest).pipe(
           map((response: User) => {
+            this.router.navigate(['/home']);
             return loginSucceeded({ user: response });
           }),
           catchError(async (error: HttpErrorResponse) =>

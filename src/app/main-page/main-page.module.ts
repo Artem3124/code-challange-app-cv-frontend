@@ -15,6 +15,7 @@ import { ProblemComplexityPipe, ProblemComplexityPipeModule } from 'src/shared/p
 import { ProblemsFilterComponent } from 'src/app/main-page/components/main-page/problems-list/filter-component/filter.component';
 import { RarityIconComponent } from 'src/assets/svg/rarity-icon/rarity-icon.component';
 import { ProblemListModule } from 'src/app/main-page/components/main-page/problems-list/problems-list.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [MainPageComponent],

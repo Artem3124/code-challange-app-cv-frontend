@@ -24,8 +24,16 @@ const routes: Routes = [
       ),
   },
   {
-    path: '**', redirectTo: 'home'
-  }
+    path: 'profile',
+    loadChildren: () =>
+      import('./user-profile/user-profile.module').then(
+        (module) => module.UserProfileModule
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({

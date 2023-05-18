@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import {
@@ -14,6 +14,7 @@ import { RunType } from 'src/models/enums/run-type.enum';
 import ProblemDescriptionView from 'src/models/view/problem-description-view.model';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 import { CodeSubmissionHttpService } from 'src/shared/services/http/code-submission.service';
+import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 import { CodeTemplateStoreService } from 'src/shared/services/store/code-template.service';
 import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
@@ -28,7 +29,7 @@ import { SourceCodeStoreService } from 'src/shared/services/store/source-code-st
     '../../../../shared/styles/global-elements.scss',
   ],
 })
-export class ProblemPageComponent implements OnInit, AfterViewInit {
+export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private codeSubmissionHttp: CodeSubmissionHttpService,
     private router: Router,
@@ -36,10 +37,13 @@ export class ProblemPageComponent implements OnInit, AfterViewInit {
     private problemStore: ProblemListStoreService,
     private sourceCodeStore: SourceCodeStoreService,
     private codeTemplateStore: CodeTemplateStoreService,
-    private consoleOutputStore: ConsoleOutputStoreService
+    private consoleOutputStore: ConsoleOutputStoreService,
   ) {
     this.codeTemplateStore.initiateCodeTemplatesGetting(this.codeProblemUUID);
     this.problemStore.findProblem(this.codeProblemUUID);
+  }
+  ngOnDestroy(): void {
+    localStorage.clear();// make the dictionary of problems with dictionary of languages for each problemuuid included
   }
 
   readonly codeProblemUUID: string = this.router.url.slice(9, 45);

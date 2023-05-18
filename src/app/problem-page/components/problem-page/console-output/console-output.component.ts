@@ -35,6 +35,7 @@ export class ConsoleOutputComponent implements OnInit {
           this.codeRunOutcome = CodeRunOutcome.Unknown
           return;
         }
+
         this.codeRunOutcome = codeRunResult.codeRunOutcomeId;
         this.handleRunOutcomeOutput(codeRunResult);
       },
@@ -46,13 +47,14 @@ export class ConsoleOutputComponent implements OnInit {
   @Input() errorFlow: TestCaseResult | CompilationError[];
 
   private handleRunOutcomeOutput(codeRunResult: CodeRunResult) {
+    console.log(codeRunResult.codeRunOutcomeId)
     switch (codeRunResult.codeRunOutcomeId) {
       case CodeRunOutcome.CompilationError:
         return (this.errorFlow =
           this.convertToCompilationErrorOutput(codeRunResult));
-      case CodeRunOutcome.TestFailed && CodeRunOutcome.RuntimeError:
+      case CodeRunOutcome.TestFailed || CodeRunOutcome.RuntimeError:
         return (this.errorFlow =
-          this.convertToRuntimeErrorOutput(codeRunResult));
+          this.convertToRuntimeOrTestFailedErrorOutput(codeRunResult));
       default:
         return (this.codeRunOutcome = codeRunResult.codeRunOutcomeId!);
     }
@@ -64,11 +66,14 @@ export class ConsoleOutputComponent implements OnInit {
     return codeRunResult.compilationErrors!;
   }
 
-  private convertToRuntimeErrorOutput(codeRunResult: CodeRunResult): TestCaseResult {
+  private convertToRuntimeOrTestFailedErrorOutput(codeRunResult: CodeRunResult): TestCaseResult {
+    console.log(codeRunResult);
+
     var testCaseResult: TestCaseResult = codeRunResult.failedTest!;
 
-    testCaseResult.actual = codeRunResult.exceptionMessage!;
+    //testCaseResult.actual = codeRunResult.exceptionMessage!;
 
+    console.log(testCaseResult);
     return testCaseResult;
   }
 }

@@ -13,6 +13,11 @@ export class RegisterFormModel {
 
   constructor(private authValidator: AuthValidator) {
     this.form = new FormGroup({
+      inputLogin: new FormControl('', [
+        Validators.required,
+        this.authValidator.inputLoginValidator('Login'),
+        this.authValidator.inputLengthValidation('Login', 4, 32),
+      ]),
       inputEmail: new FormControl('', [Validators.required, Validators.email]),
       inputFirstPassword: new FormControl('', [
         Validators.required,
@@ -39,10 +44,16 @@ export class RegisterFormModel {
     return this.form.controls['inputEmail'];
   }
 
+  get inputLogin() {
+    return this.form.controls['inputLogin'];
+  }
+
   toObj(): RegistrationRequest {
     return {
+      login: this.form.value.inputLogin,
       email: this.form.value.inputEmail,
       password: this.form.value.inputFirstPassword,
+      repeatPassword: this.form.value.inputSecondPassword,
       rememberMe: true,
     };
   }
