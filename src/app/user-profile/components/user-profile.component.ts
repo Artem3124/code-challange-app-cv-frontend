@@ -10,7 +10,7 @@ import { AuthStoreService } from "src/shared/services/store/auth-store.service";
 
   user: User;
 
-  constructor(private authStore: AuthStoreService) {
+  constructor(private authStore: AuthStoreService ) { // make loading all resolved and unresolved user problems here
     this.authStore.initiateAuthCheck();
   }
 
@@ -25,6 +25,7 @@ import { AuthStoreService } from "src/shared/services/store/auth-store.service";
       },
       error: (err: any) => console.error(err)
     })
+
   }
 
 }

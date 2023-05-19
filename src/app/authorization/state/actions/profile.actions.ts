@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
-import { AuthorizationActionTypes } from 'src/app/authorization/state/actions-types/authorization.action-type';
-import { LoginRequest, RegistrationRequest, User } from 'src/models';
+import { AuthorizationActionTypes } from 'src/app/authorization/state/actions-types/profile.action-type';
+import { CodeRunResultExpanded, LoginRequest, RegistrationRequest, User } from 'src/models';
 
 export const loginInitiated = createAction(
   AuthorizationActionTypes.LOGIN_INITIATED,
@@ -41,3 +41,17 @@ export const authUnexpectedError = createAction(
   AuthorizationActionTypes.UNEXPECTED_ERROR,
   props<{ error: Error }>()
 );
+
+export const initiateGettingAllCodeSubmissions = createAction(
+  AuthorizationActionTypes.GETTING_ALL_CODE_SUBMISSIONS_INITIATED,
+);
+
+export const gettingAllCodeSubmissionsSucceeded = createAction(
+  AuthorizationActionTypes.GETTING_ALL_CODE_SUBMISSIONS_SUCCEEDED,
+  props<{ codeSubmissions: CodeRunResultExpanded[] }>()
+)
+
+export const gettingAllCodeSubmissionsError = createAction(
+  AuthorizationActionTypes.GETTING_ALL_CODE_SUBMISSION_ERROR,
+  props<{error: Error}>()
+)

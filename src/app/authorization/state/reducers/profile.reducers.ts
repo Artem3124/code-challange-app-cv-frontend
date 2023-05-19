@@ -6,7 +6,7 @@ import {
   registrationFailed,
   registrationSucceeded,
   unauthorized,
-} from 'src/app/authorization/state/actions/authorization.actions';
+} from 'src/app/authorization/state/actions/profile.actions';
 import { AuthenticationState } from 'src/app/authorization/state/selectors/authorization.selector';
 import { User } from 'src/models';
 

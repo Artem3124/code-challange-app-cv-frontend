@@ -6,7 +6,7 @@ import {
   isAuthorizedCheck,
   loginInitiated,
   registrationInitiated,
-} from 'src/app/authorization/state/actions/authorization.actions';
+} from 'src/app/authorization/state/actions/profile.actions';
 import {
   AuthenticationState,
   isAuthenticated,

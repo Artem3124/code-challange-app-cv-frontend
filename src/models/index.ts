@@ -7,15 +7,19 @@ import { SubscriptionType } from "./enums/subscription-type.enum";
 import { Role } from "./enums/user-role.enum";
 
 
-export interface CodeProblem { 
-  uuid: string;
-  name: string;
-  complexityTypeId: CodeProblemComplexity;
+export interface CodeProblem extends CodeProblemView { 
   description: string;
   constraints: string[];
   examples: Example[];
   tags: string[];
   testSubjectName: string;
+}
+
+export interface CodeProblemView { 
+  name: string,
+  uuid: string,
+  complexityTypeId: CodeProblemComplexity;
+
 }
 
 interface Example { 

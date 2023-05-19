@@ -10,7 +10,7 @@ import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { AuthValidator } from 'src/shared/services/validators/auth.validator';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { authorizationReducer } from 'src/app/authorization/state/reducers/authorization.reducers';
+import { authorizationReducer } from 'src/app/authorization/state/reducers/profile.reducers';
 import { globalEffects } from 'src/app/state/effects';
 
 @NgModule({

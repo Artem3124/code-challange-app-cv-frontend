@@ -1,4 +1,4 @@
-import { AuthorizationEffects } from "src/app/authorization/state/effects/authorization.effects";
+import { ProfileEffects } from "src/app/authorization/state/effects/profile.effects";
 import { ProblemListEffects } from "src/app/main-page/store/effects/problems.effects";
 import { ProblemStateEffects } from "src/app/problem-page/state/effects/code-runs.effect";
 import { CodeTemplatesEffects } from "src/app/problem-page/state/effects/code-templates.effects";
@@ -16,5 +16,5 @@ export const mainPageEffects = [
 ]
 
 export const globalEffects = [
-  AuthorizationEffects
+  ProfileEffects
 ]

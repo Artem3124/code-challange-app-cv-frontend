@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { CodeSubmissionsActionsTypes } from '../action-types/code-runs.action-types';
-import { CodeRunResultExpanded } from 'src/models';
+import { CodeRunResultExpanded, CodeSubmission } from 'src/models';
 
 export const initiateGetCodeRunsHistory = createAction(
   CodeSubmissionsActionsTypes.GETTING_CODE_RUNS_HISTORY_INITIATED,
@@ -21,3 +21,5 @@ export const addingCodeRun = createAction(
   CodeSubmissionsActionsTypes.ADDING_CODE_RUN,
   props<{ codeRunResult: CodeRunResultExpanded }>()
 );
+
+

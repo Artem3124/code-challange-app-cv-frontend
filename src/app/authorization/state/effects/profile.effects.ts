@@ -8,6 +8,9 @@ import { catchError, exhaustMap, map } from 'rxjs';
 import {
   authUnexpectedError,
   authorized,
+  gettingAllCodeSubmissionsError,
+  gettingAllCodeSubmissionsSucceeded,
+  initiateGettingAllCodeSubmissions,
   isAuthorizedCheck,
   loginFailed,
   loginInitiated,
@@ -16,12 +19,12 @@ import {
   registrationInitiated,
   registrationSucceeded,
   unauthorized,
-} from 'src/app/authorization/state/actions/authorization.actions';
-import { LoginRequest, User } from 'src/models';
+} from 'src/app/authorization/state/actions/profile.actions';
+import { CodeRunResultExpanded, LoginRequest, User } from 'src/models';
 import { AuthHttpService } from 'src/shared/services/http/authentication.service';
 
 @Injectable()
-export class AuthorizationEffects {
+export class ProfileEffects {
   $login = createEffect(() =>
     this.actions$.pipe(
       ofType(loginInitiated),
@@ -73,6 +76,26 @@ export class AuthorizationEffects {
       )
     )
   );
+
+  
+  getAllSubmissions$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(initiateGettingAllCodeSubmissions),
+      exhaustMap(() => {
+        return this.codeRunsHttp.getAllCodeSubmissions().pipe(
+          map((response: CodeRunResultExpanded[]) => {
+            return gettingAllCodeSubmissionsSucceeded({
+              codeSubmissions: response,
+            });
+          }),
+          catchError(async (error: Error) =>
+            gettingAllCodeSubmissionsError({ error })
+          )
+        );
+      })
+    );
+  });
+
 
   constructor(
     private actions$: Actions,

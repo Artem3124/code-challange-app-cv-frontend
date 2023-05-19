@@ -1,8 +1,10 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { User } from "src/models";
+import { CodeProblemView, User } from "src/models";
 
 export interface AuthenticationState { 
   user: User | null;
+  lastResolvedProblems: CodeProblemView[];
+  lastUnresolvedProblems: CodeProblemView[];
 }
 
 const featureAuthKey = 'authState';
@@ -11,7 +13,4 @@ export const selectState = createFeatureSelector<AuthenticationState>(featureAut
 
 export const selectAuthState = createSelector(selectState, (state) => state.user);
 
-export const isAuthenticated = createSelector(selectState, (state) => {
-  console.log(state);
-  
-  return state.user === null ? false : true});
+export const isAuthenticated = createSelector(selectState, (state) => state.user === null ? false : true);

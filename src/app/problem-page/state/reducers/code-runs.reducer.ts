@@ -13,5 +13,5 @@ export const codeRunsReducer = createReducer(
       ...state,
       codeRuns: action.codeRunsHistory,
     }
-  })
+  }),
 )

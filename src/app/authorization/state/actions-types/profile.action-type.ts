@@ -9,4 +9,7 @@ export enum AuthorizationActionTypes {
   IS_AUTHORIZED = '[Auth Component] User authorized',
   UNAUTHORIZED = '[Auth Component] User unauthorized',
   UNEXPECTED_ERROR = '[Auth Component] Unexpected error while authorization',
+  GETTING_ALL_CODE_SUBMISSIONS_INITIATED = '[User profile component] Getting all code submission initiated',
+  GETTING_ALL_CODE_SUBMISSIONS_SUCCEEDED = '[User profile component] Getting all code submissions succeeded',
+  GETTING_ALL_CODE_SUBMISSION_ERROR = '[User profile component] Getting all code submissions error',
 }
