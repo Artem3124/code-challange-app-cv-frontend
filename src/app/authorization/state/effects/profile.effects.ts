@@ -1,16 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
 import { catchError, exhaustMap, map } from 'rxjs';
 import {
   authUnexpectedError,
   authorized,
-  gettingAllCodeSubmissionsError,
-  gettingAllCodeSubmissionsSucceeded,
-  initiateGettingAllCodeSubmissions,
   isAuthorizedCheck,
   loginFailed,
   loginInitiated,
@@ -18,9 +13,8 @@ import {
   registrationFailed,
   registrationInitiated,
   registrationSucceeded,
-  unauthorized,
 } from 'src/app/authorization/state/actions/profile.actions';
-import { CodeRunResultExpanded, LoginRequest, User } from 'src/models';
+import { User } from 'src/models';
 import { AuthHttpService } from 'src/shared/services/http/authentication.service';
 
 @Injectable()
@@ -76,26 +70,6 @@ export class ProfileEffects {
       )
     )
   );
-
-  
-  getAllSubmissions$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(initiateGettingAllCodeSubmissions),
-      exhaustMap(() => {
-        return this.codeRunsHttp.getAllCodeSubmissions().pipe(
-          map((response: CodeRunResultExpanded[]) => {
-            return gettingAllCodeSubmissionsSucceeded({
-              codeSubmissions: response,
-            });
-          }),
-          catchError(async (error: Error) =>
-            gettingAllCodeSubmissionsError({ error })
-          )
-        );
-      })
-    );
-  });
-
 
   constructor(
     private actions$: Actions,

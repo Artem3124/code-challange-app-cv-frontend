@@ -22,4 +22,16 @@ export const addingCodeRun = createAction(
   props<{ codeRunResult: CodeRunResultExpanded }>()
 );
 
+export const initiateGettingAllCodeSubmissions = createAction(
+  CodeSubmissionsActionsTypes.GETTING_ALL_CODE_SUBMISSIONS_INITIATED,
+);
 
+export const gettingAllCodeSubmissionsSucceeded = createAction(
+  CodeSubmissionsActionsTypes.GETTING_ALL_CODE_SUBMISSIONS_SUCCEEDED,
+  props<{ codeSubmissions: CodeRunResultExpanded[] }>()
+)
+
+export const gettingAllCodeSubmissionsError = createAction(
+  CodeSubmissionsActionsTypes.GETTING_ALL_CODE_SUBMISSION_ERROR,
+  props<{error: Error}>()
+)

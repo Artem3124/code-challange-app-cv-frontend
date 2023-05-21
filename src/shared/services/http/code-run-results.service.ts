@@ -19,6 +19,7 @@ export class CodeRunResultHttpService {
     return of([
       {
         uuid: "1234",
+        codeProblemUUID: '3413124',
         failedTest: {
           inputs: "2\n3\n",
           expected: "5\n",
@@ -36,6 +37,7 @@ export class CodeRunResultHttpService {
       },
       {
         uuid: "5678",
+        codeProblemUUID: '3413124',
         failedTest: undefined,
         compilationErrors: [],
         exceptionMessage: "",
@@ -46,6 +48,7 @@ export class CodeRunResultHttpService {
       },
       {
         uuid: "9012",
+        codeProblemUUID: '3413124',
         failedTest: undefined,
         compilationErrors: [
           {

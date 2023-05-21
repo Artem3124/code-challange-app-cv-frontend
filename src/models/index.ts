@@ -19,7 +19,7 @@ export interface CodeProblemView {
   name: string,
   uuid: string,
   complexityTypeId: CodeProblemComplexity;
-
+  language: CodeLanguage;
 }
 
 interface Example { 
@@ -51,6 +51,7 @@ export interface CodeRunResult {
 export interface CodeRunResultExpanded extends CodeRunResult { 
   sourceCode: string, 
   codeLanguage: CodeLanguage, 
+  codeProblemUUID: string,
 }
 
 export interface CompilationError {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from "src/models";
 import { AuthStoreService } from "src/shared/services/store/auth-store.service";
+import { CodeRunsStoreService } from "src/shared/services/store/code-runs-store.service";
 
 @Component({
   selector: 'user-profile',
@@ -10,8 +11,9 @@ import { AuthStoreService } from "src/shared/services/store/auth-store.service";
 
   user: User;
 
-  constructor(private authStore: AuthStoreService ) { // make loading all resolved and unresolved user problems here
+  constructor(private authStore: AuthStoreService, private codeRunsStore: CodeRunsStoreService) { // make loading all resolved and unresolved user problems here
     this.authStore.initiateAuthCheck();
+    this.codeRunsStore.initiateGettingAllCodeSubmissions();
   }
 
   ngOnInit(): void {
@@ -25,7 +27,7 @@ import { AuthStoreService } from "src/shared/services/store/auth-store.service";
       },
       error: (err: any) => console.error(err)
     })
-
   }
+  
 
 }

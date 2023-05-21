@@ -10,13 +10,24 @@ import {
   initiateFetchingProblemList,
   insertDataToProblemState,
   searchProblem,
-  testAction,
 } from '../actions/problems.actions';
 import { catchError, exhaustMap, map, withLatestFrom } from 'rxjs';
-import { CodeProblem } from 'src/models';
+import {
+  CodeProblem,
+  CodeProblemView,
+  CodeRunResultExpanded,
+} from 'src/models';
 import { Store } from '@ngrx/store';
 import { CodeProblemHttpService } from 'src/shared/services/http/code-problem.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import {
+  gettingAllCodeSubmissionsSucceeded,
+} from 'src/app/problem-page/state/actions/code-runs.actions';
+import {
+  setProfileViewProblem,
+  settingResolvedProblemError,
+} from 'src/app/authorization/state/actions/profile.actions';
+import { CodeRunOutcome } from 'src/models/enums/code-run-outcome.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -31,10 +42,12 @@ export class ProblemListEffects {
           (problem: CodeProblem) => problem.uuid === action.problemUUID
         );
 
-          console.log(problem);
+        console.log(problem);
 
         if (!problem) {
-          return initiateFetchingCodeProblem({ problemUUID: action.problemUUID   });
+          return initiateFetchingCodeProblem({
+            problemUUID: action.problemUUID,
+          });
         }
         console.log(action.problemUUID);
         console.log(problem);
@@ -73,6 +86,66 @@ export class ProblemListEffects {
           catchError(async (err: Error) => {
             return errorFetchingProblemList({ error: err });
           })
+        )
+      )
+    )
+  );
+
+  getAllResolvedProblems$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(gettingAllCodeSubmissionsSucceeded),
+      exhaustMap((action) =>
+        this.store.select(getProblemList).pipe(
+          map((data: CodeProblem[]) => {
+            const uniqueResolvedProblemViews: CodeProblemView[] = data.filter((codeProblem) => {
+              return action.codeSubmissions.some(
+                (codeSubmission: CodeRunResultExpanded) =>
+                  codeProblem.uuid === codeSubmission.codeProblemUUID &&
+                  codeSubmission.codeRunOutcomeId === CodeRunOutcome.Succeeded
+              );
+            }).map(
+              (resolvedProblem): CodeProblemView => {
+                return {
+                  name: resolvedProblem.name,
+                  uuid: resolvedProblem.uuid,
+                  complexityTypeId: resolvedProblem.complexityTypeId,
+                  language: resolvedProblem.language,
+                };
+              }
+            );
+
+            const uniqueUnresolvedProblemViews: CodeProblemView[] = data.filter((codeProblem) => {
+              return action.codeSubmissions.some(
+                (codeSubmission: CodeRunResultExpanded) =>
+                  codeProblem.uuid === codeSubmission.codeProblemUUID &&
+                  (codeSubmission.codeRunOutcomeId ===
+                    CodeRunOutcome.TestFailed ||
+                    codeSubmission.codeRunOutcomeId ===
+                      CodeRunOutcome.CompilationError ||
+                    codeSubmission.codeRunOutcomeId ===
+                      CodeRunOutcome.MemoryLimitExceeded ||
+                    codeSubmission.codeRunOutcomeId ===
+                      CodeRunOutcome.RuntimeError)
+              );
+            }).map(
+              (unResolvedProblem): CodeProblemView => {
+                return {
+                  name: unResolvedProblem.name,
+                  uuid: unResolvedProblem.uuid,
+                  complexityTypeId: unResolvedProblem.complexityTypeId,
+                  language: unResolvedProblem.language,
+                };
+              }
+            );
+
+            return setProfileViewProblem({
+              resolvedProblems: uniqueResolvedProblemViews,
+              unresolvedProblems: uniqueUnresolvedProblemViews
+            });
+          }),
+          catchError(async (error: Error) =>
+            settingResolvedProblemError({ error })
+          )
         )
       )
     )

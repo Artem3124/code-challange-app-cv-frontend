@@ -8,10 +8,10 @@ import {
   registrationInitiated,
 } from 'src/app/authorization/state/actions/profile.actions';
 import {
-  AuthenticationState,
+  ProfileState,
   isAuthenticated,
   selectAuthState,
-} from 'src/app/authorization/state/selectors/authorization.selector';
+} from 'src/app/authorization/state/selectors/profile.selector';
 import { LoginRequest, RegistrationRequest, User } from 'src/models';
 
 @Injectable()
@@ -40,5 +40,5 @@ export class AuthStoreService {
     this.store.dispatch(loginInitiated({ loginRequest: credentials }));
   }
 
-  constructor(private store: Store<AuthenticationState>) {}
+  constructor(private store: Store<ProfileState>) {}
 }

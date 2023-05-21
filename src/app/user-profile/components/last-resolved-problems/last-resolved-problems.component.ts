@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CodeProblem } from 'src/models';
+import CodeLanguage from 'src/models/enums/coding-languages.enum';
 
 @Component({
   selector: 'last-resolved-problems',
@@ -15,6 +16,7 @@ export class LastResolvedProblemsComponent {
     {
       uuid: '1',
       name: 'Sum of Numbers',
+      language: CodeLanguage.csharp,
       complexityTypeId: 2,
       description: 'Write a function that calculates the sum of two numbers.',
       constraints: [
@@ -32,6 +34,7 @@ export class LastResolvedProblemsComponent {
       uuid: '2',
       name: 'Palindrome Checker',
       complexityTypeId: 3,
+      language: CodeLanguage.csharp,
       description:
         'Write a function that checks if a given string is a palindrome.',
       constraints: [
@@ -49,6 +52,7 @@ export class LastResolvedProblemsComponent {
       uuid: '3',
       name: 'Factorial',
       complexityTypeId: 1,
+      language: CodeLanguage.csharp,
       description:
         'Write a function that calculates the factorial of a non-negative integer.',
       constraints: ['The input number is non-negative.'],

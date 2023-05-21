@@ -1,5 +1,8 @@
+
 import { Component, Input } from '@angular/core';
 import { User } from 'src/models';
+import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
+import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
 
 @Component({
   selector: 'profile-section',
@@ -11,7 +14,9 @@ import { User } from 'src/models';
   ],
 })
 export class ProfileComponent {
-  constructor() {}
+  constructor(private problemStore: ProblemListStoreService) {
+    this.problemStore.initiateProblemListFetching();
+  }
 
   @Input() user: User;
 }
