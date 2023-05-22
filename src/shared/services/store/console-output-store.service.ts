@@ -44,6 +44,6 @@ export class ConsoleOutputStoreService {
   }
 
   defaultResultView() {
-    return this.consoleOutputStore.dispatch(setCodeRunProgress({ codeRunProgress: {stage: CodeRunStage.Unset }}))
+    return this.consoleOutputStore.dispatch(setCodeRunProgress({ codeRunProgress: {stage: CodeRunStage.Unset, result: null}}))
   }
 }

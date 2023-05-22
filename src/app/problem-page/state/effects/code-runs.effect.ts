@@ -42,6 +42,8 @@ export class ProblemStateEffects {
       exhaustMap(() => {
         return this.codeRunsHttp.getAllCodeSubmissions().pipe(
           map((response: CodeRunResultExpanded[]) => {
+            console.log(response);
+            
             return gettingAllCodeSubmissionsSucceeded({
               codeSubmissions: response,
             });

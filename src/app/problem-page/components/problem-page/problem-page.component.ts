@@ -140,6 +140,7 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submitCode(runType: RunType) {
+    this.consoleOutputStore.defaultResultView(); // check wheather it works properly or not 
     this.codeRunStage = CodeRunStage.Queued;
 
     console.log(this.codeProblemState);

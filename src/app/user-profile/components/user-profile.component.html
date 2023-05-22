@@ -7,12 +7,12 @@
       <profile-section [user]="user" />
     </div>
     <div class="row mt-3">
-      <last-resolved-problems />
+      <last-resolved-problems [problems]="resolvedProblems"/>
     </div>
   </div>
   <div class="col-6">
     <div class="row mt-3">
-      <unresolved-problems />
+      <unresolved-problems [problems]="unresolvedProblems"/>
     </div>
   </div>
 </div>

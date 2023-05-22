@@ -17,5 +17,3 @@ export class ManageableSvgPathSize implements OnInit{
   @Input() iconSizeState: number = 26;
   @Input() iconSizeHeightCoefficient: number = 1;
 }
-
-export default ManageableSvgPathSize;

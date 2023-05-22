@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import AwaitingIconComponent from 'src/assets/svg/awaiting-icon/awaiting-icon.component';
 import { AwaitIconAnimation } from 'src/assets/svg/awaiting-icon/awatin-icon-animate.directive';
 import { CompletedProblemIconComponent } from 'src/assets/svg/succeeded-icon.component/succeeded-icon.component';
-import ManageableSvgPathSize from 'src/shared/directives/icon/manageable-icon-size.directive';
 import { ConsoleOutputComponent } from './components/problem-page/console-output/console-output.component';
 import { CompileErrorOutputComponent } from './components/problem-page/console-output/detailed-view-output/components/compile-error-output/compile-error-output.component';
 import { RuntimeErrorOutputComponent } from './components/problem-page/console-output/detailed-view-output/components/runtime-error-output/runtime-error-output.component';

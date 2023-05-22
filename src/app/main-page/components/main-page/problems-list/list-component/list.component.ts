@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProblemListFilter } from 'src/app/main-page/components/main-page/problems-list/models/filter.model';
-import { CodeProblem } from 'src/models';
+import { CodeProblem, CodeProblemView } from 'src/models';
 import ProblemComplexity from 'src/models/enums/problem-rarity.enum';
 import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
 
@@ -13,12 +13,12 @@ import { ProblemListStoreService } from 'src/shared/services/store/problem-list-
   ],
 })
 export class ListComponent {
-  @Input() codeProblems: CodeProblem[] = [];
+  @Input() codeProblems: CodeProblem[] | CodeProblemView[] = [];
 
   constructor(private problemsStore: ProblemListStoreService) {
   }
 
-  setProblemState(codeProblem: CodeProblem) {
+  setProblemState(codeProblem: CodeProblem | CodeProblemView) {
     this.problemsStore.findProblem(codeProblem.uuid);
   }
 }

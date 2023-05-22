@@ -11,8 +11,10 @@ import {
   ProfileState,
   isAuthenticated,
   selectAuthState,
+  selectResolvedProblems,
+  selectUnresolvedProblems,
 } from 'src/app/authorization/state/selectors/profile.selector';
-import { LoginRequest, RegistrationRequest, User } from 'src/models';
+import { CodeProblemView, LoginRequest, RegistrationRequest, User } from 'src/models';
 
 @Injectable()
 export class AuthStoreService {
@@ -24,6 +26,14 @@ export class AuthStoreService {
 
   getUser(): Observable<User | null> {
     return this.store.select(selectAuthState);
+  }
+
+  getResolvedProblems(): Observable<CodeProblemView[]> { 
+    return this.store.select(selectResolvedProblems);
+  }
+
+  getUnresolvedProblems(): Observable<CodeProblemView[]> { 
+    return this.store.select(selectUnresolvedProblems);
   }
 
   initiateAuthCheck() {

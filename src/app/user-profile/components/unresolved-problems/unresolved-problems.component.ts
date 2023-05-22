@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { CodeProblem } from "src/models";
+import { CodeProblem, CodeProblemView } from "src/models";
 
 @Component({
   selector: 'unresolved-problems',
@@ -8,8 +8,7 @@ import { CodeProblem } from "src/models";
   '../../../../shared/styles/fonts.scss',]
 }) export class UnresolvedProblemsComponent {
 
-  @Input() problems: CodeProblem[] = [];
+  @Input() problems: CodeProblemView[] = [];
 
-  constructor() {
-  }
+  constructor() {}
 }

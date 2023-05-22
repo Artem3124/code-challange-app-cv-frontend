@@ -6,13 +6,9 @@ import {
   registrationFailed,
   registrationSucceeded,
   setProfileViewProblem,
-  setResolvedProblem,
-  setUnresolvedProblems,
   unauthorized,
 } from 'src/app/authorization/state/actions/profile.actions';
 import { ProfileState } from 'src/app/authorization/state/selectors/profile.selector';
-import { gettingAllCodeSubmissionsSucceeded } from 'src/app/problem-page/state/actions/code-runs.actions';
-import { CodeProblemView, User } from 'src/models';
 
 const initialState: ProfileState = {
   user: null,
@@ -44,6 +40,7 @@ export const authorizationReducer = createReducer(
     return { 
       ...state,
       lastResolvedProblems: action.resolvedProblems,
+      lastUnresolvedProblems: action.unresolvedProblems,
     }
   }),
 );

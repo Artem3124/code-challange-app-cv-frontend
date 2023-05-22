@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { ConsoleOutputActionTypes } from 'src/app/problem-page/state/action-types/console-output.action-types';
+import { CodeRunProgressState } from 'src/app/problem-page/state/selectors/console-output.selector';
 import { CodeRunProgress, CodeRunResult } from 'src/models';
 import { CodeRunStage } from 'src/models/enums/code-run-stage.enum';
 
@@ -20,7 +21,7 @@ export const errorGettingCodeRunProgress = createAction(
 
 export const setCodeRunProgress = createAction(
   ConsoleOutputActionTypes.SET_CODE_RUN_PROGRESS,
-  props<{ codeRunProgress: CodeRunProgress }>()
+  props<{ codeRunProgress: CodeRunProgressState }>()
 );
 
 export const setCodeRunStage = createAction(

@@ -138,6 +138,9 @@ export class ProblemListEffects {
               }
             );
 
+            console.log({resolvedProblems: uniqueResolvedProblemViews,
+              unresolvedProblems: uniqueUnresolvedProblemViews});
+
             return setProfileViewProblem({
               resolvedProblems: uniqueResolvedProblemViews,
               unresolvedProblems: uniqueUnresolvedProblemViews

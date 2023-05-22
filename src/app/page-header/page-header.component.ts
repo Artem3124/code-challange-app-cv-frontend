@@ -1,4 +1,7 @@
 import { Component, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ProfileIconComponent } from 'src/assets/svg/profile-icon/profile-icon.component';
+import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
 
 @Component({
   templateUrl: './page-header.component.html',
@@ -15,6 +18,7 @@ export class PageHeaderComponent {
 
 
 @NgModule({
-  declarations: [PageHeaderComponent],
-  exports: [PageHeaderComponent]
+  declarations: [PageHeaderComponent, ProfileIconComponent],
+  exports: [PageHeaderComponent],
+  imports: [ManageableIconModule, RouterModule]
 }) export class PageHeaderModule {}
