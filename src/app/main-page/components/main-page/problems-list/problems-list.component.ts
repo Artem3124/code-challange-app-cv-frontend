@@ -39,9 +39,9 @@ export class ProblemsListComponent implements OnInit {
 
     if (filter.name.length > 0) {
       this.codeProblemsView = this.codeProblemsView.filter(
-        (codeProblem) =>
-          filter.name.includes(codeProblem.name) ||
-          codeProblem.name.includes(filter.name)
+        (codeProblem) =>{
+          return filter.name.includes(codeProblem.name) ||
+          codeProblem.name.includes(filter.name)}
       );
     }
 
@@ -64,5 +64,7 @@ export class ProblemsListComponent implements OnInit {
           )
       )
     }
+
+    console.log(this.codeProblemsView);
   }
 }

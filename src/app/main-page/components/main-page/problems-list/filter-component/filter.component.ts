@@ -32,7 +32,7 @@ export class ProblemsFilterComponent {
 
   emitFilter() { 
     this.filterEmitter.emit(
-      {name: this.filterForm.toObj(), complexity: this.currentComplexities, tags: ['string'] }
+      {name: this.filterForm.toObj(), complexity: this.currentComplexities, tags: [] }
     )
   }
 

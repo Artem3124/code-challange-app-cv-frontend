@@ -1,10 +1,16 @@
 <div class="container global-content-container header-component">
   <div class="row justify-content-between">
-    <div class="col">
+    <div class="col d-flex align-items-center">
       <span [routerLink]="['/home']" class="header-component-text font-poppins-600">Code Skills</span>
     </div>
-    <div class="col-1">
+    <div class="col-1" *ngIf="isLoggedIn">
       <profile-icon [routerLink]="['/profile']"  class="profile-icon"/>
+    </div>
+    <div class="col-2" *ngIf="!isLoggedIn">
+      <div class="row">
+        <div class="col login auth-option font-poppins-600" [routerLink]="['/login']">Log in</div>
+        <div class="col register auth-option font-poppins-600" [routerLink]="['/register']">Register</div>
+      </div>
     </div>
   </div>
 </div>

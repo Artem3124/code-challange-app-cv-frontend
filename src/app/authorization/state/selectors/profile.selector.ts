@@ -1,10 +1,11 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { CodeProblemView, User } from "src/models";
+import { CodeProblemView, User, UserStatistic } from "src/models";
 
 export interface ProfileState { 
   user: User | null;
-  lastResolvedProblems: CodeProblemView[];
-  lastUnresolvedProblems: CodeProblemView[];
+  lastResolvedProblems: CodeProblemView[] | null;
+  lastUnresolvedProblems: CodeProblemView[] | null;
+  resolvedProblemsStatistic: UserStatistic | null;
 }
 
 const featureAuthKey = 'authState';

@@ -1,0 +1,13 @@
+
+:host ::ng-deep mat-progress-bar {
+  //height: 1.8em;
+}
+
+:host ::ng-deep mat-progress-bar .mdc-linear-progress__bar-inner {
+  border-top-width: 1.1em;
+  border-radius: 100em;
+}
+
+:host ::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__buffer-bar {
+  background-color: #e4e4e4;
+}

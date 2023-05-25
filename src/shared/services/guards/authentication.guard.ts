@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { AuthHttpService } from '../http/authentication.service';
+import { ProfileHttpService } from '../http/profile.service';
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private authStore: AuthStoreService,
-    private authHttp: AuthHttpService
+    private authHttp: ProfileHttpService
   ) {
     this.authStore.initiateAuthCheck();
   }
@@ -39,7 +39,6 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/home']);
           return false;
         }
-
         return true;
       })
       )

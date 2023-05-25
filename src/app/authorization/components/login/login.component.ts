@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginFormModel } from './login.form';
-import { AuthHttpService } from 'src/shared/services/http/authentication.service';
+import { ProfileHttpService } from 'src/shared/services/http/profile.service';
 import { Router } from '@angular/router';
 import { AuthValidator } from 'src/shared/services/validators/auth.validator';
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
@@ -19,7 +19,7 @@ import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 export class LoginComponent {
   loginForm: LoginFormModel = new LoginFormModel(new AuthValidator());
 
-  constructor(private authStore: AuthStoreService, private authService: AuthHttpService, private router: Router) {
+  constructor(private authStore: AuthStoreService, private authService: ProfileHttpService, private router: Router) {
   }
 
   submitLogin() {

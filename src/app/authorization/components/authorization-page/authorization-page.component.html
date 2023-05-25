@@ -8,8 +8,9 @@
         <div class="container">
           <div class="row justify-content-center">
             <img
+              [routerLink]="['/home']"
               src="../../../../assets/svg/main-logo/main-logo.svg"
-              style="width: 40%; margin: 2em"
+              style="width: 40%; margin: 2em; cursor: pointer;"
             />
           </div>
           <router-outlet name='authRouter'></router-outlet>

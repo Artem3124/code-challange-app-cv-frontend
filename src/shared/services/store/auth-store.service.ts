@@ -3,8 +3,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   authorized,
+  getStatisticInitiated,
   isAuthorizedCheck,
   loginInitiated,
+  logoutInitiated,
   registrationInitiated,
 } from 'src/app/authorization/state/actions/profile.actions';
 import {
@@ -28,11 +30,11 @@ export class AuthStoreService {
     return this.store.select(selectAuthState);
   }
 
-  getResolvedProblems(): Observable<CodeProblemView[]> { 
+  getResolvedProblems(): Observable<CodeProblemView[] | null> { 
     return this.store.select(selectResolvedProblems);
   }
 
-  getUnresolvedProblems(): Observable<CodeProblemView[]> { 
+  getUnresolvedProblems(): Observable<CodeProblemView[] | null> { 
     return this.store.select(selectUnresolvedProblems);
   }
 
@@ -48,6 +50,14 @@ export class AuthStoreService {
 
   initiateLogin(credentials: LoginRequest) {
     this.store.dispatch(loginInitiated({ loginRequest: credentials }));
+  }
+
+  initiateLogout() { 
+    this.store.dispatch(logoutInitiated());
+  }
+
+  getStatistic() { 
+    this.store.dispatch(getStatisticInitiated());
   }
 
   constructor(private store: Store<ProfileState>) {}

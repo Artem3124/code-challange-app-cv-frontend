@@ -3,11 +3,38 @@ import { createAction, props } from '@ngrx/store';
 import { AuthorizationActionTypes } from 'src/app/authorization/state/actions-types/profile.action-type';
 import {
   CodeProblemView,
-  CodeRunResultExpanded,
   LoginRequest,
   RegistrationRequest,
   User,
+  UserStatistic,
 } from 'src/models';
+
+export const getStatisticInitiated = createAction(
+  AuthorizationActionTypes.GET_STATISTIC
+);
+
+export const getStatisticSucceeded = createAction(
+  AuthorizationActionTypes.GET_STATISTIC_SUCCEEDED,
+  props<{ statistics: UserStatistic }>()
+);
+
+export const getStatisticError = createAction(
+  AuthorizationActionTypes.GET_STATISTIC_ERROR,
+  props<{ error: Error }>()
+);
+
+export const logoutInitiated = createAction(
+  AuthorizationActionTypes.LOGOUT_INITIATED
+);
+
+export const logoutSucceeded = createAction(
+  AuthorizationActionTypes.LOGIN_SUCCEEDED
+);
+
+export const logoutError = createAction(
+  AuthorizationActionTypes.LOGOUT_ERROR,
+  props<{ error: Error }>()
+);
 
 export const loginInitiated = createAction(
   AuthorizationActionTypes.LOGIN_INITIATED,
@@ -50,7 +77,10 @@ export const authUnexpectedError = createAction(
 
 export const setProfileViewProblem = createAction(
   AuthorizationActionTypes.SET_RESOLVED_PROBLEMS,
-  props<{ resolvedProblems: CodeProblemView[], unresolvedProblems: CodeProblemView[] }>()
+  props<{
+    resolvedProblems: CodeProblemView[];
+    unresolvedProblems: CodeProblemView[];
+  }>()
 );
 
 export const settingResolvedProblemError = createAction(

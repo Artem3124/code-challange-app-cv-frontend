@@ -17,12 +17,17 @@ import { ProblemPageModule } from '../problem-page/problem-page.module';
 import { globalEffects } from 'src/app/state/effects';
 import { authorizationReducer } from 'src/app/authorization/state/reducers/profile.reducers';
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { UserProfileModule } from 'src/app/user-profile/user-profile.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
+    UserProfileModule,
     HttpClientModule,
     AppRoutingModule,
     ProblemPageModule,
@@ -36,6 +41,7 @@ import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthStoreService,

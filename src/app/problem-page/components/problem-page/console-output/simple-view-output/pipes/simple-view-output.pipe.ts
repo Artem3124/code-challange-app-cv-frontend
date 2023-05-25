@@ -20,7 +20,6 @@ export interface SimpleViewOutputActions {
   pure: true,
 })
 export class CodeStageToSimpleViewPipe implements PipeTransform {
-
   private awaitingIconState: IconWithBackgroundState = {
     size: 60,
     strokeColor: '#535153',
@@ -35,17 +34,20 @@ export class CodeStageToSimpleViewPipe implements PipeTransform {
     lengthSizeMultiplier: 0.867469,
   };
 
-  private errorIconState: IconWithBackgroundState = { 
+  private errorIconState: IconWithBackgroundState = {
     size: 60,
     strokeColor: '#D14A4A',
     backgroundColor: '#E7E6DF',
     lengthSizeMultiplier: 0.8795,
-  }
+  };
 
   transform(
-    inputStage: CodeRunStage, inputOutcome: CodeRunOutcome
+    inputStage: CodeRunStage,
+    inputOutcome: CodeRunOutcome
   ): SimpleViewOutputActions | null {
-    switch(inputOutcome) { 
+    console.log(inputOutcome);
+    console.log(inputStage);
+    switch (inputOutcome) {
       case CodeRunOutcome.Succeeded: {
         return {
           header: 'Problem resolved successfully',
@@ -54,15 +56,25 @@ export class CodeStageToSimpleViewPipe implements PipeTransform {
         };
       }
       case CodeRunOutcome.TimeLimitExceeded: {
-        return { header: 'Time limit exceeded', isErrorIcon: true, iconState: this.errorIconState };
+        return {
+          header: 'Time limit exceeded',
+          isErrorIcon: true,
+          iconState: this.errorIconState,
+        };
       }
       case CodeRunOutcome.MemoryLimitExceeded: {
-        return { header: 'Memory limit exceeded', isErrorIcon: true, iconState: this.errorIconState };
+        return {
+          header: 'Memory limit exceeded',
+          isErrorIcon: true,
+          iconState: this.errorIconState,
+        };
       }
-      case CodeRunOutcome.RuntimeError | CodeRunOutcome.CompilationError: {
+      case CodeRunOutcome.TestFailed: 
+      case CodeRunOutcome.CompilationError:
+      case CodeRunOutcome.RuntimeError: {
         return null;
       }
-    } 
+    }
 
     switch (inputStage) {
       case CodeRunStage.Unset: {

@@ -4,7 +4,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { SidebarComponent } from './components/sidebar/sidebar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthHttpService } from 'src/shared/services/http/authentication.service';
+import { ProfileHttpService } from 'src/shared/services/http/profile.service';
 import { AuthorizationPageComponent } from './components/authorization-page/authorization-page.component';
 import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { AuthValidator } from 'src/shared/services/validators/auth.validator';
@@ -27,6 +27,6 @@ import { globalEffects } from 'src/app/state/effects';
     AuthorizationPageComponent,
   ],
   exports: [AuthorizationPageComponent],
-  providers: [AuthHttpService, AuthValidator],
+  providers: [ProfileHttpService, AuthValidator],
 })
 export class AuthorizationModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CodeProblemView, User } from 'src/models';
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 import { CodeRunsStoreService } from 'src/shared/services/store/code-runs-store.service';
@@ -12,13 +13,15 @@ export class UserProfileComponent implements OnInit {
   user: User;
   resolvedProblems: CodeProblemView[] = [];
   unresolvedProblems: CodeProblemView[] = [];
+
   constructor(
     private authStore: AuthStoreService,
     private codeRunsStore: CodeRunsStoreService,
     private profileStore: AuthStoreService,
+    private router: Router,
   ) {
-    // make loading all resolved and unresolved user problems here
     this.authStore.initiateAuthCheck();
+    this.authStore.getStatistic();
     this.codeRunsStore.initiateGettingAllCodeSubmissions();
   }
 
@@ -26,6 +29,7 @@ export class UserProfileComponent implements OnInit {
     this.authStore.getUser().subscribe({
       next: (user: User | null) => {
         if (!user) {
+          this.router.navigate(['/home'])
           return;
         }
 
@@ -35,7 +39,7 @@ export class UserProfileComponent implements OnInit {
     });
 
     this.profileStore.getResolvedProblems().subscribe({
-      next: (resolvedProblems: CodeProblemView[]) => { 
+      next: (resolvedProblems: CodeProblemView[] | null) => { 
         if (!resolvedProblems) { 
           return;
         }
@@ -45,7 +49,7 @@ export class UserProfileComponent implements OnInit {
     })
 
     this.profileStore.getUnresolvedProblems().subscribe({
-      next: (unresolvedProblems: CodeProblemView[]) => { 
+      next: (unresolvedProblems: CodeProblemView[] | null) => { 
         if (!unresolvedProblems) { 
           return;
         }

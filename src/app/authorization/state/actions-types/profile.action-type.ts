@@ -15,4 +15,10 @@ export enum AuthorizationActionTypes {
   SET_UNRESOLVED_PROBLEMS = '[Profile component] Set unresolved problems',
   SETTING_UNRESOLVED_PROBLEMS_ERROR = '[Profile component] Set unresolved problems occurred in problems effect file',
   GET_UNRESOLVED_PROBLEMS = '[Profile component] Get unresolved problems',
+  LOGOUT_INITIATED = '[Profile Component] Log out initiated.',
+  LOGOUT_SUCCEEDED = '[Profile Component] Log out succeeded.',
+  LOGOUT_ERROR = '[Profile Component] Error occurred while log outing.',
+  GET_STATISTIC = '[Profile Component] Get statistic initiated.',
+  GET_STATISTIC_SUCCEEDED = '[Profile Component] Get statistic succeeded.',
+  GET_STATISTIC_ERROR = '[Profile Component] Get statistic error.'
 }

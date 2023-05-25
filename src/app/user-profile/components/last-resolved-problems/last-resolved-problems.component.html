@@ -1,6 +1,11 @@
-<div class="container global-content-container">
-  <div class="row mt-3 mb-3">
+<div class="container global-content-container problems-list-section">
+  <div class="row mb-3">
     <div class="container font-poppins-600">Last resolved problems</div>
+  </div>
+  <div class="row" *ngIf="noProblemsCurrentlyAvailable">
+    <div class="container font-poppins-500">
+      No resolved problems :(
+    </div>
   </div>
   <list-component [codeProblems]="problems"/>
 </div>

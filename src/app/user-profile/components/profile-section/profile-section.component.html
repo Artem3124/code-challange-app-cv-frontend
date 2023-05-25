@@ -5,8 +5,12 @@
     </div>
     <div class="col-8">
       <div class="row">
-        <div class="col-6 user-name">@{{user.login}}</div>
-        <div class="col-6 ranked-bar"></div>
+        <div class="container d-flex justify-content-center user-name font-poppins-600">@{{user.login}}</div>
+      </div>
+      <div class="row mt-5">
+        <div class="container logout d-flex justify-content-center font-poppins-500 w-auto p-0" (click)="logOut()">
+          Log out
+        </div>
       </div>
     </div>
   </div>
