@@ -4,6 +4,7 @@ enum CodeLanguage {
   c_cpp = 2,
   javascript = 3,
   Java = 4,
+  python = 5,
 }
 
 export default CodeLanguage;

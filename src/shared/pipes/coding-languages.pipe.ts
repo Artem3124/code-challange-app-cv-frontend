@@ -7,18 +7,22 @@ import CodeLanguage from 'src/models/enums/coding-languages.enum';
 })
 export class CodingLanguagesPipe implements PipeTransform {
   transform(codingLanguages: CodeLanguage): string | null {
-    if (codingLanguages === CodeLanguage.c_cpp) {
-      return 'C++';
-    }
-
-    if (codingLanguages === CodeLanguage.csharp) {
-      return 'C#';
-    }
-
-    if (codingLanguages === CodeLanguage.javascript) {
-      return 'JS';
-    } else {
-      return null;
+    switch(codingLanguages) {
+      case(CodeLanguage.c_cpp): { 
+        return 'C++';
+      }
+      case(CodeLanguage.csharp): { 
+        return 'C#';
+      }
+      case(CodeLanguage.javascript): { 
+        return 'JS';
+      }
+      case(CodeLanguage.python): { 
+        return 'Py';
+      }
+      default: { 
+        return null;
+      }
     }
   }
 }

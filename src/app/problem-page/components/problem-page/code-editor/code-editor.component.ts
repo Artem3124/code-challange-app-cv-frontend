@@ -11,6 +11,7 @@ import * as ace from 'ace-builds';
 import 'ace-builds/src-noconflict/mode-csharp';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-c_cpp';
+import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-cloud9_day.js';
 import { Observable } from 'rxjs';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
