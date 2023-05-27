@@ -33,6 +33,7 @@ import { ConsoleOutputStoreService } from 'src/shared/services/store/console-out
 import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/state/reducers/console-output.reducer';
 import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
 import { StringToCodeLanguagePipe } from './components/problem-page/code-editor-settings/string-to-code-language.pipe';
+import { UtcToLocalDateTimePipe } from './components/problem-page/submission-history/code-run/utc-to-local-date-time.pipe';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { StringToCodeLanguagePipe } from './components/problem-page/code-editor-
     CodeRunComponent,
     CodeRunOutcomeDirective,
     StringToCodeLanguagePipe,
+    UtcToLocalDateTimePipe,
   ],
   imports: [
     RarityIconModule,

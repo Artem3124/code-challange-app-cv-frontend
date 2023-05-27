@@ -2,6 +2,6 @@
   <div class="row">
     <div codeRunOutcomeStyle [codeRunOutcome]="codeRun.codeRunOutcomeId" class="col">{{codeRunOutcome}}</div>
     <div class="col">{{codeRun.codeLanguage | codeLanguage}}</div>
-    <div class="col">{{codeRun.duration == 0 ? "Didn't run" : codeRun.duration}}</div>
+    <div class="col">{{ codeRun.dateTimeUtc | toLocal }}</div>
   </div>
 </div>
