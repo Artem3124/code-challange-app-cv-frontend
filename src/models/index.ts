@@ -48,6 +48,7 @@ export interface CodeRunResult {
 }
 
 export interface CodeRunResultExpanded extends CodeRunResult {
+  dateTimeUtc: string;
   sourceCode: string;
   codeLanguage: CodeLanguage;
   codeProblemUUID: string;

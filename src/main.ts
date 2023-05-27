@@ -3,7 +3,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app-component/app.module';
 
 import { environment } from './environments/environment';
+import * as dayjs from 'dayjs';
+import dayjsPluginUTC  from 'dayjs/plugin/utc'
 
+dayjs.extend(dayjsPluginUTC);
 if (environment.production) {
     enableProdMode();
 }
