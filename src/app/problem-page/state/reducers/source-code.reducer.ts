@@ -20,9 +20,15 @@ export const sourceCodeReducer = createReducer(
         i++;
       }
 
+      const dictionaryCodes: Dictionary<string> = {
+        ...state.sourceCode,
+        ...action.codeDictionary,
+      };
+      
+
       return { 
         ...state,
-        sourceCode: action.codeDictionary
+        sourceCode: dictionaryCodes
       }
     }
   ),
