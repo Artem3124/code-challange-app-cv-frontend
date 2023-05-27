@@ -40,21 +40,17 @@ export class UserProfileComponent implements OnInit {
 
     this.profileStore.getResolvedProblems().subscribe({
       next: (resolvedProblems: CodeProblemView[] | null) => { 
-        if (!resolvedProblems) { 
-          return;
+        if (resolvedProblems) { 
+          this.resolvedProblems = resolvedProblems;
         }
-
-        this.resolvedProblems = resolvedProblems;
       }
     })
 
     this.profileStore.getUnresolvedProblems().subscribe({
       next: (unresolvedProblems: CodeProblemView[] | null) => { 
-        if (!unresolvedProblems) { 
-          return;
+        if (unresolvedProblems) { 
+          this.unresolvedProblems = unresolvedProblems;
         }
-
-        this.unresolvedProblems = unresolvedProblems;
       }
     })
   }
