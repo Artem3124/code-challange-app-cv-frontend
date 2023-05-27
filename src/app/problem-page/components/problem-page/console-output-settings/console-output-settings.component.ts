@@ -39,29 +39,20 @@ export class ConsoleOutputSettingsComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     this.sourceCodeStore.getReadonlySourceCode().subscribe({
       next: (readonlyCode: Dictionary<string> | null) => {
-        if (readonlyCode !== null) { 
-          this.isReadOnlyView = true;
-          return;
-        }
-        
-        this.isReadOnlyView = false;
+          this.isReadOnlyView = readonlyCode !== null;
       },
     });
   }
 
   runCode(): void {
-    if (!this.submitAvailable) {
-      return;
+    if (this.submitAvailable) {
+      this.submitEvent.emit(RunType.Run);
     }
-
-    this.submitEvent.emit(RunType.Run);
   }
 
   submitCode(): void {
-    if (!this.submitAvailable) {
-      return;
+    if (this.submitAvailable) {
+      this.submitEvent.emit(RunType.Submit);
     }
-    
-    this.submitEvent.emit(RunType.Submit);
   }
 }
