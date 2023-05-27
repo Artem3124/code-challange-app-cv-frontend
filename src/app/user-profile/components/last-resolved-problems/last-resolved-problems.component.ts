@@ -10,8 +10,11 @@ import CodeLanguage from 'src/models/enums/coding-languages.enum';
   '../../../../shared/styles/fonts.scss', '../user-profile.component.scss'],
 })
 export class LastResolvedProblemsComponent {
-  constructor() {}
+  constructor() {
+    this.noProblemsCurrentlyAvailable = this.problems.length <= 0
+  }
 
   @Input() problems: CodeProblemView[] = [];
-  noProblemsCurrentlyAvailable: boolean = this.problems.length <= 0;
+  noProblemsCurrentlyAvailable: boolean = false;
+
 }

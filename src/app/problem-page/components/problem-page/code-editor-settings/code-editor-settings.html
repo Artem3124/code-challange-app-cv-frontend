@@ -7,7 +7,7 @@
       id="language-selection"
       class="form-select code-change-menu"
     >
-      <option 
+      <option [disabled]="isReadonlyCodeView"
       #codeLanguageOption
         *ngFor="let language of availableLanguagesInput" 
         id="language"

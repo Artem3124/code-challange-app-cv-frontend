@@ -21,3 +21,21 @@ export const setReadOnlyCode = createAction(
 export const defaultReadOnlyCode = createAction( 
   SourceCodeActions.DEFAULT_READONLY_CODE
 )
+
+export const setCurrentLanguage = createAction( 
+  SourceCodeActions.SET_CURRENT_LANGUAGE,
+  props<{language: CodeLanguage}>()
+)
+
+export const setCurrentLanguageError = createAction( 
+  SourceCodeActions.SET_CURRENT_LANGUAGE,
+  props<{error: Error}>()
+)
+export const setCurrentReadonlyLanguage = createAction( 
+  SourceCodeActions.SET_CURRENT_LANGUAGE,
+  props<{language: CodeLanguage}>()
+)
+export const setCurrentReadonlyLanguageError = createAction( 
+  SourceCodeActions.SET_CURRENT_LANGUAGE,
+  props<{error: Error}>()
+)

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core"
 import { Store } from "@ngrx/store"
 import { Observable } from "rxjs"
-import { defaultReadOnlyCode, hardSetSourceCode, setReadOnlyCode } from "src/app/problem-page/state/actions/source-code.actions"
-import { selectReadonlyCode } from "src/app/problem-page/state/selectors/source-code.selector"
+import { defaultReadOnlyCode, hardSetSourceCode, setCurrentLanguage, setCurrentReadonlyLanguage, setReadOnlyCode } from "src/app/problem-page/state/actions/source-code.actions"
+import { selectCodeLanguage, selectReadonlyCode, selectReadonlyCodeLanguage } from "src/app/problem-page/state/selectors/source-code.selector"
 import { SourceCodeDictionary, selectSourceCode } from "src/app/problem-page/state/selectors/source-code.selector"
 import CodeLanguage from "src/models/enums/coding-languages.enum"
 import { Dictionary } from "src/shared/data-types/dictionary.data-type"
@@ -24,11 +24,27 @@ export class SourceCodeStoreService {
     this.store.dispatch(setReadOnlyCode({ code: code, language: codeLanguage}));
   }
 
+  setSourceCodeLanguage(language: CodeLanguage) { 
+    this.store.dispatch(setCurrentLanguage({language}))
+  }
+
+  setReadonlySourceCodeLanguage(language: CodeLanguage) { 
+    this.store.dispatch(setCurrentReadonlyLanguage({language}))
+  }
+
   getSourceCode(): Observable<Dictionary<string> | null> { 
     return this.store.select(selectSourceCode);
   }
 
   getReadonlySourceCode(): Observable<Dictionary<string> | null> { 
     return this.store.select(selectReadonlyCode);
+  }
+
+  getSourceCodeLanguage(): Observable<CodeLanguage | null> { 
+    return this.store.select(selectCodeLanguage);
+  }
+  
+  getReadonlySourceCodeLanguage(): Observable<CodeLanguage | null> { 
+    return this.store.select(selectReadonlyCodeLanguage);
   }
 }

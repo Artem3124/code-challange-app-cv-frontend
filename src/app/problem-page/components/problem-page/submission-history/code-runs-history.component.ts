@@ -51,6 +51,8 @@ export class CodeRunsHistoryComponent implements OnInit {
 
     this.consoleOutputStore.setRunResultView(codeRun);
 
+    this.sourceCodeStore.setReadonlySourceCodeLanguage(codeRun.codeLanguage);
+
     this.sourceCodeStore.setReadonlySourceCode(
       codeRun.sourceCode,
       codeRun.codeLanguage
