@@ -110,6 +110,7 @@ export class ProblemListEffects {
                                     uuid: resolvedProblem.uuid,
                                     complexityTypeId: resolvedProblem.complexityTypeId,
                                     language: resolvedProblem.language,
+                                    state: resolvedProblem.state,
                                 };
                             }
                         );
@@ -118,12 +119,13 @@ export class ProblemListEffects {
                             const problemSubmissions = action.codeSubmissions.filter(s => s.codeProblemUUID === codeProblem.uuid);
                             return problemSubmissions.length && !problemSubmissions.some(s => s.codeRunOutcomeId === CodeRunOutcome.Succeeded);
                         }).map(
-                            (unResolvedProblem): CodeProblemView => {
+                            (unresolvedProblem): CodeProblemView => {
                                 return {
-                                    name: unResolvedProblem.name,
-                                    uuid: unResolvedProblem.uuid,
-                                    complexityTypeId: unResolvedProblem.complexityTypeId,
-                                    language: unResolvedProblem.language,
+                                    name: unresolvedProblem.name,
+                                    uuid: unresolvedProblem.uuid,
+                                    complexityTypeId: unresolvedProblem.complexityTypeId,
+                                    language: unresolvedProblem.language,
+                                    state: unresolvedProblem.state,
                                 };
                             }
                         );

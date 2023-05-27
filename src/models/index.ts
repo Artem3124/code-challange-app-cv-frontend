@@ -24,6 +24,7 @@ export interface CodeProblemView {
   uuid: string;
   complexityTypeId: CodeProblemComplexity;
   language: CodeLanguage;
+  state: CodeProblemState;
 }
 
 interface Example {
@@ -110,4 +111,10 @@ export interface UserStatistic {
   easyProblemsSolved: number;
   mediumProblemsSolved: number;
   hardProblemsSolved: number;
+}
+
+export enum CodeProblemState {
+  Unattended = 0,
+  Attended = 1,
+  Resolved = 2,
 }
