@@ -2,9 +2,9 @@
   <div class="row mb-3">
     <div class="container font-poppins-600">Unresolved problems</div>
   </div>
-  <div class="row" *ngIf="problems.length <= 0">
+  <div class="row" *ngIf="!problems.length">
     <div class="container font-poppins-500">
-      No resolved problems :(
+      Wow, you solved all problems!
     </div>
   </div>
   <list-component [codeProblems]="problems"/>

@@ -115,18 +115,8 @@ export class ProblemListEffects {
             );
 
             const uniqueUnresolvedProblemViews: CodeProblemView[] = data.filter((codeProblem) => {
-              return action.codeSubmissions.some(
-                (codeSubmission: CodeRunResultExpanded) =>
-                  codeProblem.uuid === codeSubmission.codeProblemUUID &&
-                  (codeSubmission.codeRunOutcomeId ===
-                    CodeRunOutcome.TestFailed ||
-                    codeSubmission.codeRunOutcomeId ===
-                      CodeRunOutcome.CompilationError ||
-                    codeSubmission.codeRunOutcomeId ===
-                      CodeRunOutcome.MemoryLimitExceeded ||
-                    codeSubmission.codeRunOutcomeId ===
-                      CodeRunOutcome.RuntimeError)
-              );
+              const problemSubmissions = action.codeSubmissions.filter(s => s.codeProblemUUID === codeProblem.uuid);
+              return problemSubmissions.length && !problemSubmissions.some(s => s.codeRunOutcomeId === CodeRunOutcome.Succeeded);
             }).map(
               (unResolvedProblem): CodeProblemView => {
                 return {

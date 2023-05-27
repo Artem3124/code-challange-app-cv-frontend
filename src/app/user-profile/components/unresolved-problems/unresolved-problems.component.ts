@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { CodeProblem, CodeProblemView } from "src/models";
+import { CodeProblemView } from "src/models";
 
 @Component({
   selector: 'unresolved-problems',
