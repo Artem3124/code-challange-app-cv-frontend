@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
 import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
+import { CodeTemplateStoreService } from 'src/shared/services/store/code-template.service';
 
 const THEME: string = 'ace/theme/cloud9_day';
 
@@ -33,10 +34,13 @@ export class CodeEditorComponent implements AfterViewInit {
   @Input() codeTemplate: Observable<string>;
   @Output() codeValueEmitter: EventEmitter<string> = new EventEmitter<string>();
 
+  private codeTemplates: Dictionary<string> | null = null;
+
   private currentLanguage: CodeLanguage = CodeLanguage.csharp;
   private isReadonlyCode: boolean = false;
   constructor(
-    private sourceCodeStore: SourceCodeStoreService
+    private sourceCodeStore: SourceCodeStoreService,
+    private codeTemplateStore: CodeTemplateStoreService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -64,11 +68,25 @@ export class CodeEditorComponent implements AfterViewInit {
     this.currentLanguageObservable.subscribe((inputLanguage: CodeLanguage) => {
       this.currentLanguage = inputLanguage;
       this.setEditorLanguage(CodeLanguage[inputLanguage]);
+      this.setEditorTemplate(this.codeTemplates![this.currentLanguage]);
     });
 
     this.codeTemplate.subscribe((codeTemplate: string) => {
       this.setEditorTemplate(codeTemplate);
     });
+
+    this.codeTemplateStore.getCodeTemplates().subscribe({
+      next: (templates: Dictionary<string> | null) => { 
+        if (!templates) { 
+          return;
+        }
+
+        this.codeTemplates = templates;
+      },
+      error: (error: Error) => { 
+        console.error(error);
+      }
+    })
 
   }
 
