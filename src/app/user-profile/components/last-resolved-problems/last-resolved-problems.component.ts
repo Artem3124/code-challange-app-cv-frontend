@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CodeProblem, CodeProblemView } from 'src/models';
-import CodeLanguage from 'src/models/enums/coding-languages.enum';
+import { CodeProblemView } from 'src/models';
 
 @Component({
   selector: 'last-resolved-problems',
@@ -13,5 +12,4 @@ export class LastResolvedProblemsComponent {
   constructor() {}
 
   @Input() problems: CodeProblemView[] = [];
-  noProblemsCurrentlyAvailable: boolean = this.problems.length <= 0;
 }
