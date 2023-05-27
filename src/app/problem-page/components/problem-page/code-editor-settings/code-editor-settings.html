@@ -2,8 +2,7 @@
   <div class="row">
     <div class="col">
       <select
-      #codeLanguageSelect
-      (change)="onSetLanguage(codeLanguageSelect.value)"
+      (change)="onCodeLanguageChange($event)"
       name="language-picker"
       id="language-selection"
       class="form-select code-change-menu"

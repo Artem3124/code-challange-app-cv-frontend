@@ -9,6 +9,7 @@ import CodeLanguage from 'src/models/enums/coding-languages.enum';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
+import { StringToCodeLanguagePipe } from './string-to-code-language.pipe';
 
 @Component({
   selector: 'code-editor-settings',
@@ -26,7 +27,8 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
 
   constructor(
     private sourceCodeStore: SourceCodeStoreService,
-    private consoleOutputStore: ConsoleOutputStoreService
+    private consoleOutputStore: ConsoleOutputStoreService,
+    private stringToCodeProblem: StringToCodeLanguagePipe,
   ) {}
 
   ngAfterViewInit(): void {
@@ -45,9 +47,13 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
   @Output() currentLanguageEvent: EventEmitter<CodeLanguage> =
     new EventEmitter<CodeLanguage>();
 
-  onSetLanguage(language: string | CodeLanguage) {
-    console.log(language);
-    this.currentLanguageEvent.emit(language as CodeLanguage);
+  onCodeLanguageChange($event: Event): void {
+    const value = ($event.target as HTMLInputElement).value;
+    this.onSetLanguage(this.stringToCodeProblem.transform(value));
+  }
+
+  onSetLanguage(codeLanguage: CodeLanguage) {
+    this.currentLanguageEvent.emit(codeLanguage);
   }
 
   onClick(): void {
