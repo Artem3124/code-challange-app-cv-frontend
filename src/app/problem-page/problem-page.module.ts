@@ -32,6 +32,7 @@ import { CodeRunOutcomeDirective } from 'src/shared/directives/output-style.dire
 import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
 import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/state/reducers/console-output.reducer';
 import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
+import { StringToCodeLanguagePipe } from './components/problem-page/code-editor-settings/string-to-code-language.pipe';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon
     ProblemTagComponent,
     CodeRunComponent,
     CodeRunOutcomeDirective,
-
+    StringToCodeLanguagePipe,
   ],
   imports: [
     RarityIconModule,
