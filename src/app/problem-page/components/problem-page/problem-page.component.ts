@@ -127,7 +127,7 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setCurrentLanguage(language: CodeLanguage) {
-    console.log(CodeLanguage[language]);
+    this.subscribeSourceCode(language);
     this.currentLanguage = language;
     this.currentLanguageObserver.next(language);
   }
@@ -142,9 +142,6 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
   submitCode(runType: RunType) {
     this.consoleOutputStore.defaultResultView(); // check wheather it works properly or not 
     this.codeRunStage = CodeRunStage.Queued;
-
-    console.log(this.codeProblemState);
-
     var codeSubmissionRequest = {
       codeProblemUUID: this.codeProblemState.uuid,
       codeLanguage: this.currentLanguage,
