@@ -29,7 +29,9 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
     private sourceCodeStore: SourceCodeStoreService,
     private consoleOutputStore: ConsoleOutputStoreService,
     private stringToCodeProblem: StringToCodeLanguagePipe
-  ) {}
+  ) {
+    this.sourceCodeStore.setSourceCodeLanguage(CodeLanguage.csharp)
+  }
 
   ngAfterViewInit(): void {
     this.onSetLanguage(CodeLanguage.csharp);
@@ -41,13 +43,7 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
           this.onSetLanguage(readonlyLanguage);
           return;
         }
-        this.sourceCodeStore.getSourceCodeLanguage().subscribe({
-          next: (language: CodeLanguage | null) => {
-            if (language) {
-              this.onSetLanguage(language);
-            }
-          },
-        });
+        
       },
     });
 
@@ -64,16 +60,20 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
 
   onCodeLanguageChange($event: Event): void {
     const value = ($event.target as HTMLInputElement).value;
+    
     this.onSetLanguage(this.stringToCodeProblem.transform(value));
   }
 
   onSetLanguage(codeLanguage: CodeLanguage) {
+    this.currentCodeLanguage = codeLanguage;
+    this.sourceCodeStore.setSourceCodeLanguage(codeLanguage);
     this.currentLanguageEvent.emit(codeLanguage);
   }
 
   onClick(): void {
     this.isReadonlyCodeView = false;
-    this.sourceCodeStore.defaultReadonlyCode();
+    this.sourceCodeStore.setReadonlySourceCodeLanguage(null);
+    this.sourceCodeStore.defaultReadonlyCode(); // return back to current solution through the effect
     this.consoleOutputStore.defaultResultView();
   }
 }

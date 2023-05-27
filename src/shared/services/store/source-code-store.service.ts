@@ -24,11 +24,11 @@ export class SourceCodeStoreService {
     this.store.dispatch(setReadOnlyCode({ code: code, language: codeLanguage}));
   }
 
-  setSourceCodeLanguage(language: CodeLanguage) { 
+  setSourceCodeLanguage(language: CodeLanguage | null) { 
     this.store.dispatch(setCurrentLanguage({language}))
   }
 
-  setReadonlySourceCodeLanguage(language: CodeLanguage) { 
+  setReadonlySourceCodeLanguage(language: CodeLanguage | null) { 
     this.store.dispatch(setCurrentReadonlyLanguage({language}))
   }
 
