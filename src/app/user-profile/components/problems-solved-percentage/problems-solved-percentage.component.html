@@ -15,7 +15,7 @@
   <div class="row solved-percantage">
     <div class="col">
       <div class="row main-percantage mb-3">
-        <percentage-chart></percentage-chart>
+        <percentage-chart *ngIf="statistic" [statistic]="statistic"></percentage-chart>
       </div>
     </div>
   </div>

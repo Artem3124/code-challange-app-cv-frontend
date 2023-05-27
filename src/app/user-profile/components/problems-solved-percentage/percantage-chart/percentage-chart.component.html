@@ -1,6 +1,6 @@
 <div
   class="container font-poppins-500"
-  *ngIf="(completedProblems / allProblems) * 100 | parseInt as progress"
+  *ngIf="statistic && (getSolvedProblemsCount() / statistic.problemsCount) * 100 | parseInt as progress"
 >
   <div class="row">
     <div class="container d-flex justify-content-center w-auto">
@@ -45,8 +45,8 @@
     <div
       class="container font-poppins-500 d-flex justify-content-center w-auto"
     >
-      {{ statistic.problemsCount }}/{{ allProblems }} -
-      {{ statistic.problemsCount }} solved out of {{ allProblems }} problems.
+      {{ getSolvedProblemsCount() }} / {{ statistic.problemsCount }} -
+      {{ getSolvedProblemsCount() }} solved out of {{ statistic.problemsCount }} problems.
     </div>
   </div>
 </div>

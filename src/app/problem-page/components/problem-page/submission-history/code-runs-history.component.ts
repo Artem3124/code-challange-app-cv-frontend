@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CodeRunResultExpanded } from 'src/models';
+import { RunType } from 'src/models/enums/run-type.enum';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 import { CodeRunsStoreService } from 'src/shared/services/store/code-runs-store.service';
 import { ConsoleOutputStoreService } from 'src/shared/services/store/console-output-store.service';
-import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
 import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class CodeRunsHistoryComponent implements OnInit {
     private sourceCodeStore: SourceCodeStoreService,
     private codeRunsStore: CodeRunsStoreService,
     private router: Router,
-    private consoleOutputStore: ConsoleOutputStoreService
+    private consoleOutputStore: ConsoleOutputStoreService,
     ) {}
 
     ngOnInit(): void {
@@ -32,8 +32,9 @@ export class CodeRunsHistoryComponent implements OnInit {
                         this.codeProblemUUID
                     );
                 }
-        
-                this.codeRuns = response;
+                this.codeRuns = response.filter(r => r.runType === RunType.Submit).sort((a, b) => {
+                  return new Date(b.dateTimeUtc).getTime() - new Date(a.dateTimeUtc).getTime();
+              });
             },
         });
 
