@@ -12,3 +12,11 @@
   border-bottom: 1px solid #535153;
   margin: 0em 1em
 }
+
+.list-element-new {
+  transition: 0.3s;
+}
+
+.list-element-new:hover {
+  color: #457E9D !important;
+}

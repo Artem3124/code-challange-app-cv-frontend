@@ -6,6 +6,11 @@ import { RunType } from './enums/run-type.enum';
 import { SubscriptionType } from './enums/subscription-type.enum';
 import { Role } from './enums/user-role.enum';
 
+export interface Tag {
+  id: number;
+  name: string;
+}
+
 export interface CodeProblem extends CodeProblemView {
   description: string;
   constraints: string[];

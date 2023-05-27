@@ -5,41 +5,41 @@ import { ProblemPageDescriptionComponent } from './components/problem-page/probl
 import { CodeRunsHistoryComponent } from './components/problem-page/submission-history/code-runs-history.component';
 
 const routes = RouterModule.forChild([
-  {
-    path: '',
-    component: ProblemPageComponent,
-    children: [
-      {
-        path: 'description',
-        children: [
-          {
-            outlet: 'problemPage',
-            path: '',
-            component: ProblemPageDescriptionComponent,
-          },
-        ],
-      },
-      {
-        path: 'submissions',
-        children: [
-          {
-            outlet: 'problemPage',
-            path: '',
-            component: CodeRunsHistoryComponent,
-          },
-        ],
-      },
-      {
+    {
         path: '',
-        redirectTo: 'description',
-        pathMatch: 'full'
-      }
-    ],
-  },
+        component: ProblemPageComponent,
+        children: [
+            {
+                path: 'description',
+                children: [
+                    {
+                        outlet: 'problemPage',
+                        path: '',
+                        component: ProblemPageDescriptionComponent,
+                    },
+                ],
+            },
+            {
+                path: 'submissions',
+                children: [
+                    {
+                        outlet: 'problemPage',
+                        path: '',
+                        component: CodeRunsHistoryComponent,
+                    },
+                ],
+            },
+            {
+                path: '',
+                redirectTo: 'description',
+                pathMatch: 'full'
+            }
+        ],
+    },
 ]);
 
 @NgModule({
-  imports: [routes],
-  exports: [RouterModule],
+    imports: [routes],
+    exports: [RouterModule],
 })
 export class ProblemPageRoutingModule {}

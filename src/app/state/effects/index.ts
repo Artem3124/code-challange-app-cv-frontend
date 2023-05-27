@@ -6,15 +6,15 @@ import { ConsoleOutputEffects } from "src/app/problem-page/state/effects/console
 
 
 export const problemStateEffects = [
-  ProblemStateEffects,
-  CodeTemplatesEffects,
-  ConsoleOutputEffects,
+    ProblemStateEffects,
+    CodeTemplatesEffects,
+    ConsoleOutputEffects,
 ]
  
 export const mainPageEffects = [
-  ProblemListEffects,
+    ProblemListEffects,
 ]
 
 export const globalEffects = [
-  ProfileEffects
+    ProfileEffects
 ]

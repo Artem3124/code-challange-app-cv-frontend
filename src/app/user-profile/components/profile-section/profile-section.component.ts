@@ -5,22 +5,22 @@ import { ProblemListStoreService } from 'src/shared/services/store/problem-list-
 import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
 
 @Component({
-  selector: 'profile-section',
-  templateUrl: './profile-section.component.html',
-  styleUrls: [
-    './profile-section.component.scss',
-    '../../../../shared/styles/global-elements.scss',
-    '../../../../shared/styles/fonts.scss',
-  ],
+    selector: 'profile-section',
+    templateUrl: './profile-section.component.html',
+    styleUrls: [
+        './profile-section.component.scss',
+        '../../../../shared/styles/global-elements.scss',
+        '../../../../shared/styles/fonts.scss',
+    ],
 })
 export class ProfileComponent {
-  constructor(private problemStore: ProblemListStoreService, private authStore: AuthStoreService) {
-    this.problemStore.initiateProblemListFetching();
-  }
+    constructor(private problemStore: ProblemListStoreService, private authStore: AuthStoreService) {
+        this.problemStore.initiateProblemListFetching();
+    }
 
   @Input() user: User;
 
   logOut() { 
-    this.authStore.initiateLogout();
+      this.authStore.initiateLogout();
   }
 }

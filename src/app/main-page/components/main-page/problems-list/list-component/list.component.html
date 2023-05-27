@@ -1,28 +1,17 @@
 
 <div
-  class="row list-element-section"
+  class="row bg-white m-2 p-3"
   *ngFor="let item of codeProblems; let problemNumber = index"
 >
-  <div
-    class="col-1"
-    style="
-      font-size: 1.7em;
-      padding: 0 !important;
-      max-width: fit-content !important;"
-  >
-    {{ problemNumber + 1 }}.
-  </div>
   <a
     [routerLink]="['/problem/', item.uuid]"
     (click)="setProblemState(item)"
-    class="col-7 list-element d-flex align-items-center"
-    style="font-size: 1.2em;padding-left: none !important"
-  >
+    class="col-7 list-element-new text-capitalize list-element d-flex align-items-center pl-0 w-100"
+    style="font-size: 1.2em;">
     <complexity-icon
       [complexity]="item.complexityTypeId"
       [iconSize]="20"
       style="padding: 0em 1em"
     ></complexity-icon>
-    {{ item.name }}</a
-  >
+    {{ item.name }}</a>
 </div>

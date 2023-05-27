@@ -10,20 +10,20 @@ interface DetailedViewOutputActions {
 }
 
 @Pipe({
-  name: 'outcomeTypeToDetailedView'
+    name: 'outcomeTypeToDetailedView'
 }) export class CodeStageToDetailedViewPipe implements PipeTransform {
-  transform(inputOutcome: CodeRunOutcome): DetailedViewOutputActions | null {
-    switch (inputOutcome) { 
-      case CodeRunOutcome.CompilationError: { 
-        return { header: 'Compile Error', isCompilationError: true }
-      }
-      case CodeRunOutcome.TestFailed: { 
-        return {header: 'Test failed', isRuntimeError: true}
-      }
-      case CodeRunOutcome.RuntimeError: { 
-        return { header: 'RuntimeError', isRuntimeError: true }
-      }
-      default: return null;
-    }
-  } 
+    transform(inputOutcome: CodeRunOutcome): DetailedViewOutputActions | null {
+        switch (inputOutcome) { 
+        case CodeRunOutcome.CompilationError: { 
+            return { header: 'Compile Error', isCompilationError: true }
+        }
+        case CodeRunOutcome.TestFailed: { 
+            return {header: 'Test failed', isRuntimeError: true}
+        }
+        case CodeRunOutcome.RuntimeError: { 
+            return { header: 'RuntimeError', isRuntimeError: true }
+        }
+        default: return null;
+        }
+    } 
 }

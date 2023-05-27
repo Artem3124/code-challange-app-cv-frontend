@@ -3,16 +3,16 @@ import { MainPageState } from ".."
 import { doneFetchingCodeProblemList } from "../actions/problems.actions"
 
 export const initialState: MainPageState = { 
-  problemList: [],
+    problemList: [],
 }
 
 export const problemListReducer = createReducer(
-  initialState,
-  on(doneFetchingCodeProblemList, (state, action) => {
-    return {
-      ...state,
-      problemList: action.problemsList,
-    };
-  })
+    initialState,
+    on(doneFetchingCodeProblemList, (state, action) => {
+        return {
+            ...state,
+            problemList: action.problemsList,
+        };
+    })
 );
 

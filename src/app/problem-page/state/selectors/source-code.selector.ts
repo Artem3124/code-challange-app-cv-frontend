@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import {
-  selectProblemState,
-  CurrentProblemState,
+    selectProblemState,
+    CurrentProblemState,
 } from 'src/app/problem-page/state';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
@@ -14,27 +14,27 @@ export interface SourceCodeDictionary {
 }
 
 const selectSourceCodeState = createSelector(
-  selectProblemState,
-  (state: CurrentProblemState): SourceCodeDictionary => state.sourceCodeState
+    selectProblemState,
+    (state: CurrentProblemState): SourceCodeDictionary => state.sourceCodeState
 );
 
 export const selectSourceCode = createSelector(
-  selectSourceCodeState,
-  (state: SourceCodeDictionary): Dictionary<string> | null => state.sourceCode
+    selectSourceCodeState,
+    (state: SourceCodeDictionary): Dictionary<string> | null => state.sourceCode
 );
 
 export const selectReadonlyCode = createSelector(
-  selectSourceCodeState,
-  (state: SourceCodeDictionary): Dictionary<string> | null =>
-    state.readonlySourceCode
+    selectSourceCodeState,
+    (state: SourceCodeDictionary): Dictionary<string> | null =>
+        state.readonlySourceCode
 );
 
 export const selectReadonlyCodeLanguage = createSelector(
-  selectSourceCodeState,
-  (state: SourceCodeDictionary): CodeLanguage | null => state.readonlySourceCodeLanguage
+    selectSourceCodeState,
+    (state: SourceCodeDictionary): CodeLanguage | null => state.readonlySourceCodeLanguage
 )
 
 export const selectCodeLanguage = createSelector(
-  selectSourceCodeState,
-  (state: SourceCodeDictionary): CodeLanguage | null => state.sourceCodeLanguage
+    selectSourceCodeState,
+    (state: SourceCodeDictionary): CodeLanguage | null => state.sourceCodeLanguage
 )

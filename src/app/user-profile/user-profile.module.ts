@@ -16,27 +16,27 @@ import { UserProfileRouterModule } from 'src/app/user-profile/user-profile.routi
 import { StatisticHttpService } from 'src/shared/services/http/statistic.service';
 
 @NgModule({
-  imports: [
-    ListModule,
-    CommonModule,
-    RouterModule,
-    PageHeaderModule,
-    UserProfileRouterModule,
-    NgApexchartsModule,
-    MatProgressBarModule,
+    imports: [
+        ListModule,
+        CommonModule,
+        RouterModule,
+        PageHeaderModule,
+        UserProfileRouterModule,
+        NgApexchartsModule,
+        MatProgressBarModule,
     
-  ],
-  declarations: [
-    UserProfileComponent,
-    ProfileComponent,
-    LastResolvedProblemsComponent,
-    UnresolvedProblemsComponent,
-    ProblemsSolvedPercentage,
-    PercentageChartComponent,
-    ParseIntPipe,
-  ],
-  providers: [
-    StatisticHttpService,
-  ]
+    ],
+    declarations: [
+        UserProfileComponent,
+        ProfileComponent,
+        LastResolvedProblemsComponent,
+        UnresolvedProblemsComponent,
+        ProblemsSolvedPercentage,
+        PercentageChartComponent,
+        ParseIntPipe,
+    ],
+    providers: [
+        StatisticHttpService,
+    ]
 })
 export class UserProfileModule {}

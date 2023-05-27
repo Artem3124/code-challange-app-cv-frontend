@@ -10,17 +10,17 @@ import { CodeRunsHistoryState, selectCodeRunsHistory, selectCodeRunsState } from
 @Injectable()
 export class CodeRunsStoreService { 
 
-  constructor(private store: Store<CodeRunsHistoryState>) {}
+    constructor(private store: Store<CodeRunsHistoryState>) {}
 
-  initiateGettingCodeSubmissions(problemUUID: string) { 
-    this.store.dispatch(initiateGetCodeRunsHistory({ codeProblemUUID: problemUUID }))
-  }
+    initiateGettingCodeSubmissions(problemUUID: string) { 
+        this.store.dispatch(initiateGetCodeRunsHistory({ codeProblemUUID: problemUUID }))
+    }
 
-  getSubmissionHistory(): Observable<CodeRunResultExpanded[]> { 
-    return this.store.select(selectCodeRunsHistory);
-  }
+    getSubmissionHistory(): Observable<CodeRunResultExpanded[]> { 
+        return this.store.select(selectCodeRunsHistory);
+    }
 
-  initiateGettingAllCodeSubmissions() { 
-    this.store.dispatch(initiateGettingAllCodeSubmissions());
-  }
+    initiateGettingAllCodeSubmissions() { 
+        this.store.dispatch(initiateGettingAllCodeSubmissions());
+    }
 }

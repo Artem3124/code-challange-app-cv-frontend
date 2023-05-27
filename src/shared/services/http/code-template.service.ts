@@ -5,15 +5,15 @@ import { Observable } from "rxjs";
 import { CodeProblem, CodeProblemTemplate } from "src/models";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 }) export class CodeTemplateHttpService { 
-  constructor(private http: HttpBase) {}
+    constructor(private http: HttpBase) {}
 
-  getCodeTemplate(codeProblemUUID: string, codeLanguage: CodeLanguage): Observable<CodeProblemTemplate> { 
-    return this.http.get<CodeProblemTemplate>(`CodeTemplate/${codeProblemUUID}/template/${codeLanguage}`) 
-  }
+    getCodeTemplate(codeProblemUUID: string, codeLanguage: CodeLanguage): Observable<CodeProblemTemplate> { 
+        return this.http.get<CodeProblemTemplate>(`CodeTemplate/${codeProblemUUID}/template/${codeLanguage}`) 
+    }
 
-  getCodeTemplates(codeProblemUUID: string): Observable<CodeProblemTemplate[]> { 
-    return this.http.get<CodeProblemTemplate[]>(`CodeTemplate?codeProblemUUID=${codeProblemUUID}`)
-  }
+    getCodeTemplates(codeProblemUUID: string): Observable<CodeProblemTemplate[]> { 
+        return this.http.get<CodeProblemTemplate[]>(`CodeTemplate?codeProblemUUID=${codeProblemUUID}`)
+    }
 }

@@ -8,15 +8,15 @@ export interface CurrentProblemDataState {
 }
 
 export const selectProblemDataState = createSelector(
-  selectProblemState,
-  (state: CurrentProblemState): CurrentProblemDataState =>
-    state.codeProblemDescriptionState
+    selectProblemState,
+    (state: CurrentProblemState): CurrentProblemDataState =>
+        state.codeProblemDescriptionState
 );
 
 export const selectCodeProblem = createSelector(
-  selectProblemDataState,
-  (state: CurrentProblemDataState): CodeProblem | null => {
-    console.log(state);
-    return state.codeProblem;
-  }
+    selectProblemDataState,
+    (state: CurrentProblemDataState): CodeProblem | null => {
+        console.log(state);
+        return state.codeProblem;
+    }
 );

@@ -3,15 +3,15 @@ import { doneFetchingCodeProblem, insertDataToProblemState } from "src/app/main-
 import { CurrentProblemDataState } from "../selectors/problem.selector";
 
 const initialState: CurrentProblemDataState = { 
-  codeProblem: null,
+    codeProblem: null,
 }
 
 export const codeProblemReducer = createReducer(
-  initialState, 
-  on(insertDataToProblemState, doneFetchingCodeProblem, (state, action) => {
-    return {
-      ...state,
-      codeProblem: action.problem,
-    }
-  })
+    initialState, 
+    on(insertDataToProblemState, doneFetchingCodeProblem, (state, action) => {
+        return {
+            ...state,
+            codeProblem: action.problem,
+        }
+    })
 )

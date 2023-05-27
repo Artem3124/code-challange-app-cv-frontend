@@ -6,26 +6,26 @@ import { AuthStoreService } from "src/shared/services/store/auth-store.service";
 import { RegistrationRequest } from "src/models";
 
 @Component({
-  selector: 'register-component',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss',
-  '../../../../shared/styles/global-elements.scss',
-  '../../../../shared/styles/custom-form.scss',
-  '../../../../shared/styles/fonts.scss',
-  '../../../../shared/styles/alerts.scss',
-]
+    selector: 'register-component',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss',
+        '../../../../shared/styles/global-elements.scss',
+        '../../../../shared/styles/custom-form.scss',
+        '../../../../shared/styles/fonts.scss',
+        '../../../../shared/styles/alerts.scss',
+    ]
 }) export class RegisterComponent { 
 
-  registrationForm: RegisterFormModel = new RegisterFormModel(new AuthValidator());
+    registrationForm: RegisterFormModel = new RegisterFormModel(new AuthValidator());
 
-  constructor(private authService: ProfileHttpService, private authStore: AuthStoreService) {
-  }
+    constructor(private authService: ProfileHttpService, private authStore: AuthStoreService) {
+    }
 
-  submitRegistration() { 
-    var registrationRequest: RegistrationRequest = this.registrationForm.toObj();
+    submitRegistration() { 
+        const registrationRequest: RegistrationRequest = this.registrationForm.toObj();
 
-    console.log(registrationRequest);
+        console.log(registrationRequest);
 
-    this.authStore.initiateRegistration(registrationRequest);
-  }
+        this.authStore.initiateRegistration(registrationRequest);
+    }
 }

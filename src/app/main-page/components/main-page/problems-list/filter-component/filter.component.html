@@ -11,7 +11,7 @@
             placeholder="Type name of the problem"
             id="problem-search-input"
             formControlName="inputProblemName"
-          />
+            (change)="emitFilter()"/>
           <span class="input-group-text custom-search-input">
             <find-icon [iconSize]="22"></find-icon>
           </span>
@@ -19,62 +19,42 @@
       </form>
     </div>
   </div>
-  <div class="row filter-component">
-    <div class="col-4">Active Filters</div>
-    <div class="col-8">{{ currentFilters }}</div>
-  </div>
-  <div class="row filter-component justify-content-center">
+  <div class="row filter-component justify-content-center align-items-center h-100">
     <div class="col-3">Complexity</div>
     <div class="col-9">
       <div class="row">
-        <div class="col-6">
-          <div class="row justify-content-left">
+        
+        <div class="col-12">
+          <div class="row justify-content-start">
             <div
-              class="col-1 active-complexity"
-              *ngFor="let complexity of currentComplexities"
-            >
-              <complexity-icon
-                [complexity]="complexity"
-                [iconSize]="20"
-                (click)="removeComplexity(complexity)"
-                style="cursor: pointer"
-              ></complexity-icon>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="row justify-content-right">
-            <div
-              class="col-1 disabled-complexity"
+              class="col-1 fit-content"
               *ngFor="let complexity of availableComplexities"
             >
               <complexity-icon
+                [backgroundColor]="isComplexitySelected(complexity) ? '#EDEDED' : ''"
                 [complexity]="complexity"
                 [iconSize]="20"
-                (click)="setComplexity(complexity)"
-                style="cursor: pointer"
+                (click)="switchComplexity(complexity)"
               ></complexity-icon>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-12 m-2 justify-content-left">Tags</div>
+
     <div class="row filter-component">
-      <div class="col-5">Choose Filters:</div>
-      <div class="col-7">{{ availableFilters }}</div>
-    </div>
-    <div class="row filter-actions  flex-row-reverse">
-      <div
-        class="col offset-md-1 find-btn custom-button font-poppins-700"
-        (click)="emitFilter()"
-      >
-        Search
+      <!-- <div class="col-5">Choose Filters:</div> -->
+      <div class="col-7 code-problem-tag-container p-1" *ngIf="tags">
+        <code-problem-tag *ngFor="let tag of tags" [tag]="tag" [selected]="isTagSelected(tag.name)" (clickEventEmitter)="tagSwitch($event)"></code-problem-tag>
       </div>
+    </div>
+    <div class="row m-0">
       <div
         class="col back-btn custom-button font-poppins-700"
         (click)="emitCancelFiltering()"
       >
-        Back
+        Reset
       </div>
     </div>
   </div>

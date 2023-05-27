@@ -4,6 +4,6 @@ import { ManageableSvgPathSize } from "src/shared/directives/icon/manageable-ico
 import { ProblemComplexityPipe } from "src/shared/pipes/problem-complexity.pipe";
 
 @NgModule({
-  declarations: [ManageableSvgPathSize, ManageableIconColor],
-  exports: [ManageableSvgPathSize, ManageableIconColor]
+    declarations: [ManageableSvgPathSize, ManageableIconColor],
+    exports: [ManageableSvgPathSize, ManageableIconColor]
 }) export class ManageableIconModule {}

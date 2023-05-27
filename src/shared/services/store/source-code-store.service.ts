@@ -9,42 +9,42 @@ import { Dictionary } from "src/shared/data-types/dictionary.data-type"
 
 @Injectable()
 export class SourceCodeStoreService {
-  constructor(private store: Store<SourceCodeDictionary>) {}
+    constructor(private store: Store<SourceCodeDictionary>) {}
 
-  setSourceCodeState(code: string, codeType: CodeLanguage) { 
-    this.store.dispatch(hardSetSourceCode({codeDictionary: {[codeType]: code}}));
-  }
+    setSourceCodeState(code: string, codeType: CodeLanguage) { 
+        this.store.dispatch(hardSetSourceCode({codeDictionary: {[codeType]: code}}));
+    }
 
-  defaultReadonlyCode() { 
-    this.store.dispatch(defaultReadOnlyCode());
-  }
+    defaultReadonlyCode() { 
+        this.store.dispatch(defaultReadOnlyCode());
+    }
 
-  setReadonlySourceCode(code: string, codeLanguage: CodeLanguage) { 
-    console.log(['dagger', code]);
-    this.store.dispatch(setReadOnlyCode({ code: code, language: codeLanguage}));
-  }
+    setReadonlySourceCode(code: string, codeLanguage: CodeLanguage) { 
+        console.log(['dagger', code]);
+        this.store.dispatch(setReadOnlyCode({ code: code, language: codeLanguage}));
+    }
 
-  setSourceCodeLanguage(language: CodeLanguage | null) { 
-    this.store.dispatch(setCurrentLanguage({language}))
-  }
+    setSourceCodeLanguage(language: CodeLanguage | null) { 
+        this.store.dispatch(setCurrentLanguage({language}))
+    }
 
-  setReadonlySourceCodeLanguage(language: CodeLanguage | null) { 
-    this.store.dispatch(setCurrentReadonlyLanguage({language}))
-  }
+    setReadonlySourceCodeLanguage(language: CodeLanguage | null) { 
+        this.store.dispatch(setCurrentReadonlyLanguage({language}))
+    }
 
-  getSourceCode(): Observable<Dictionary<string> | null> { 
-    return this.store.select(selectSourceCode);
-  }
+    getSourceCode(): Observable<Dictionary<string> | null> { 
+        return this.store.select(selectSourceCode);
+    }
 
-  getReadonlySourceCode(): Observable<Dictionary<string> | null> { 
-    return this.store.select(selectReadonlyCode);
-  }
+    getReadonlySourceCode(): Observable<Dictionary<string> | null> { 
+        return this.store.select(selectReadonlyCode);
+    }
 
-  getSourceCodeLanguage(): Observable<CodeLanguage | null> { 
-    return this.store.select(selectCodeLanguage);
-  }
+    getSourceCodeLanguage(): Observable<CodeLanguage | null> { 
+        return this.store.select(selectCodeLanguage);
+    }
   
-  getReadonlySourceCodeLanguage(): Observable<CodeLanguage | null> { 
-    return this.store.select(selectReadonlyCodeLanguage);
-  }
+    getReadonlySourceCodeLanguage(): Observable<CodeLanguage | null> { 
+        return this.store.select(selectReadonlyCodeLanguage);
+    }
 }

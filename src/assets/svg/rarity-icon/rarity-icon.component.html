@@ -1,4 +1,4 @@
-<svg
+<div [ngStyle]="{'background':backgroundColor}" class="icon-wrapper p-1" data-toggle="tooltip" data-placement="right" title="{{ complexity | rarityIconTooltip }}"><svg
   *ngIf="complexity | problemComplexity:{
     size: iconSize,
     lengthSizeMultiplier: 1.318181
@@ -31,3 +31,4 @@
       [iconStrokeColor]="this.iconState.strokeColor"
       />
     </svg>
+</div>

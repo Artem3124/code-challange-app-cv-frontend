@@ -3,7 +3,8 @@ import { Component, Input, NgModule } from "@angular/core";
 import ProblemComplexity from "src/models/enums/problem-rarity.enum";
 import { IconStateBase } from "src/models/icon/icon-state.model";
 import { ManageableIconModule } from "src/shared/directives/icon/manageable-icon.module";
-import { ProblemComplexityPipe, ProblemComplexityPipeModule } from "src/shared/pipes/problem-complexity.pipe";
+import { ProblemComplexityPipeModule } from "src/shared/pipes/problem-complexity.pipe";
+import { RarityIconTooltipPipe } from "./rarity-icon-tooltip.pipe";
 
 export interface RarityIconState extends IconStateBase {
   fill: string;
@@ -11,20 +12,28 @@ export interface RarityIconState extends IconStateBase {
 }
 
 @Component({
-  selector: "complexity-icon",
-  templateUrl: "./rarity-icon.component.html",
-  styleUrls: ['./rarity-icon.component.scss'],
+    selector: "complexity-icon",
+    templateUrl: "./rarity-icon.component.html",
+    styleUrls: ['./rarity-icon.component.scss'],
 })
 
 export class RarityIconComponent {
-  constructor() {}
+    constructor() {}
 
   @Input() complexity: ProblemComplexity;
-  @Input() iconSize: number = 30;
+  @Input() iconSize = 30;
+  @Input() backgroundColor: string;
 }
 
 @NgModule({
-  imports: [CommonModule, ManageableIconModule, ProblemComplexityPipeModule],
-  declarations: [RarityIconComponent],
-  exports: [RarityIconComponent]
+    imports: [
+        CommonModule,
+        ManageableIconModule,
+        ProblemComplexityPipeModule,
+    ],
+    declarations: [
+        RarityIconComponent,
+        RarityIconTooltipPipe,
+    ],
+    exports: [RarityIconComponent]
 }) export class RarityIconModule {}

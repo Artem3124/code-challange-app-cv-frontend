@@ -8,13 +8,13 @@ import { Dictionary } from "src/shared/data-types/dictionary.data-type";
 
 @Injectable() 
 export class CodeTemplateStoreService {
-  constructor(private store: Store<CodeTemplatesDictionary>) {}
+    constructor(private store: Store<CodeTemplatesDictionary>) {}
 
-  initiateCodeTemplatesGetting(problemUUID: string) {
-    this.store.dispatch(initiateFetchingCodeTemplates({problemUUID: problemUUID}));
-  }
+    initiateCodeTemplatesGetting(problemUUID: string) {
+        this.store.dispatch(initiateFetchingCodeTemplates({problemUUID: problemUUID}));
+    }
 
-  getCodeTemplates(): Observable<Dictionary<string> | null> {
-    return this.store.select(selectCodeTemplates);
-  }
+    getCodeTemplates(): Observable<Dictionary<string> | null> {
+        return this.store.select(selectCodeTemplates);
+    }
 }

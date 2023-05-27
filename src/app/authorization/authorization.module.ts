@@ -14,19 +14,19 @@ import { authorizationReducer } from 'src/app/authorization/state/reducers/profi
 import { globalEffects } from 'src/app/state/effects';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AuthorizationRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    SidebarComponent,
-    AuthorizationPageComponent,
-  ],
-  exports: [AuthorizationPageComponent],
-  providers: [ProfileHttpService, AuthValidator],
+    imports: [
+        CommonModule,
+        AuthorizationRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
+    declarations: [
+        LoginComponent,
+        RegisterComponent,
+        SidebarComponent,
+        AuthorizationPageComponent,
+    ],
+    exports: [AuthorizationPageComponent],
+    providers: [ProfileHttpService, AuthValidator],
 })
 export class AuthorizationModule {}

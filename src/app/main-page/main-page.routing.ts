@@ -3,17 +3,17 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { NgModule } from '@angular/core';
 
 const routes = [
-  {
-    path: '',
-    component: MainPageComponent,
-    children: [
+    {
+        path: '',
+        component: MainPageComponent,
+        children: [
       
-    ],
-  },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class MainPageRoutingModule {}

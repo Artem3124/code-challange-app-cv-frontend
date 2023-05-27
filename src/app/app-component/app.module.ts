@@ -22,40 +22,40 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserProfileModule } from 'src/app/user-profile/user-profile.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    UserProfileModule,
-    HttpClientModule,
-    AppRoutingModule,
-    ProblemPageModule,
-    MainPageModule,
-    AuthorizationModule,
-    StoreModule.forRoot(),
-    EffectsModule.forRoot(),
-    StoreModule.forFeature('authState', authorizationReducer),
-    EffectsModule.forFeature(globalEffects),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-    }),
-    BrowserAnimationsModule,
-  ],
-  providers: [
-    AuthStoreService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useFactory: (router: Router) => {
-        return new AuthInterceptor(router);
-      },
-      multi: true,
-      deps: [Router],
-    },
-    AuthGuard,
-  ],
-  bootstrap: [AppComponent],
-  exports: []
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        UserProfileModule,
+        HttpClientModule,
+        AppRoutingModule,
+        ProblemPageModule,
+        MainPageModule,
+        AuthorizationModule,
+        StoreModule.forRoot(),
+        EffectsModule.forRoot(),
+        StoreModule.forFeature('authState', authorizationReducer),
+        EffectsModule.forFeature(globalEffects),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25, // Retains last 25 states
+            logOnly: environment.production, // Restrict extension to log-only mode
+        }),
+        BrowserAnimationsModule,
+    ],
+    providers: [
+        AuthStoreService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useFactory: (router: Router) => {
+                return new AuthInterceptor(router);
+            },
+            multi: true,
+            deps: [Router],
+        },
+        AuthGuard,
+    ],
+    bootstrap: [AppComponent],
+    exports: []
 })
 export class AppModule {}

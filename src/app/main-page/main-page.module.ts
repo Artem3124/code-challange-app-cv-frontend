@@ -18,17 +18,17 @@ import { ProblemListModule } from 'src/app/main-page/components/main-page/proble
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [MainPageComponent],
-  providers: [CodeProblemHttpService, ProblemListStoreService],
-  exports: [MainPageComponent],
-  imports: [
-    ProblemComplexityPipeModule,
-    ProblemListModule,
-    PageHeaderModule,
-    MainPageRoutingModule,
-    CommonModule,
-    StoreModule.forFeature('mainPageState', problemListReducer),
-    EffectsModule.forFeature(mainPageEffects),
-  ],
+    declarations: [MainPageComponent],
+    providers: [CodeProblemHttpService, ProblemListStoreService],
+    exports: [MainPageComponent],
+    imports: [
+        ProblemComplexityPipeModule,
+        ProblemListModule,
+        PageHeaderModule,
+        MainPageRoutingModule,
+        CommonModule,
+        StoreModule.forFeature('mainPageState', problemListReducer),
+        EffectsModule.forFeature(mainPageEffects),
+    ],
 })
 export class MainPageModule {}

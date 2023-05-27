@@ -7,11 +7,11 @@ export interface CodeRunsHistoryState {
 }
 
 export const selectCodeRunsState = createSelector(
-  selectProblemState,
-  (state: CurrentProblemState): CodeRunsHistoryState => state.codeRunsHistory
+    selectProblemState,
+    (state: CurrentProblemState): CodeRunsHistoryState => state.codeRunsHistory
 );
 
 export const selectCodeRunsHistory = createSelector(
-  selectCodeRunsState,
-  (state: CodeRunsHistoryState): CodeRunResultExpanded[] => state.codeRuns
+    selectCodeRunsState,
+    (state: CodeRunsHistoryState): CodeRunResultExpanded[] => state.codeRuns
 );

@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'parseInt'
+    name: 'parseInt'
 }) export class ParseIntPipe implements PipeTransform {
-  transform(numberToParse: number): number {
-    console.log(numberToParse);
+    transform(numberToParse: number): number {
+        console.log(numberToParse);
     
-    return parseInt(numberToParse.toString());
-  } 
+        return parseInt(numberToParse.toString());
+    } 
 }

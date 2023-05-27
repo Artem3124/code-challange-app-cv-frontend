@@ -12,10 +12,10 @@ import CodeLanguage from "src/models/enums/coding-languages.enum";
 export class StringToCodeLanguagePipe implements PipeTransform {
     transform(value: string): CodeLanguage {
         switch (value) {
-            case "1": return CodeLanguage.csharp;
-            case "2": return CodeLanguage.c_cpp;
-            case "5": return CodeLanguage.python;
-            default: return CodeLanguage.undefined;
+        case "1": return CodeLanguage.csharp;
+        case "2": return CodeLanguage.c_cpp;
+        case "5": return CodeLanguage.python;
+        default: return CodeLanguage.undefined;
         }
     }
 }

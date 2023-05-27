@@ -2,6 +2,6 @@ import { authorizationReducer } from "src/app/authorization/state/reducers/profi
 import { codeProblemReducer } from "src/app/problem-page/state/reducers/problem.reducer";
 
 export const reducers = { 
-  codeProblemState: codeProblemReducer,
-  authState: authorizationReducer,
+    codeProblemState: codeProblemReducer,
+    authState: authorizationReducer,
 }

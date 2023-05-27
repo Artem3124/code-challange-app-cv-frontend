@@ -6,35 +6,35 @@ import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 
 @Component({
-  templateUrl: './page-header.component.html',
-  selector: 'page-header',
-  styleUrls: [
-    './page-header.component.scss',
-    '../../shared/styles/global-elements.scss',
-    '../../shared/styles/fonts.scss',
-  ],
+    templateUrl: './page-header.component.html',
+    selector: 'page-header',
+    styleUrls: [
+        './page-header.component.scss',
+        '../../shared/styles/global-elements.scss',
+        '../../shared/styles/fonts.scss',
+    ],
 })
 export class PageHeaderComponent implements OnInit {
 
-  isLoggedIn: boolean = false;
+    isLoggedIn = false;
 
-  constructor(private authStore: AuthStoreService) {
-    this.authStore.initiateAuthCheck();
-  }
+    constructor(private authStore: AuthStoreService) {
+        this.authStore.initiateAuthCheck();
+    }
 
-  ngOnInit(): void {
-    this.authStore.isSignIn().subscribe({
-      next: (isLoggedIn: boolean) => { 
-        this.isLoggedIn = isLoggedIn;
-      }
-    })
+    ngOnInit(): void {
+        this.authStore.isSignIn().subscribe({
+            next: (isLoggedIn: boolean) => { 
+                this.isLoggedIn = isLoggedIn;
+            }
+        })
     
-  }
+    }
 }
 
 
 @NgModule({
-  declarations: [PageHeaderComponent, ProfileIconComponent],
-  exports: [PageHeaderComponent],
-  imports: [ManageableIconModule, RouterModule, CommonModule, NgIf, RouterModule]
+    declarations: [PageHeaderComponent, ProfileIconComponent],
+    exports: [PageHeaderComponent],
+    imports: [ManageableIconModule, RouterModule, CommonModule, NgIf, RouterModule]
 }) export class PageHeaderModule {}

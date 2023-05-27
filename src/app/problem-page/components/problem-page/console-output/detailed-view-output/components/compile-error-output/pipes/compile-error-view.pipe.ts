@@ -2,14 +2,14 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { CompilationError, TestCaseResult } from "src/models";
 
 @Pipe({
-  name: 'compileErrorView'
+    name: 'compileErrorView'
 }) export class CompileErrorViewPipe implements PipeTransform {
-  transform(error: CompilationError[] | TestCaseResult): CompilationError[] {
-    var compilationError = error as CompilationError[];
+    transform(error: CompilationError[] | TestCaseResult): CompilationError[] {
+        const compilationError = error as CompilationError[];
     
-    console.log(compilationError);
+        console.log(compilationError);
 
-    return compilationError;
-  }
+        return compilationError;
+    }
 }
   

@@ -7,12 +7,12 @@ export interface CodeTemplatesDictionary {
 }
 
 export const selectCodeTemplatesState = createSelector(
-  selectProblemState,
-  (state: CurrentProblemState): CodeTemplatesDictionary => state.codeTemplates
+    selectProblemState,
+    (state: CurrentProblemState): CodeTemplatesDictionary => state.codeTemplates
 );
 
 export const selectCodeTemplates = createSelector(
-  selectCodeTemplatesState,
-  (state: CodeTemplatesDictionary): Dictionary<string> | null =>
-    state.codeTemplates
+    selectCodeTemplatesState,
+    (state: CodeTemplatesDictionary): Dictionary<string> | null =>
+        state.codeTemplates
 );

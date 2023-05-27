@@ -3,23 +3,23 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class HttpBase { 
 
-  readonly route: string = "https://localhost:7124"
+    readonly route: string = "https://localhost:7124"
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-  options = {
-    withCredentials: true,
-  }
+    options = {
+        withCredentials: true,
+    }
 
-  post<P, R>(payload: P, url: string): Observable<R> { 
-    return this.http.post<R>(`${this.route}/${url}`, payload, this.options);
-  }
+    post<P, R>(payload: P, url: string): Observable<R> { 
+        return this.http.post<R>(`${this.route}/${url}`, payload, this.options);
+    }
 
-  get<R>(url: string): Observable<R> { 
-    return this.http.get<R>(`${this.route}/${url}`, this.options);
-  }
+    get<R>(url: string): Observable<R> { 
+        return this.http.get<R>(`${this.route}/${url}`, this.options);
+    }
 }

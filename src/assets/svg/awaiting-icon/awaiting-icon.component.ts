@@ -7,21 +7,21 @@ export interface AwaitingIconState extends IconStateBase {
 }
 
 @Component({
-  selector: 'awaiting-icon',
-  templateUrl: './awaiting-icon.component.html',
-  styleUrls: ['./awaiting-icon.component.scss'],
+    selector: 'awaiting-icon',
+    templateUrl: './awaiting-icon.component.html',
+    styleUrls: ['./awaiting-icon.component.scss'],
 })
 class AwaitingIconComponent {
-  constructor() {}
+    constructor() {}
 
   @Input() inputParameters: IconWithBackgroundState = {
-    size: 0,
-    strokeColor: '#ffffff',
-    backgroundColor: '#ffffff',
-    lengthSizeMultiplier: 1,
+      size: 0,
+      strokeColor: '#ffffff',
+      backgroundColor: '#ffffff',
+      lengthSizeMultiplier: 1,
   };
 
-  @Input() isAnimate: boolean = false;
+  @Input() isAnimate = false;
 }
 
 export default AwaitingIconComponent;

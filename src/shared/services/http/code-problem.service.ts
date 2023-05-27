@@ -5,13 +5,13 @@ import { HttpBase } from "./http-base.service";
 
 @Injectable()
 export class CodeProblemHttpService { 
-  constructor(private http: HttpBase) {}
+    constructor(private http: HttpBase) {}
 
-  getCodeProblem(codeProblemUUID: string): Observable<CodeProblem> { 
-    return this.http.get<CodeProblem>(`CodeProblem/${codeProblemUUID}`);
-  }
+    getCodeProblem(codeProblemUUID: string): Observable<CodeProblem> { 
+        return this.http.get<CodeProblem>(`CodeProblem/${codeProblemUUID}`);
+    }
 
-  getAllProblems(): Observable<CodeProblem[]> {
-    return this.http.get<CodeProblem[]>('CodeProblem');
-  }
+    getAllProblems(): Observable<CodeProblem[]> {
+        return this.http.get<CodeProblem[]>('CodeProblem');
+    }
 }

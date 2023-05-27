@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CodeTemplateHttpService } from 'src/shared/services/http/code-template.service';
 import {
-  errorFetchingCodeTemplates,
-  initiateFetchingCodeTemplates,
-  successFetchingCodeTemplates,
+    errorFetchingCodeTemplates,
+    initiateFetchingCodeTemplates,
+    successFetchingCodeTemplates,
 } from '../actions/code-templates.actions';
 import { catchError, exhaustMap, map } from 'rxjs';
 import { CodeProblemTemplate } from 'src/models';
@@ -12,33 +12,33 @@ import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 
 @Injectable()
 export class CodeTemplatesEffects {
-  fetchingCodeTemplates$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(initiateFetchingCodeTemplates),
-      exhaustMap((action) =>
-        this.codeTemplatesHttp.getCodeTemplates(action.problemUUID).pipe(
-          map((codeTemplates: CodeProblemTemplate[]) => {
-            console.log(codeTemplates);
-            var dictionary: Dictionary<string> = {};
+    fetchingCodeTemplates$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(initiateFetchingCodeTemplates),
+            exhaustMap((action) =>
+                this.codeTemplatesHttp.getCodeTemplates(action.problemUUID).pipe(
+                    map((codeTemplates: CodeProblemTemplate[]) => {
+                        console.log(codeTemplates);
+                        const dictionary: Dictionary<string> = {};
 
-            codeTemplates.forEach((template) => {
-              dictionary[template.codeLanguage] = template.template;
-            });
+                        codeTemplates.forEach((template) => {
+                            dictionary[template.codeLanguage] = template.template;
+                        });
 
-            console.log(dictionary)
+                        console.log(dictionary)
 
-            return successFetchingCodeTemplates({ dict: dictionary });
-          }),
-          catchError(async (error: Error) =>
-            errorFetchingCodeTemplates({ error: error })
-          )
+                        return successFetchingCodeTemplates({ dict: dictionary });
+                    }),
+                    catchError(async (error: Error) =>
+                        errorFetchingCodeTemplates({ error: error })
+                    )
+                )
+            )
         )
-      )
-    )
-  );
+    );
 
-  constructor(
+    constructor(
     private codeTemplatesHttp: CodeTemplateHttpService,
     private actions$: Actions
-  ) {}
+    ) {}
 }

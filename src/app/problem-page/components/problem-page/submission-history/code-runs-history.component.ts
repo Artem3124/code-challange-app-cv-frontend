@@ -8,57 +8,57 @@ import { ProblemStoreService } from 'src/shared/services/store/problem-store.ser
 import { SourceCodeStoreService } from 'src/shared/services/store/source-code-store.service';
 
 @Component({
-  selector: 'code-runs-history',
-  templateUrl: './code-runs-history.component.html',
-  styleUrls: ['./code-runs-history.component.scss'],
+    selector: 'code-runs-history',
+    templateUrl: './code-runs-history.component.html',
+    styleUrls: ['./code-runs-history.component.scss'],
 })
 export class CodeRunsHistoryComponent implements OnInit {
-  readonly codeProblemUUID: string = this.router.url.slice(9, 45);
+    readonly codeProblemUUID: string = this.router.url.slice(9, 45);
 
-  constructor(
+    constructor(
     private sourceCodeStore: SourceCodeStoreService,
     private codeRunsStore: CodeRunsStoreService,
     private router: Router,
     private consoleOutputStore: ConsoleOutputStoreService
-  ) {}
+    ) {}
 
-  ngOnInit(): void {
-    this.codeRunsStore.initiateGettingCodeSubmissions(this.codeProblemUUID);
+    ngOnInit(): void {
+        this.codeRunsStore.initiateGettingCodeSubmissions(this.codeProblemUUID);
 
-    this.codeRunsStore.getSubmissionHistory().subscribe({
-      next: (response: CodeRunResultExpanded[]) => {
-        if (!response) {
-          this.codeRunsStore.initiateGettingCodeSubmissions(
-            this.codeProblemUUID
-          );
-        }
+        this.codeRunsStore.getSubmissionHistory().subscribe({
+            next: (response: CodeRunResultExpanded[]) => {
+                if (!response) {
+                    this.codeRunsStore.initiateGettingCodeSubmissions(
+                        this.codeProblemUUID
+                    );
+                }
         
-        this.codeRuns = response;
-      },
-    });
+                this.codeRuns = response;
+            },
+        });
 
-    this.sourceCodeStore.getReadonlySourceCode().subscribe({
-      next: (readonlyState: Dictionary<string> | null) => { 
-        if (readonlyState === null) {
-          this.selectedIndex = -1;
-        }
-      }
-    })
-  }
+        this.sourceCodeStore.getReadonlySourceCode().subscribe({
+            next: (readonlyState: Dictionary<string> | null) => { 
+                if (readonlyState === null) {
+                    this.selectedIndex = -1;
+                }
+            }
+        })
+    }
 
-  setCodeRun(_index: number, codeRun: CodeRunResultExpanded) { 
-    this.selectedIndex = _index;
+    setCodeRun(_index: number, codeRun: CodeRunResultExpanded) { 
+        this.selectedIndex = _index;
 
-    this.consoleOutputStore.setRunResultView(codeRun);
+        this.consoleOutputStore.setRunResultView(codeRun);
 
-    this.sourceCodeStore.setReadonlySourceCodeLanguage(codeRun.codeLanguage);
+        this.sourceCodeStore.setReadonlySourceCodeLanguage(codeRun.codeLanguage);
 
-    this.sourceCodeStore.setReadonlySourceCode(
-      codeRun.sourceCode,
-      codeRun.codeLanguage
-    );
-  }
+        this.sourceCodeStore.setReadonlySourceCode(
+            codeRun.sourceCode,
+            codeRun.codeLanguage
+        );
+    }
 
-  selectedIndex: number;
-  codeRuns: CodeRunResultExpanded[] = [];
+    selectedIndex: number;
+    codeRuns: CodeRunResultExpanded[] = [];
 }
