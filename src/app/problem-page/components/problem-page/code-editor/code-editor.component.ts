@@ -35,6 +35,7 @@ export class CodeEditorComponent implements AfterViewInit {
   @Output() codeValueEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   private codeTemplates: Dictionary<string> | null = null;
+  private sourceCodes: Dictionary<string> | null = null;
 
   private currentLanguage: CodeLanguage = CodeLanguage.csharp;
   private isReadonlyCode: boolean = false;
@@ -49,6 +50,15 @@ export class CodeEditorComponent implements AfterViewInit {
     this.basicEditorConfiguration(
       'csharp'
     );
+
+    this.sourceCodeStore.getSourceCode().subscribe({
+      next: (sourceCodes: Dictionary<string> | null) => { 
+        this.sourceCodes = sourceCodes;
+      },
+      error: (error: Error) => { 
+        console.error(error);
+      }
+    })
 
     this.sourceCodeStore.getReadonlySourceCode().subscribe({
       next: (readonlyCode: Dictionary<string> | null) => {
@@ -68,6 +78,11 @@ export class CodeEditorComponent implements AfterViewInit {
     this.currentLanguageObservable.subscribe((inputLanguage: CodeLanguage) => {
       this.currentLanguage = inputLanguage;
       this.setEditorLanguage(CodeLanguage[inputLanguage]);
+      var sourceCode = this.sourceCodes![this.currentLanguage];
+      if (sourceCode) { 
+        this.setEditorTemplate(sourceCode);
+        return;
+      }
       this.setEditorTemplate(this.codeTemplates![this.currentLanguage]);
     });
 
