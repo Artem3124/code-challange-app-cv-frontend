@@ -9,7 +9,11 @@ import { CodeProblemView } from 'src/models';
   '../../../../shared/styles/fonts.scss', '../user-profile.component.scss'],
 })
 export class LastResolvedProblemsComponent {
-  constructor() {}
+  constructor() {
+    this.noProblemsCurrentlyAvailable = this.problems.length <= 0
+  }
 
   @Input() problems: CodeProblemView[] = [];
+  noProblemsCurrentlyAvailable: boolean = false;
+
 }

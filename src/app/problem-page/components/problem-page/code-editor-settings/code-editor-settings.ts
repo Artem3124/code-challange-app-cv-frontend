@@ -28,17 +28,32 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
   constructor(
     private sourceCodeStore: SourceCodeStoreService,
     private consoleOutputStore: ConsoleOutputStoreService,
-    private stringToCodeProblem: StringToCodeLanguagePipe,
+    private stringToCodeProblem: StringToCodeLanguagePipe
   ) {}
 
   ngAfterViewInit(): void {
     this.onSetLanguage(CodeLanguage.csharp);
 
+    this.sourceCodeStore.getReadonlySourceCodeLanguage().subscribe({
+      next: (readonlyLanguage: CodeLanguage | null) => {
+        if (readonlyLanguage) {
+          console.log(readonlyLanguage);
+          this.onSetLanguage(readonlyLanguage);
+          return;
+        }
+        this.sourceCodeStore.getSourceCodeLanguage().subscribe({
+          next: (language: CodeLanguage | null) => {
+            if (language) {
+              this.onSetLanguage(language);
+            }
+          },
+        });
+      },
+    });
+
     this.sourceCodeStore.getReadonlySourceCode().subscribe({
       next: (source: Dictionary<string> | null) => {
-        if (source !== null) {
-          this.isReadonlyCodeView = true;
-        }
+        this.isReadonlyCodeView = source !== null;
       },
     });
   }

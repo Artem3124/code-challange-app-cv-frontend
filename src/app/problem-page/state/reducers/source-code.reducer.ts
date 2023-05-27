@@ -1,15 +1,30 @@
 import { createReducer, on } from "@ngrx/store"
 import { SourceCodeDictionary } from "../selectors/source-code.selector"
-import { defaultReadOnlyCode, hardSetSourceCode, setReadOnlyCode } from "../actions/source-code.actions"
+import { defaultReadOnlyCode, hardSetSourceCode, setCurrentLanguage, setCurrentReadonlyLanguage, setReadOnlyCode } from "../actions/source-code.actions"
 import { Dictionary } from "src/shared/data-types/dictionary.data-type"
+import CodeLanguage from "src/models/enums/coding-languages.enum"
 
 const initialState: SourceCodeDictionary = {
   sourceCode: null,
+  sourceCodeLanguage: null,
   readonlySourceCode: null,
+  readonlySourceCodeLanguage: null,
 }
 
 export const sourceCodeReducer = createReducer(
   initialState,
+  on(setCurrentLanguage, (state, action) => { 
+    return { 
+      ...state,
+      sourceCodeLanguage: action.language
+    }
+  }),
+  on(setCurrentReadonlyLanguage, (state, action) => { 
+    return { 
+      ...state,
+      readonlySourceCodeLanguage: action.language
+    }
+  }),
   on(
     hardSetSourceCode,
     (state, action) => {
