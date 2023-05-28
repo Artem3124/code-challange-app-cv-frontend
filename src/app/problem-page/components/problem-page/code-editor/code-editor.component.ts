@@ -52,21 +52,33 @@ export class CodeEditorComponent implements AfterViewInit {
 
     this.basicEditorConfiguration('csharp');
 
+    this.codeTemplateStore.getCodeTemplates().subscribe({
+      next: (templates: Dictionary<string> | null) => {
+        if (!templates) {
+          return;
+        }
+
+        this.codeTemplates = templates;
+      },
+      error: (error: Error) => {
+        console.error(error);
+      },
+    });
+
     this.sourceCodeStore.getReadonlySourceCodeLanguage().subscribe({
       next: (readonlyLanguage: CodeLanguage | null) => {
         if (readonlyLanguage) {
           this.currentLanguage = readonlyLanguage;
-          return;
+          this.setEditorLanguage(CodeLanguage[readonlyLanguage]);
+          const sourceCode = this.sourceCodes![this.currentLanguage];
+          console.log(sourceCode);
+          this.isReadonlyCode = false;
+          if (sourceCode) {
+            this.setEditorTemplate(sourceCode);
+            return;
+          }
+          this.setEditorTemplate(this.codeTemplates![this.currentLanguage]);
         }
-        this.sourceCodeStore.getSourceCodeLanguage().subscribe({
-          next: (language: CodeLanguage | null) => {
-            if (!language) {
-              return;
-            }
-            this.currentLanguage = language;
-            this.isReadonlyCode = false;
-          },
-        });
       },
     });
 
@@ -96,33 +108,22 @@ export class CodeEditorComponent implements AfterViewInit {
       },
     });
 
-    this.currentLanguageObservable.subscribe((inputLanguage: CodeLanguage) => {
-      this.currentLanguage = inputLanguage;
-      this.setEditorLanguage(CodeLanguage[inputLanguage]);
-      const sourceCode = this.sourceCodes![this.currentLanguage];
-      if (sourceCode) {
-        this.setEditorTemplate(sourceCode);
-        return;
-      }
-      this.setEditorTemplate(this.codeTemplates![this.currentLanguage]);
-    });
+    // this.currentLanguageObservable.subscribe((inputLanguage: CodeLanguage) => {
+    //   this.currentLanguage = inputLanguage;
+    //   this.setEditorLanguage(CodeLanguage[inputLanguage]);
+    //   const sourceCode = this.sourceCodes![this.currentLanguage];
+    //   if (sourceCode) {
+    //     this.setEditorTemplate(sourceCode);
+    //     return;
+    //   }
+    //   this.setEditorTemplate(this.codeTemplates![this.currentLanguage]);
+    // });
 
     this.codeTemplate.subscribe((codeTemplate: string) => {
       this.setEditorTemplate(codeTemplate);
     });
 
-    this.codeTemplateStore.getCodeTemplates().subscribe({
-      next: (templates: Dictionary<string> | null) => {
-        if (!templates) {
-          return;
-        }
-
-        this.codeTemplates = templates;
-      },
-      error: (error: Error) => {
-        console.error(error);
-      },
-    });
+    
   }
 
   private setToView(code: string | null, isReadonly: boolean) {
@@ -140,7 +141,7 @@ export class CodeEditorComponent implements AfterViewInit {
     this.setEditorLanguage(languageToSet);
     this.codeEditor.setShowFoldWidgets(true);
     this.codeEditor.on('change', () => {
-      console.log(this.isReadonlyCode)
+      console.log(this.isReadonlyCode);
       if (this.isReadonlyCode) {
         return;
       }

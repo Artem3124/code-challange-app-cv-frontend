@@ -65,6 +65,13 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit(): void {
         this.subscribeSourceCode(this.currentLanguage);
         this.subscribeCodeProblem();
+        this.sourceCodeStore.getSourceCodeLanguage().subscribe({
+          next: language => { 
+            if (language) { 
+             this.currentLanguage = language
+            }
+          }
+        })
     }
 
     ngAfterViewInit(): void {
@@ -96,7 +103,16 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     getCodeTemplateOrSetExisting() {
         const savedSourceCode = localStorage.getItem(this.currentLanguage.toString());
+        
+        // this.sourceCodeStore.getSourceCode().subscribe({
+        //   next: (codes: Dictionary<string> | null) => { 
+        //     if (!codes) {
+        //       return;
+        //     }
 
+        //     this.codeTemplateObserver.next(codes[this.currentLanguage]);
+        //   }
+        // })
         this.codeTemplateStore.getCodeTemplates().subscribe({
             next: (templates: Dictionary<string> | null) => {
                 if (templates === null) {
@@ -126,8 +142,9 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     setCurrentLanguage(language: CodeLanguage) {
         this.subscribeSourceCode(language);
+        this.sourceCodeStore.setSourceCodeLanguage(language);
         this.currentLanguage = language;
-        this.currentLanguageObserver.next(language);
+        //this.currentLanguageObserver.next(language);
     }
 
     setSourceCodeState(codeEditorState: string) {

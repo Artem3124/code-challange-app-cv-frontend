@@ -22,6 +22,7 @@ export const sourceCodeReducer = createReducer(
     on(returnToCurrentSolution, (state, action) => { 
       return { 
         ...state,
+        sourceCodeLanguage: 1,
         readonlySourceCodeLanguage: null,
         readonlySourceCode: null,
       }
@@ -36,11 +37,11 @@ export const sourceCodeReducer = createReducer(
         hardSetSourceCode,
         (state, action) => {
       
-            // let i = 1;
-            // while (action.codeDictionary[i]) { 
-            //     localStorage.setItem(i.toString(), action.codeDictionary[i].toString());
-            //     i++;
-            // }
+            let i = 1;
+            while (action.codeDictionary[i]) { 
+                localStorage.setItem(i.toString(), action.codeDictionary[i].toString());
+                i++;
+            }
 
             const dictionaryCodes: Dictionary<string> = {
                 ...state.sourceCode,
