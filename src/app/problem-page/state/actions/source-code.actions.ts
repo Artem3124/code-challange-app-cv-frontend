@@ -18,10 +18,6 @@ export const setReadOnlyCode = createAction(
     props<{ code: string, language: CodeLanguage }>()
 )
 
-export const defaultReadOnlyCode = createAction( 
-    SourceCodeActions.DEFAULT_READONLY_CODE
-)
-
 export const setCurrentLanguage = createAction( 
     SourceCodeActions.SET_CURRENT_LANGUAGE,
     props<{language: CodeLanguage | null}>()
@@ -38,4 +34,8 @@ export const setCurrentReadonlyLanguage = createAction(
 export const setCurrentReadonlyLanguageError = createAction( 
     SourceCodeActions.SET_CURRENT_LANGUAGE,
     props<{error: Error}>()
+)
+
+export const returnToCurrentSolution = createAction(
+  SourceCodeActions.RETURN_CURRENT_SOLUTION
 )

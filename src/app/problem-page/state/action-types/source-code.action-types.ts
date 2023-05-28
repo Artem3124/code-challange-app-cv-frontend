@@ -7,4 +7,5 @@ export enum SourceCodeActions {
   SET_CURRENT_LANGUAGE_ERROR = '[Code Editor] Set language error occurred',
   SET_CURRENT_READONLY_LANGUAGE = '[Code Editor] Set readonly language',
   SET_CURRENT_READONLY_LANGUAGE_ERROR = '[Code Editor] Set readonly language error occurred',
+  RETURN_CURRENT_SOLUTION = '[Code Editor] Return current solution.'
 }

@@ -131,6 +131,8 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     setSourceCodeState(codeEditorState: string) {
+      console.log([codeEditorState,
+        this.currentLanguage]);
         this.sourceCodeStore.setSourceCodeState(
             codeEditorState,
             this.currentLanguage

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Store } from "@ngrx/store"
 import { Observable } from "rxjs"
-import { defaultReadOnlyCode, hardSetSourceCode, setCurrentLanguage, setCurrentReadonlyLanguage, setReadOnlyCode } from "src/app/problem-page/state/actions/source-code.actions"
+import { hardSetSourceCode, returnToCurrentSolution, setCurrentLanguage, setCurrentReadonlyLanguage, setReadOnlyCode } from "src/app/problem-page/state/actions/source-code.actions"
 import { selectCodeLanguage, selectReadonlyCode, selectReadonlyCodeLanguage } from "src/app/problem-page/state/selectors/source-code.selector"
 import { SourceCodeDictionary, selectSourceCode } from "src/app/problem-page/state/selectors/source-code.selector"
 import CodeLanguage from "src/models/enums/coding-languages.enum"
@@ -13,10 +13,6 @@ export class SourceCodeStoreService {
 
     setSourceCodeState(code: string, codeType: CodeLanguage) { 
         this.store.dispatch(hardSetSourceCode({codeDictionary: {[codeType]: code}}));
-    }
-
-    defaultReadonlyCode() { 
-        this.store.dispatch(defaultReadOnlyCode());
     }
 
     setReadonlySourceCode(code: string, codeLanguage: CodeLanguage) { 
@@ -46,5 +42,9 @@ export class SourceCodeStoreService {
   
     getReadonlySourceCodeLanguage(): Observable<CodeLanguage | null> { 
         return this.store.select(selectReadonlyCodeLanguage);
+    }
+
+    returnToCurrentSolution() { 
+      this.store.dispatch(returnToCurrentSolution());
     }
 }

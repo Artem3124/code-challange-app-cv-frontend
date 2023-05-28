@@ -1,14 +1,17 @@
 <div class="container font-poppins-700 code-editor-settings">
   <div class="row">
     <div class="col">
+      <form [formGroup]="selectForm!.form">
       <select
+      #codeLanguageSelect
+      [value]="languageSelectRef"
       (change)="onCodeLanguageChange($event)"
       name="language-picker"
       id="language-selection"
       class="form-select code-change-menu"
+      formControlName="selectValue"
     >
       <option [disabled]="isReadonlyCodeView"
-      #codeLanguageOption
         *ngFor="let language of availableLanguagesInput" 
         id="language"
         [value]="language"
@@ -18,6 +21,7 @@
         {{language | codeLanguage}}
       </option>
     </select>
+  </form>
     </div>
     <div class="col align-items-center d-flex" style="color: #535153; font-size: 20px" *ngIf="isReadonlyCodeView">Running Code:</div>
     <div class="col code-editor-back-button" *ngIf="isReadonlyCodeView" (click)="onClick()">Back to Solving the Problem</div>

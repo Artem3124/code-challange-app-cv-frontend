@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActiveSelectorMenu } from 'src/shared/directives/active-selector-menu.directive';
 import { RarityIconModule } from 'src/assets/svg/rarity-icon/rarity-icon.component';
 import { ProblemComplexityPipeModule } from 'src/shared/pipes/problem-complexity.pipe';
@@ -53,6 +53,7 @@ import { UtcToLocalDateTimePipe } from './components/problem-page/submission-his
         UtcToLocalDateTimePipe,
     ],
     imports: [
+        ReactiveFormsModule,
         RarityIconModule,
         ProblemComplexityPipeModule,
         ManageableIconModule,

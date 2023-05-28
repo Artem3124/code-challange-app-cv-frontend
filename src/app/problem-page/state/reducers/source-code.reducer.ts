@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store"
 import { SourceCodeDictionary } from "../selectors/source-code.selector"
-import { defaultReadOnlyCode, hardSetSourceCode, setCurrentLanguage, setCurrentReadonlyLanguage, setReadOnlyCode } from "../actions/source-code.actions"
+import { hardSetSourceCode, returnToCurrentSolution, setCurrentLanguage, setCurrentReadonlyLanguage, setReadOnlyCode } from "../actions/source-code.actions"
 import { Dictionary } from "src/shared/data-types/dictionary.data-type"
 import CodeLanguage from "src/models/enums/coding-languages.enum"
 
@@ -19,6 +19,13 @@ export const sourceCodeReducer = createReducer(
             sourceCodeLanguage: action.language
         }
     }),
+    on(returnToCurrentSolution, (state, action) => { 
+      return { 
+        ...state,
+        readonlySourceCodeLanguage: null,
+        readonlySourceCode: null,
+      }
+    }),
     on(setCurrentReadonlyLanguage, (state, action) => { 
         return { 
             ...state,
@@ -29,11 +36,11 @@ export const sourceCodeReducer = createReducer(
         hardSetSourceCode,
         (state, action) => {
       
-            let i = 1;
-            while (action.codeDictionary[i]) { 
-                localStorage.setItem(i.toString(), action.codeDictionary[i].toString());
-                i++;
-            }
+            // let i = 1;
+            // while (action.codeDictionary[i]) { 
+            //     localStorage.setItem(i.toString(), action.codeDictionary[i].toString());
+            //     i++;
+            // }
 
             const dictionaryCodes: Dictionary<string> = {
                 ...state.sourceCode,
@@ -56,11 +63,5 @@ export const sourceCodeReducer = createReducer(
             }
         }
     ),
-    on(defaultReadOnlyCode,
-        (state) => { 
-            return {
-                ...state,
-                readonlySourceCode: null
-            }
-        })
+
 )
