@@ -16,7 +16,6 @@ export const selectProblemDataState = createSelector(
 export const selectCodeProblem = createSelector(
     selectProblemDataState,
     (state: CurrentProblemDataState): CodeProblem | null => {
-        console.log(state);
         return state.codeProblem;
     }
 );

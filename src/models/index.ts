@@ -6,9 +6,32 @@ import { RunType } from './enums/run-type.enum';
 import { SubscriptionType } from './enums/subscription-type.enum';
 import { Role } from './enums/user-role.enum';
 
+export enum UserAttribute {
+  Login = 0,
+  Email = 1,
+  Password = 2,
+}
+
+export interface ValidationError {
+  code: string;
+  message: string;
+  attribute: UserAttribute;
+}
+
+export interface ValidationResult {
+  errors: ValidationError[];
+}
+
 export interface Tag {
   id: number;
   name: string;
+}
+
+export interface UserUpdateRequest {
+  email: string | null;
+  login: string | null;
+  oldPassword: string | null;
+  newPassword: string | null;
 }
 
 export interface CodeProblem extends CodeProblemView {

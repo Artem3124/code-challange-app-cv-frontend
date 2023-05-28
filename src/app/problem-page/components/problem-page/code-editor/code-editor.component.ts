@@ -54,7 +54,6 @@ export class CodeEditorComponent implements AfterViewInit {
       this.sourceCodeStore.getReadonlySourceCodeLanguage().subscribe({
           next: (readonlyLanguage: CodeLanguage | null) => {
               if (readonlyLanguage) {
-                  console.log(readonlyLanguage);
                   this.currentLanguage = readonlyLanguage;
                   this.isReadonlyCode = true;
                   return;
@@ -89,7 +88,6 @@ export class CodeEditorComponent implements AfterViewInit {
                   return;
               }
               this.isReadonlyCode = true;
-              console.log(readonlyCode, this.currentLanguage);
 
               this.setToView(readonlyCode[this.currentLanguage], this.isReadonlyCode);
           },

@@ -22,4 +22,8 @@ export class HttpBase {
     get<R>(url: string): Observable<R> { 
         return this.http.get<R>(`${this.route}/${url}`, this.options);
     }
+
+    patch<R, P>(url: string, payload: P): Observable<R> {
+        return this.http.patch<R>(`${this.route}/${url}`, payload, this.options);
+    }
 }

@@ -64,7 +64,5 @@ export class ProblemsListComponent implements OnInit {
                     )
             )
         }
-
-        console.log(this.codeProblemsView);
     }
 }

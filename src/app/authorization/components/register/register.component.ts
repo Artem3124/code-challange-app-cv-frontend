@@ -24,8 +24,6 @@ import { RegistrationRequest } from "src/models";
     submitRegistration() { 
         const registrationRequest: RegistrationRequest = this.registrationForm.toObj();
 
-        console.log(registrationRequest);
-
         this.authStore.initiateRegistration(registrationRequest);
     }
 }

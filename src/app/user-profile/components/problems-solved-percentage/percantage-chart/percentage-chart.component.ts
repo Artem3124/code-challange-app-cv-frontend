@@ -39,61 +39,61 @@ export class PercentageChartComponent implements OnInit {
   
     @Input() statistic: UserStatistic;
 
-// bruh man :(
-  ngOnInit(): void {
-    const amount = this.statistic.problemsCount;
-    this.chartOptions = {
-        colors: ['#F2D895', '#C591E1', '#91BCFD'],
-        series: [
-            this.statistic.hardProblemsSolved,
-            this.statistic.mediumProblemsSolved,
-            this.statistic.easyProblemsSolved,
-        ], // here I should add the amount of resolved problems
-        chart: {
-            width: 380,
-            type: 'pie',
-        },
-        stroke: {
-            width: 0,
-        },
-        dataLabels: {
-            style: {
+    // bruh man :(
+    ngOnInit(): void {
+        const amount = this.statistic.problemsCount;
+        this.chartOptions = {
+            colors: ['#F2D895', '#C591E1', '#91BCFD'],
+            series: [
+                this.statistic.hardProblemsSolved,
+                this.statistic.mediumProblemsSolved,
+                this.statistic.easyProblemsSolved,
+            ], // here I should add the amount of resolved problems
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            stroke: {
+                width: 0,
+            },
+            dataLabels: {
+                style: {
+                    fontFamily: 'Poppins',
+                },
+                background: {
+                    borderRadius: 0,
+                },
+            },
+            labels: ['Hard', 'Medium', 'Easy'],
+            legend: {
                 fontFamily: 'Poppins',
-            },
-            background: {
-                borderRadius: 0,
-            },
-        },
-        labels: ['Hard', 'Medium', 'Easy'],
-        legend: {
-            fontFamily: 'Poppins',
-            fontWeight: 500,
-            fontSize: '14px',
-            labels: {
-                colors: ['#F2D895', '#C591E1', '#91BCFD'],
-            },
-            position: 'bottom',
-            markers: {
-                fillColors: ['#F2D895', '#C591E1', '#91BCFD'],
-            },
-            formatter(legendName, opts) {
-                return ` - ${parseInt(
-                    (
-                        (opts.w.globals.series[opts.seriesIndex] / amount) *
+                fontWeight: 500,
+                fontSize: '14px',
+                labels: {
+                    colors: ['#F2D895', '#C591E1', '#91BCFD'],
+                },
+                position: 'bottom',
+                markers: {
+                    fillColors: ['#F2D895', '#C591E1', '#91BCFD'],
+                },
+                formatter(legendName, opts) {
+                    return ` - ${parseInt(
+                        (
+                            (opts.w.globals.series[opts.seriesIndex] / amount) *
             100
-                    ).toString()
-                )}% solved problems is ${legendName}(${
-                    opts.w.globals.series[opts.seriesIndex]
-                });`;
+                        ).toString()
+                    )}% solved problems is ${legendName}(${
+                        opts.w.globals.series[opts.seriesIndex]
+                    });`;
+                },
             },
-        },
-    };
-  }
-
-  getSolvedProblemsCount(): number {
-    if (!this.statistic) {
-        return 0;
+        };
     }
-    return this.statistic.easyProblemsSolved + this.statistic.mediumProblemsSolved + this.statistic.hardProblemsSolved;
-  }
+
+    getSolvedProblemsCount(): number {
+        if (!this.statistic) {
+            return 0;
+        }
+        return this.statistic.easyProblemsSolved + this.statistic.mediumProblemsSolved + this.statistic.hardProblemsSolved;
+    }
 }

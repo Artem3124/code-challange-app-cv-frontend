@@ -26,7 +26,6 @@ export class ProblemsFilterComponent implements OnInit {
             .subscribe({
                 next: res => {
                     if (res) {
-                        console.log({res});
                         this.tags = res;
                     }
                 }
@@ -67,7 +66,6 @@ export class ProblemsFilterComponent implements OnInit {
   }
 
   switchComplexity(complexity: number) {
-      console.log(this.selectedComplexities);
       const index = this.selectedComplexities.indexOf(complexity);
       if (index < 0) {
           this.selectedComplexities.push(complexity);

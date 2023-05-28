@@ -14,6 +14,8 @@ import { UnresolvedProblemsComponent } from 'src/app/user-profile/components/unr
 import { UserProfileComponent } from 'src/app/user-profile/components/user-profile.component';
 import { UserProfileRouterModule } from 'src/app/user-profile/user-profile.routing';
 import { StatisticHttpService } from 'src/shared/services/http/statistic.service';
+import { ProfileEditComponent } from './components/profile-section/profile-edit/profile-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -24,7 +26,7 @@ import { StatisticHttpService } from 'src/shared/services/http/statistic.service
         UserProfileRouterModule,
         NgApexchartsModule,
         MatProgressBarModule,
-    
+        ReactiveFormsModule,
     ],
     declarations: [
         UserProfileComponent,
@@ -34,6 +36,7 @@ import { StatisticHttpService } from 'src/shared/services/http/statistic.service
         ProblemsSolvedPercentage,
         PercentageChartComponent,
         ParseIntPipe,
+        ProfileEditComponent,
     ],
     providers: [
         StatisticHttpService,

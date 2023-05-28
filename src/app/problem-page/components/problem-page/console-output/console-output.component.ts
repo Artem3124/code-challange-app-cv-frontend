@@ -3,7 +3,6 @@ import {
     TestCaseResult,
     CompilationError,
     CodeRunResult,
-    CodeRunProgress,
 } from 'src/models';
 import { CodeRunOutcome } from 'src/models/enums/code-run-outcome.enum';
 import { CodeRunStage } from 'src/models/enums/code-run-stage.enum';
@@ -21,10 +20,7 @@ export class ConsoleOutputComponent implements OnInit {
     constructor(private consoleOutputStore: ConsoleOutputStoreService) {}
     ngOnInit(): void {
         this.consoleOutputStore.getRunStage().subscribe({
-            next: (codeRunStage: CodeRunStage) => {
-                console.log(codeRunStage)
-                this.codeRunStage = codeRunStage;
-            },
+            next: (codeRunStage: CodeRunStage) => this.codeRunStage = codeRunStage,
         });
 
         this.consoleOutputStore.getRunResult().subscribe({

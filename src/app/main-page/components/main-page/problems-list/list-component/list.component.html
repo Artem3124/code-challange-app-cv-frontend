@@ -9,11 +9,17 @@
     class="col-7 list-element-new text-capitalize list-element d-flex align-items-center pl-0 w-100"
     style="font-size: 1.2em;">
     <complexity-icon
+      class="col-2"
       [complexity]="item.complexityTypeId"
       [iconSize]="20"
       style="padding: 0em 1em"
     ></complexity-icon>
-    {{ item.name }}</a>
-    <!-- this should be replaced with an actual icon. Unattended should be blank. -->
-    <span>{{ item.state }}</span>
+    <span class="col-9">{{ item.name }}</span>
+    <span class="col-1 material-symbols-outlined"
+      *ngIf="item.state | stateIcon as stateIcon"
+      [ngStyle]="{'color': stateIcon.color}"
+      data-toggle="tooltip" data-placement="right" title="{{ stateIcon.tooltip }}">
+      {{ stateIcon.icon }}
+    </span>
+  </a>
 </div>

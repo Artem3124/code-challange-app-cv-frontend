@@ -39,7 +39,6 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
         this.sourceCodeStore.getReadonlySourceCodeLanguage().subscribe({
             next: (readonlyLanguage: CodeLanguage | null) => {
                 if (readonlyLanguage) {
-                    console.log(readonlyLanguage);
                     this.onSetLanguage(readonlyLanguage);
                     return;
                 }
@@ -49,7 +48,6 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
 
         this.sourceCodeStore.getReadonlySourceCode().subscribe({
             next: (source: Dictionary<string> | null) => {
-                console.log({source});
                 this.isReadonlyCodeView = source !== null;
             },
         });
@@ -60,7 +58,6 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
       new EventEmitter<CodeLanguage>();
 
   onCodeLanguageChange($event: Event): void {
-      console.log({isReadonlyCodeView:this.isReadonlyCodeView});
       const value = ($event.target as HTMLInputElement).value;
     
       this.onSetLanguage(this.stringToCodeProblem.transform(value));

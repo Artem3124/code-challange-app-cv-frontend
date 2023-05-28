@@ -42,15 +42,11 @@ export class ProblemListEffects {
                     (problem: CodeProblem) => problem.uuid === action.problemUUID
                 );
 
-                console.log(problem);
-
                 if (!problem) {
                     return initiateFetchingCodeProblem({
                         problemUUID: action.problemUUID,
                     });
                 }
-                console.log(action.problemUUID);
-                console.log(problem);
 
                 return insertDataToProblemState({ problem: problem });
             })
@@ -129,9 +125,6 @@ export class ProblemListEffects {
                                 };
                             }
                         );
-
-                        console.log({resolvedProblems: uniqueResolvedProblemViews,
-                            unresolvedProblems: uniqueUnresolvedProblemViews});
 
                         return setProfileViewProblem({
                             resolvedProblems: uniqueResolvedProblemViews,

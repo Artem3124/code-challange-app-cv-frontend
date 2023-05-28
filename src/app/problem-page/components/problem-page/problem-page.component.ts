@@ -109,8 +109,6 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
                 );
 
-                console.log(this.availableLanguages);
-
                 if (savedSourceCode) {
                     this.codeTemplateObserver.next(savedSourceCode);
                     return;
@@ -149,8 +147,6 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
             runType: runType,
         };
 
-        console.log(codeSubmissionRequest);
-
         this.codeSubmissionHttp.submitCode(codeSubmissionRequest).subscribe({
             next: (problemUUID: string) => {
                 this.codeRunOutcome = CodeRunOutcome.Unknown;
@@ -165,8 +161,6 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
                 this.consoleOutputStore.getRunResult().subscribe({
                     next: (codeRunResult: CodeRunResult | null) => {
-                        console.log('subsc');
-
                         if (codeRunResult !== null) {
                             return clearInterval(getRunStatusInterval);
                         }

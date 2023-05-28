@@ -15,18 +15,17 @@ export class UserProfileComponent implements OnInit {
     unresolvedProblems: CodeProblemView[] = [];
 
     constructor(
-    private authStore: AuthStoreService,
     private codeRunsStore: CodeRunsStoreService,
     private profileStore: AuthStoreService,
     private router: Router,
     ) {
-        this.authStore.initiateAuthCheck();
-        this.authStore.getStatistic();
+        this.profileStore.initiateAuthCheck();
+        this.profileStore.getStatistic();
         this.codeRunsStore.initiateGettingAllCodeSubmissions();
     }
 
     ngOnInit(): void {
-        this.authStore.getUser().subscribe({
+        this.profileStore.getUser().subscribe({
             next: (user: User | null) => {
                 if (!user) {
                     this.router.navigate(['/home'])
