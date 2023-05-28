@@ -5,7 +5,7 @@ import CodeLanguage from "src/models/enums/coding-languages.enum";
 
 export const hardSetSourceCode = createAction(
     SourceCodeActions.HARD_SET_SOURCE_CODE,
-    props<{ codeDictionary: Dictionary<string> }>()
+    props<{ codeDictionary: Dictionary<string>, language: CodeLanguage }>()
 );
 
 export const checkCodeExisting = createAction(
@@ -37,5 +37,6 @@ export const setCurrentReadonlyLanguageError = createAction(
 )
 
 export const returnToCurrentSolution = createAction(
-  SourceCodeActions.RETURN_CURRENT_SOLUTION
+  SourceCodeActions.RETURN_CURRENT_SOLUTION,
+  props<{language: CodeLanguage | null}>()
 )

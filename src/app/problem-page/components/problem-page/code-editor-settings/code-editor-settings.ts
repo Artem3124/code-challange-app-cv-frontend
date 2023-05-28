@@ -84,7 +84,7 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
 
   onClick(): void {
     this.isReadonlyCodeView = false;
-    this.sourceCodeStore.returnToCurrentSolution(); // return back to current solution through the effect
+    this.sourceCodeStore.returnToCurrentSolution(this.currentCodeLanguage); // return back to current solution through the effect
     this.consoleOutputStore.defaultResultView();
   }
 }

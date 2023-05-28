@@ -36,10 +36,9 @@ export const sourceCodeReducer = createReducer(
     on(
         hardSetSourceCode,
         (state, action) => {
-      
             let i = 1;
             while (action.codeDictionary[i]) { 
-                localStorage.setItem(i.toString(), action.codeDictionary[i].toString());
+                localStorage.setItem(action.language.toString(), action.codeDictionary[action.language].toString());
                 i++;
             }
 
@@ -51,7 +50,8 @@ export const sourceCodeReducer = createReducer(
 
             return { 
                 ...state,
-                sourceCode: dictionaryCodes
+                sourceCodeLanguage: action.language,
+                sourceCode: dictionaryCodes,
             }
         }
     ),

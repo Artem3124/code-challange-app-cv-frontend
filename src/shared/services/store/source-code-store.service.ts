@@ -12,7 +12,7 @@ export class SourceCodeStoreService {
     constructor(private store: Store<SourceCodeDictionary>) {}
 
     setSourceCodeState(code: string, codeType: CodeLanguage) { 
-        this.store.dispatch(hardSetSourceCode({codeDictionary: {[codeType]: code}}));
+        this.store.dispatch(hardSetSourceCode({codeDictionary: {[codeType]: code} , language: codeType}));
     }
 
     setReadonlySourceCode(code: string, codeLanguage: CodeLanguage) { 
@@ -44,7 +44,7 @@ export class SourceCodeStoreService {
         return this.store.select(selectReadonlyCodeLanguage);
     }
 
-    returnToCurrentSolution() { 
-      this.store.dispatch(returnToCurrentSolution());
+    returnToCurrentSolution(language: CodeLanguage) { 
+      this.store.dispatch(returnToCurrentSolution({language}));
     }
 }

@@ -104,15 +104,6 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
     getCodeTemplateOrSetExisting() {
         const savedSourceCode = localStorage.getItem(this.currentLanguage.toString());
         
-        // this.sourceCodeStore.getSourceCode().subscribe({
-        //   next: (codes: Dictionary<string> | null) => { 
-        //     if (!codes) {
-        //       return;
-        //     }
-
-        //     this.codeTemplateObserver.next(codes[this.currentLanguage]);
-        //   }
-        // })
         this.codeTemplateStore.getCodeTemplates().subscribe({
             next: (templates: Dictionary<string> | null) => {
                 if (templates === null) {
@@ -149,7 +140,7 @@ export class ProblemPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     setSourceCodeState(codeEditorState: string) {
       console.log([codeEditorState,
-        this.currentLanguage]);
+        this.currentLanguage])
         this.sourceCodeStore.setSourceCodeState(
             codeEditorState,
             this.currentLanguage
