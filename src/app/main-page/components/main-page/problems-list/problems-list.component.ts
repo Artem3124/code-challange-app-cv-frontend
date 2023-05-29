@@ -52,14 +52,10 @@ export class ProblemsListComponent implements OnInit {
             );
         }
 
-        if (filter.tags.length > 0) { 
-            this.codeProblemsView = this.codeProblemsView.filter(
-                (codeProblem: CodeProblem) =>
-                    filter.tags.some(
-                        (tag: string) =>
-                            codeProblem.tags.includes(tag)
-                    )
-            )
+        if (!!filter.tags?.length) {
+            const filterTags = filter.tags.map(t => t.toLowerCase());
+            this.codeProblemsView = this.codeProblemsView
+                .filter(p => filterTags.every(ft => p.tags.some(pt => pt.toLowerCase() === ft)));
         }
     }
 }
