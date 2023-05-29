@@ -34,6 +34,10 @@ import { consoleOutputReducer as codeRunProgress } from 'src/app/problem-page/st
 import { ManageableIconModule } from 'src/shared/directives/icon/manageable-icon.module';
 import { StringToCodeLanguagePipe } from './components/problem-page/code-editor-settings/string-to-code-language.pipe';
 import { UtcToLocalDateTimePipe } from './components/problem-page/submission-history/code-run/utc-to-local-date-time.pipe';
+import { ProblemVotesHttpService } from 'src/shared/services/http/problem-votes.service';
+import { UpVoteIconModule } from 'src/assets/svg/up-vote-icon/up-vote-ircon.component';
+import { DownVoteIconModule } from 'src/assets/svg/down-vote-icon/down-vote-icon.component';
+import { VoteNumberPipe } from 'src/app/problem-page/components/problem-page/problem-description/pipes/number-formating.pipe';
 
 
 @NgModule({
@@ -51,12 +55,15 @@ import { UtcToLocalDateTimePipe } from './components/problem-page/submission-his
         CodeRunOutcomeDirective,
         StringToCodeLanguagePipe,
         UtcToLocalDateTimePipe,
+        VoteNumberPipe,
     ],
     imports: [
         ReactiveFormsModule,
         RarityIconModule,
         ProblemComplexityPipeModule,
         ManageableIconModule,
+        UpVoteIconModule,
+        DownVoteIconModule,
         PageHeaderModule,
         CommonModule,
         FormsModule,
@@ -74,6 +81,7 @@ import { UtcToLocalDateTimePipe } from './components/problem-page/submission-his
     providers: [
         ProblemStoreService,
         ReducerManager,
+        ProblemVotesHttpService,
         CodeRunResultHttpService,
         CodeRunsStoreService,
         SourceCodeStoreService,

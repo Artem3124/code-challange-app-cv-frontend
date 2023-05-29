@@ -43,6 +43,8 @@ export interface CodeProblem extends CodeProblemView {
 }
 
 export interface CodeProblemView {
+  upVotesCount: number;
+  downVotesCount: number;
   name: string;
   uuid: string;
   complexityTypeId: CodeProblemComplexity;
@@ -141,3 +143,14 @@ export enum CodeProblemState {
   Attended = 1,
   Resolved = 2,
 }
+
+export interface VoteRequest { 
+  codeProblemUUID: string;
+  voteUp: boolean;
+}
+
+export interface Vote {
+  codeProblemUUID: string;
+  upVote: boolean;
+}
+

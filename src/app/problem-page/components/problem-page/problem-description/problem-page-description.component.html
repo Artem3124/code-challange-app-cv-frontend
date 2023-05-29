@@ -6,6 +6,22 @@
           <complexity-icon [complexity]="descriptionState?.problemComplexity!"></complexity-icon>
         </div>
       </div>
+      <div class="row">
+        <div class="container p-0 vote-section font-poppins-600">
+          <div class="row">
+            <div class="container p-0 d-flex w-auto"  (click)="upVote()">
+              <up-vote-icon></up-vote-icon>
+            </div>
+          </div>
+          <div class="row">
+            <div class="container p-0 d-flex w-auto">{{descriptionState?.rating! | voteNumber}}</div>
+          </div>
+          <div class="row">
+            <div class="container p-0 d-flex w-auto" (click)="downVote()"> <down-vote-icon></down-vote-icon></div>
+          </div>
+         
+        </div>
+      </div>
       <div class="row"></div>
     </div>
     <div class="col-11 description-part">

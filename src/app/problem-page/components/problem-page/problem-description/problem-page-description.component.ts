@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CodeProblem } from 'src/models';
+import { CodeProblem, VoteRequest } from 'src/models';
 import ProblemDescriptionView from 'src/models/view/problem-description-view.model';
 import { ProblemStoreService } from 'src/shared/services/store/problem-store.service';
 
@@ -31,6 +31,13 @@ export class ProblemPageDescriptionComponent implements OnInit {
             },
             error: (err: Error) => console.error(err),
         });
+
+        this.problemPageStore.getVotes().subscribe({
+          next: (votes: number[]) => {
+            console.log(votes);
+            this.descriptionState!.rating = votes[0] - votes[1];
+          }
+        })
     }
 
     private convertToDescription(
@@ -44,8 +51,28 @@ export class ProblemPageDescriptionComponent implements OnInit {
             sampleOutput: codeProblem.examples[0]?.output,
             constraints: codeProblem.constraints.join('\n'),
             tags: codeProblem.tags,
+            rating: codeProblem.upVotesCount - codeProblem.downVotesCount,
+            uuid: codeProblem.uuid,
         };
     }
 
     descriptionState: ProblemDescriptionView | null;
+
+    upVote() { 
+      const request: VoteRequest = { 
+        voteUp: true,
+        codeProblemUUID: this.descriptionState?.uuid!
+      }
+
+      this.problemPageStore.setVote(request);
+    }
+
+    downVote() { 
+      const request: VoteRequest = { 
+        voteUp: false, 
+        codeProblemUUID: this.descriptionState?.uuid!
+      }
+
+      this.problemPageStore.setVote(request);
+    }
 }
