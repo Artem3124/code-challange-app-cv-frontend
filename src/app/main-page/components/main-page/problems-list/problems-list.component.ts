@@ -37,12 +37,9 @@ export class ProblemsListComponent implements OnInit {
     findProblem(filter: ProblemListFilter) {
         this.codeProblemsView = this.codeProblems;
 
-        if (filter.name.length > 0) {
-            this.codeProblemsView = this.codeProblemsView.filter(
-                (codeProblem) =>{
-                    return filter.name.includes(codeProblem.name) ||
-          codeProblem.name.includes(filter.name)}
-            );
+        if (!!filter.name?.length) {
+            const filterName = filter.name.toLowerCase();
+            this.codeProblemsView = this.codeProblemsView.filter(p => p.name.toLowerCase().includes(filterName));
         }
 
         if (filter.complexity.length > 0) {
