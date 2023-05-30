@@ -1,5 +1,5 @@
 <div class="row mb-3">
-  <div class="col-7 console-output-header-text runtime-error-test-case font-poppins-600">Test Case {{testCaseNumber}}</div>
+  <div *ngIf="asTestCaseResult() as testCaseResult" class="col-7 console-output-header-text runtime-error-test-case font-poppins-600">Test Case {{testCaseResult.id}}</div>
 </div>
 <div class="row runtime-error-description-section">
   <div class="container  error-output-details">

@@ -7,7 +7,10 @@ import { UserService } from "src/shared/services/http/user.service";
 @Component({
     selector: 'profile-edit',
     templateUrl: './profile-edit.component.html',
-    styleUrls: ['../../../../../shared/styles/custom-form.scss', '../../../../../shared/styles/global-elements.scss']
+    styleUrls: [
+        '../../../../../shared/styles/custom-form.scss',
+        '../../../../../shared/styles/global-elements.scss'
+    ]
 })
 
 export class ProfileEditComponent implements OnInit {
@@ -19,7 +22,7 @@ export class ProfileEditComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService,
-    ) { }
+        ) { }
 
     ngOnInit(): void {
         this.formModel = new ProfileEditForm(this.formBuilder, this.user);

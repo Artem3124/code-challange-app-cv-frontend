@@ -170,6 +170,7 @@ export class CodeEditorComponent implements AfterViewInit {
       maxLines: 21,
       fontSize: 18,
       fontFamily: 'Cascadia Code',
+      wrap: true,
     };
   }
 

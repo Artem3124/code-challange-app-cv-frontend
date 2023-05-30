@@ -17,4 +17,7 @@ export class RuntimeErrorOutputComponent {
   @Input() testCaseNumber = 1;
   @Input() errorsInput: TestCaseResult | CompilationError[];
 
+  asTestCaseResult(): TestCaseResult {
+    return this.errorsInput as TestCaseResult;
+  }
 }
