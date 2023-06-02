@@ -23,7 +23,6 @@ export class ProblemStateEffects {
             exhaustMap((action) =>
                 this.codeRunsHttp.getCodeRunResultsHistory(action.codeProblemUUID).pipe(
                     map((response: CodeRunResultExpanded[]) => {
-                        console.log(response);
                         return gettingCodeRunsHistorySucceeded({
                             codeRunsHistory: response,
                         });
@@ -41,9 +40,7 @@ export class ProblemStateEffects {
             ofType(initiateGettingAllCodeSubmissions),
             exhaustMap(() => {
                 return this.codeRunsHttp.getAllCodeSubmissions().pipe(
-                    map((response: CodeRunResultExpanded[]) => {
-                        console.log(response);
-            
+                    map((response: CodeRunResultExpanded[]) => {            
                         return gettingAllCodeSubmissionsSucceeded({
                             codeSubmissions: response,
                         });

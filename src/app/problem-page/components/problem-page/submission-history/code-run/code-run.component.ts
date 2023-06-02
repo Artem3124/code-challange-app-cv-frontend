@@ -24,6 +24,12 @@ export class CodeRunComponent implements OnInit {
   }
 
   private convertToString(codeRunOutcome: CodeRunOutcome) {
-      return CodeRunOutcome[codeRunOutcome].replace(/([a-z])([A-Z])/g, '$1 $2');
+        switch (codeRunOutcome) {
+            case CodeRunOutcome.Succeeded: return 'Succeeded';
+            case CodeRunOutcome.TestFailed: return 'Test failed';
+            case CodeRunOutcome.CompilationError: return 'Compilation error';
+            case CodeRunOutcome.RuntimeError: return 'Runtime error';
+            default: return '';
+        }
   }
 }

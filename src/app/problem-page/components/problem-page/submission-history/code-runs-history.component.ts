@@ -33,7 +33,7 @@ export class CodeRunsHistoryComponent implements OnInit {
           );
         }
         this.codeRuns = response
-          .filter((r) => r.runType === RunType.Submit)
+          .filter(r => r.runType === RunType.Submit)
           .sort((a, b) => {
             return (
               new Date(b.dateTimeUtc).getTime() -

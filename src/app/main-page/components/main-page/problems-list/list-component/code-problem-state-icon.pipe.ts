@@ -10,9 +10,9 @@ export class CodeProblemStateIcon implements PipeTransform {
         switch (state)
         {
         case CodeProblemState.Attended:
-            return { icon: 'check_circle', color: 'green', tooltip: 'Attended' };
+            return { icon: 'edit_square', color: '#457E9D', tooltip: 'Attended' };
         case CodeProblemState.Resolved:
-            return { icon: 'edit_square', color: '#457E9D', tooltip: 'Solved' };
+            return { icon: 'check_circle', color: 'green', tooltip: 'Solved' };
         default:
             return null;
         }

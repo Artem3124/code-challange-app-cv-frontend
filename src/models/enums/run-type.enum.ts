@@ -1,4 +1,4 @@
 export enum RunType { 
-  Run,
-  Submit,
+  Run = 0,
+  Submit = 1,
 }

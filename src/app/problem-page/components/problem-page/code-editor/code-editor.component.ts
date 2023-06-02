@@ -166,9 +166,9 @@ export class CodeEditorComponent implements AfterViewInit {
   private getEditorOptions(): Partial<ace.Ace.EditorOptions> {
     return {
       highlightActiveLine: true,
-      minLines: 21,
-      maxLines: 21,
-      fontSize: 18,
+      minLines: 30,
+      maxLines: 30,
+      fontSize: 14,
       fontFamily: 'Cascadia Code',
       wrap: true,
     };

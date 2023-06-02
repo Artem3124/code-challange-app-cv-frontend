@@ -5,7 +5,7 @@
     *ngIf="(codeRunStage | outcomeTypeToSimpleView : codeRunOutcome) !== null"
   ></simple-view-output>
   <detailed-view-output
-    *ngIf="(codeRunOutcome | outcomeTypeToDetailedView) !== null"
+    *ngIf="(codeRunOutcome | outcomeTypeToDetailedView)"
     [codeRunOutcome]="codeRunOutcome"
     [errorFlow]="errorFlow"
     style="width: 100%"
