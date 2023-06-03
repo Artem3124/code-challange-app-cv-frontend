@@ -18,8 +18,8 @@ import { globalEffects } from 'src/app/state/effects';
 import { authorizationReducer } from 'src/app/authorization/state/reducers/profile.reducers';
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserProfileModule } from 'src/app/user-profile/user-profile.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [AppComponent],
@@ -33,6 +33,7 @@ import { UserProfileModule } from 'src/app/user-profile/user-profile.module';
         ProblemPageModule,
         MainPageModule,
         AuthorizationModule,
+        ToastrModule.forRoot(),
         StoreModule.forRoot(),
         EffectsModule.forRoot(),
         StoreModule.forFeature('authState', authorizationReducer),

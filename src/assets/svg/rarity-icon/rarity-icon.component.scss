@@ -1,4 +1,10 @@
 .icon-wrapper {
     width: fit-content;
     cursor: pointer;
+    border-radius: 15px;
+}
+
+.icon-wrapper:hover {
+  background-color: #e4e4e4;
+  transition: all 0.2s ease-in-out;
 }

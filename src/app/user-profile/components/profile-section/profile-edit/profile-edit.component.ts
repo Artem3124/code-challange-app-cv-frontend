@@ -3,6 +3,7 @@ import { ProfileEditForm } from "./profile-edit.form";
 import { FormBuilder } from "@angular/forms";
 import { User } from "src/models";
 import { UserService } from "src/shared/services/http/user.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
     selector: 'profile-edit',
@@ -20,6 +21,7 @@ export class ProfileEditComponent implements OnInit {
     loading = false;
 
     constructor(
+      private toast: ToastrService,
         private formBuilder: FormBuilder,
         private userService: UserService,
         ) { }
@@ -34,9 +36,16 @@ export class ProfileEditComponent implements OnInit {
         this.loading = true;
         this.userService.patch(payload)
             .subscribe({
-                next: res => this.formModel.setErrors(res?.errors),
+                next: res => {
+                  if (res?.errors) { 
+                    this.formModel.setErrors(res?.errors)
+                    this.toast.error(res.errors[0].message, "Update notification")
+                    return;
+                  }
+                  this.toast.success("Updated successfully.", "Update notification")
+                },
                 error: ex => {
-                    // add error handling...
+                  this.toast.error("Updated successfully.", "Update notification")
                 }
             }).add(() => this.loading = false);
     }

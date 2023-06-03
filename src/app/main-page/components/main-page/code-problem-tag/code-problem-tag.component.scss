@@ -7,9 +7,14 @@
 }
 
 .code-problem-tag-selected {
-    background-color: #868EA9;
+    background-color: #EDEDED;
 }
 
 .code-problem-tag-deselected {
-    background-color: #9ABDD8;
+    background-color: white;
+}
+
+.code-problem-tag-deselected:hover {
+  background-color: #EDEDED;
+  transition: all 0.2s ease-in-out;
 }
