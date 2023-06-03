@@ -38,6 +38,7 @@
     "igniteui-angular": "^15.1.7",
     "memoizee": "^0.4.15",
     "ng-apexcharts": "^1.7.6",
+    "ngx-toastr": "^16.2.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

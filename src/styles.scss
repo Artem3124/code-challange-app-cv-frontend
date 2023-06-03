@@ -2,6 +2,17 @@
 @use '@angular/material' as mat;
 @use './shared/styles/theme' as theme;
 
+// // regular style toast
+@import 'ngx-toastr/toastr';
+
+// // if you'd like to use it without importing all of bootstrap it requires
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+// boostrap 5
+@import 'ngx-toastr/toastr-bs5-alert';
+
 @include mat.core();
 
 $diplom-front-primary: mat.define-palette(theme.$my-palette, 100, 50);

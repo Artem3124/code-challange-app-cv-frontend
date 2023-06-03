@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/models';
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 import { ProblemListStoreService } from 'src/shared/services/store/problem-list-store.service';
@@ -14,13 +15,13 @@ import { ProblemStoreService } from 'src/shared/services/store/problem-store.ser
     ],
 })
 export class ProfileComponent {
-    constructor(private problemStore: ProblemListStoreService, private authStore: AuthStoreService) {
+    constructor(private toastr: ToastrService, private problemStore: ProblemListStoreService, private authStore: AuthStoreService) {
         this.problemStore.initiateProblemListFetching();
     }
 
   @Input() user: User;
 
   logOut() { 
-      this.authStore.initiateLogout();
+     this.authStore.initiateLogout();
   }
 }

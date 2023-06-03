@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, exhaustMap, map } from 'rxjs';
 import {
     authUnexpectedError,
@@ -35,8 +36,10 @@ export class ProfileEffects {
                         this.router.navigate(['/home']);
                         return loginSucceeded({ user: response });
                     }),
-                    catchError(async (error: HttpErrorResponse) =>
-                        loginFailed({ error: error })
+                    catchError(async (error: HttpErrorResponse) => {
+                        this.toastr.error(error.error.message, "Error occurred, try again.");
+                        return loginFailed({ error: error });
+                      }
                     )
                 )
             )
@@ -68,8 +71,10 @@ export class ProfileEffects {
 
                         return registrationSucceeded();
                     }),
-                    catchError(async (error: HttpErrorResponse) =>
-                        registrationFailed({ error: error })
+                    catchError(async (error: HttpErrorResponse) =>{
+                      this.toastr.error(error.error.message, "Error occurred, try again.");
+                      return registrationFailed({ error: error })
+                    }
                     )
                 )
             )
@@ -98,7 +103,10 @@ export class ProfileEffects {
             exhaustMap(() =>
                 this.statisticService.statistic().pipe(
                     map((statistics) => getStatisticSucceeded({ statistics })),
-                    catchError(async (error: Error) => getStatisticError({ error }))
+                    catchError(async (error: Error) => {
+                      this.toastr.error("Unexpected error occurred", "An error occurred getting user statistic")
+                      return getStatisticError({ error })
+                    })
                 )
             )
         )
@@ -106,6 +114,7 @@ export class ProfileEffects {
 
     constructor(
     private actions$: Actions,
+    private toastr: ToastrService,
     private authService: ProfileHttpService,
     private statisticService: StatisticHttpService,
     private router: Router
