@@ -18,4 +18,8 @@ import { HttpBase } from "./http-base.service";
     submitCode(codeSubmission: CodeSubmission): Observable<string> {
         return this.http.post<CodeSubmission, string>(codeSubmission, this.controllerPath);
     }
+
+    submitChallengeCode(codeSubmission: CodeSubmission): Observable<string> {
+        return this.http.post<CodeSubmission, string>(codeSubmission, this.controllerPath + '/challenge');
+    }
 }

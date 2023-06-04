@@ -1,0 +1,20 @@
+<div class="col description-manage-section">
+    <div class="row">
+        <div
+            id="des"
+            class="col global-selection-menu-element option-menu-element"
+            routerLink="/challenges"  
+            [ngClass]="{'highlight': activeComponent === 0}"   
+            >
+            Community
+        </div>
+        <div
+            id="sol"
+            class="col global-selection-menu-element option-menu-element" style="min-width: 200px;"
+            [ngClass]="{'highlight': activeComponent === 1}"
+            routerLink="/challenges/my"  
+            >
+            My challenges
+        </div>
+    </div>
+</div>

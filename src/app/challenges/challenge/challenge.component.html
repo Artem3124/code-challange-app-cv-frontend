@@ -1,0 +1,70 @@
+    <page-header></page-header>
+    <div *ngIf="challenge" class="container d-flex row justify-content-between p-0" style="justify-self: center;">
+        <div  class="container col global-content-container mt-4 mb-0">
+            <div class="ms-3 description-part me-2">
+                <div class="row">
+                    <div class="container description-element description-title font-poppins-600">{{ challenge.name }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container description-element description-body font-poppins-400" [innerHtml]="challenge.description"></div>
+                </div>
+            </div>
+        </div>
+    <div class="container ms-2 col mt-4 pe-0">
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <code-editor-settings
+                [disabled]="!!challenge.userAttempt?.submittedDateTimeUtc"
+                *ngIf="$selectedCodeLanguage | async as selectedCodeLanguage"
+                [selectedCodeLanguage]="selectedCodeLanguage"
+                [availableLanguagesInput]="challenge.allowedLanguages"
+                (currentLanguageEvent)="onCodeLanguageChange($event)">
+            </code-editor-settings>
+            <challenge-timer *ngIf="!isDisabled()" [challenge]="challenge" (onTimeout)="onTimeOut()"></challenge-timer>
+        </div>
+        <challenge-code-editor
+            [disabled]="isDisabled()"
+            [codeTemplate]="$codeTemplate"
+            [currentLanguageObservable]="$selectedCodeLanguage"
+            (codeValueEmitter)="onSourceCodeUpdated($event)">
+        </challenge-code-editor>
+        <div class="ms-5" *ngIf="!challenge?.userAttempt?.submittedDateTimeUtc">
+            <console-output-settings  (submitEvent)="confirm($event)" [isReadOnlyView]="!!challenge.userAttempt?.submittedDateTimeUtc"></console-output-settings>
+            <console-output
+            [errorFlow]="outputErrorView"
+            [codeRunOutcome]="codeRunOutcome"
+            [codeRunStage]="codeRunStage"></console-output>
+        </div>
+    </div>
+</div>
+
+ <!-- Modal -->
+ <ng-template #submitConfirmationModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Submit confirmation
+        </h4>
+        <span class="material-symbols-outlined" (click)="modal.dismiss('Cross click')" style="cursor: pointer;">
+            close
+        </span>
+
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <div>
+                Once you submit a solution you can't modify it. A you sure?
+            </div>
+            <div class="input-group">
+              <div class="input-group-append">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="back-btn custom-button font-poppins-700" (click)="modal.close()">Cancel</button>
+        <button type="button" class="form-submit-color custom-button justify-content-center" (click)="closeModalAndSubmit(modal)">Submit</button>
+    </div>
+  </ng-template>
+  

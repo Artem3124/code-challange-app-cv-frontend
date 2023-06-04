@@ -45,8 +45,6 @@ export class CodeStageToSimpleViewPipe implements PipeTransform {
         inputStage: CodeRunStage,
         inputOutcome: CodeRunOutcome
     ): SimpleViewOutputActions | null {
-        console.log(inputOutcome);
-        console.log(inputStage);
         switch (inputOutcome) {
         case CodeRunOutcome.Succeeded: {
             return {

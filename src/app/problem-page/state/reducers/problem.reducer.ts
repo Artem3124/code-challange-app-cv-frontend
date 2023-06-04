@@ -28,8 +28,6 @@ export const codeProblemReducer = createReducer(
       }
     });
 
-    console.log({ upvotes: upVotes, downvotes: downVotes });
-
     return {
       ...state,
       codeProblem: {

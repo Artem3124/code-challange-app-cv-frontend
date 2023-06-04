@@ -1,0 +1,55 @@
+<div (click)="open(attendanceConfirmationModal)"
+    class="row bg-white m-2 p-3 d-flex align-items-center justify-content-center pl-0 list-element"
+    *ngIf="challenge && isVisible(challenge)">
+    <div class="col-5 text-capitalize">{{ challenge.name }}</div>
+    <div class="col-3">{{ challenge.endDateTimeUtc | toLocal }}</div>
+    <div class="col-2">
+        <span *ngIf="!isInProgress() || view !== 0; else timer">{{ challenge.timeLimitMinutes | minutesToDateTime }}</span>
+    </div>
+    <ng-container *ngIf="view === 0; else reviewStateIcon">
+      <span
+        [ngStyle]="{'color': icon.color }"
+        class="material-symbols-outlined col-1"
+        *ngIf="challenge | challengeStateIcon as icon"
+        data-toggle="tooltip" data-placement="right" title="{{ icon.tooltip }}">
+        {{ icon.name }}
+      </span>
+    </ng-container>
+</div>
+<ng-template #timer>
+    <challenge-timer [challenge]="challenge"></challenge-timer>
+</ng-template>
+
+  <!-- Modal -->
+  <ng-template #attendanceConfirmationModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Attendance confirmation
+        </h4>
+        <span class="material-symbols-outlined" (click)="modal.dismiss('Cross click')" style="cursor: pointer;">
+            close
+        </span>
+
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <div>
+                Once you start a challenge you will have only {{challenge.timeLimitMinutes}} minutes to complete it. A you ready to start?
+            </div>
+            <div class="input-group">
+              <div class="input-group-append">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="back-btn custom-button font-poppins-700" (click)="modal.close()">Cancel</button>
+        <button type="button" class="form-submit-color custom-button justify-content-center" (click)="start(modal)">Start</button>
+    </div>
+  </ng-template>
+  
+<ng-template #reviewStateIcon>
+  <span class="col-1" data-toggle="tooltip" data-placement="right" title="Submissions waiting for review">{{waitingForReview()}}</span>
+</ng-template>

@@ -1,11 +1,9 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   Output,
-  ViewChild,
 } from '@angular/core';
 import CodeLanguage from 'src/models/enums/coding-languages.enum';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
@@ -32,9 +30,10 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
     this.availableLanguagesInput
   );
 
-  currentCodeLanguage: CodeLanguage = CodeLanguage.csharp;
+  @Input() selectedCodeLanguage: CodeLanguage = CodeLanguage.csharp;
   languageSelectRef: string;
   isReadonlyCodeView = false;
+  @Input() disabled = false;
 
   constructor(
     private sourceCodeStore: SourceCodeStoreService,
@@ -45,12 +44,12 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.onSetLanguage(CodeLanguage.csharp);
+    this.onSetLanguage(this.selectedCodeLanguage);
+    this.switchDisable();
 
     this.sourceCodeStore.getReadonlySourceCodeLanguage().subscribe({
       next: (readonlyLanguage: CodeLanguage | null) => {
         if (readonlyLanguage) {
-          console.log(readonlyLanguage);
           this.selectForm.setSelectorValue(readonlyLanguage);
           return;
         }
@@ -60,19 +59,28 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
     this.sourceCodeStore.getReadonlySourceCode().subscribe({
       next: (source: Dictionary<string> | null) => {
         this.isReadonlyCodeView = source !== null;
+        this.switchDisable();
       },
     });
   }
 
+  switchDisable(): void {
+    if (this.isReadonlyCodeView || this.disabled) {
+      this.selectForm.selectorValue.disable();
+    }
+    else {
+      this.selectForm.selectorValue.enable();
+    }
+  }
+
   onCodeLanguageChange($event: Event): void {
-    console.log($event.target as HTMLInputElement);
     const value = ($event.target as HTMLInputElement).value;
 
     this.onSetLanguage(this.stringToCodeProblem.transform(value));
   }
 
   onSetLanguage(codeLanguage: CodeLanguage) {
-    this.currentCodeLanguage = codeLanguage;
+    this.selectedCodeLanguage = codeLanguage;
     this.selectForm.setSelectorValue(codeLanguage);
     this.sourceCodeStore.setSourceCodeLanguage(codeLanguage);
     this.currentLanguageEvent.emit(codeLanguage);
@@ -84,7 +92,7 @@ export class CodeEditorSettingsComponent implements AfterViewInit {
 
   onClick(): void {
     this.isReadonlyCodeView = false;
-    this.sourceCodeStore.returnToCurrentSolution(this.currentCodeLanguage); // return back to current solution through the effect
+    this.sourceCodeStore.returnToCurrentSolution(this.selectedCodeLanguage); // return back to current solution through the effect
     this.consoleOutputStore.defaultResultView();
   }
 }

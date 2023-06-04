@@ -20,6 +20,7 @@ import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserProfileModule } from 'src/app/user-profile/user-profile.module';
 import { ToastrModule } from 'ngx-toastr';
+import { challengeReducer } from '../challenges/state/challenge.reducer';
 
 @NgModule({
     declarations: [AppComponent],
@@ -37,6 +38,8 @@ import { ToastrModule } from 'ngx-toastr';
         StoreModule.forRoot(),
         EffectsModule.forRoot(),
         StoreModule.forFeature('authState', authorizationReducer),
+        StoreModule.forFeature('challengeState',
+        challengeReducer),
         EffectsModule.forFeature(globalEffects),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states

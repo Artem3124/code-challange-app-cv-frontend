@@ -22,7 +22,6 @@ export class ProblemPageDescriptionComponent implements OnInit {
     ngOnInit(): void {
         this.problemPageStore.getProblemState().subscribe({
             next: (response: CodeProblem | null) => {
-                console.log(response);
                 if (response === null) {
                     return;
                 }
@@ -34,7 +33,6 @@ export class ProblemPageDescriptionComponent implements OnInit {
 
         this.problemPageStore.getVotes().subscribe({
           next: (votes: number[]) => {
-            console.log(votes);
             this.descriptionState!.rating = votes[0] - votes[1];
           }
         })

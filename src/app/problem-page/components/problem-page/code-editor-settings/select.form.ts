@@ -17,9 +17,7 @@ export class SelectCodeEditorFormModel {
   }
 
   setSelectorValue(codeLanguage: CodeLanguage) {
-    console.log([this.form.controls['selectValue'], codeLanguage]);
     this.form.controls['selectValue'].setValue(codeLanguage);
-    console.log(this.form.controls['selectValue']);
 
   }
 

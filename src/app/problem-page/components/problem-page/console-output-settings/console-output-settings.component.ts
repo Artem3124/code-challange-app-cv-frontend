@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RunType } from 'src/models/enums/run-type.enum';
 import { Dictionary } from 'src/shared/data-types/dictionary.data-type';
 import { AuthStoreService } from 'src/shared/services/store/auth-store.service';
@@ -16,7 +16,7 @@ import { SourceCodeStoreService } from 'src/shared/services/store/source-code-st
 export class ConsoleOutputSettingsComponent implements AfterViewInit, OnInit {
 
   @Output() submitEvent: EventEmitter<RunType> = new EventEmitter<RunType>();
-  isReadOnlyView = false;
+  @Input() isReadOnlyView: boolean | null;
   submitAvailable = true;
 
   constructor(private sourceCodeStore: SourceCodeStoreService, private authStore: AuthStoreService) {
@@ -39,7 +39,9 @@ export class ConsoleOutputSettingsComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
       this.sourceCodeStore.getReadonlySourceCode().subscribe({
           next: (readonlyCode: Dictionary<string> | null) => {
-              this.isReadOnlyView = readonlyCode !== null;
+                if (this.isReadOnlyView === null) {
+                    this.isReadOnlyView = readonlyCode !== null;
+                }
           },
       });
   }

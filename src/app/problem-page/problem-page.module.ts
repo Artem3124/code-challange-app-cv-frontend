@@ -38,6 +38,7 @@ import { ProblemVotesHttpService } from 'src/shared/services/http/problem-votes.
 import { UpVoteIconModule } from 'src/assets/svg/up-vote-icon/up-vote-ircon.component';
 import { DownVoteIconModule } from 'src/assets/svg/down-vote-icon/down-vote-icon.component';
 import { VoteNumberPipe } from 'src/app/problem-page/components/problem-page/problem-description/pipes/number-formating.pipe';
+import { ConsoleOutputComponent } from './components/problem-page/console-output/console-output.component';
 
 
 @NgModule({
@@ -88,5 +89,11 @@ import { VoteNumberPipe } from 'src/app/problem-page/components/problem-page/pro
         CodeTemplateStoreService,
         ConsoleOutputStoreService,
     ],
+    exports: [
+        UtcToLocalDateTimePipe,
+        ConsoleOutputSettingsComponent,
+        CodeEditorSettingsComponent,
+        ConsoleOutputComponent,
+    ]
 })
 export class ProblemPageModule {}

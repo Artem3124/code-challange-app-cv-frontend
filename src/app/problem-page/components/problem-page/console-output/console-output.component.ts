@@ -25,8 +25,6 @@ export class ConsoleOutputComponent implements OnInit {
 
         this.consoleOutputStore.getRunResult().subscribe({
             next: (codeRunResult: CodeRunResult | null) => {
-                console.log(codeRunResult)
-
                 if (codeRunResult === null) {
                     this.codeRunOutcome = CodeRunOutcome.Unknown
                     return;
@@ -43,7 +41,6 @@ export class ConsoleOutputComponent implements OnInit {
   @Input() errorFlow: TestCaseResult | CompilationError[];
 
   private handleRunOutcomeOutput(codeRunResult: CodeRunResult) {
-      console.log(codeRunResult.codeRunOutcomeId)
       switch (codeRunResult.codeRunOutcomeId) {
       case CodeRunOutcome.CompilationError:
           return (this.errorFlow =
@@ -63,13 +60,8 @@ export class ConsoleOutputComponent implements OnInit {
   }
 
   private convertToRuntimeOrTestFailedErrorOutput(codeRunResult: CodeRunResult): TestCaseResult {
-      console.log(codeRunResult);
-
       const testCaseResult: TestCaseResult = codeRunResult.failedTest!;
 
-      //testCaseResult.actual = codeRunResult.exceptionMessage!;
-
-      console.log(testCaseResult);
       return testCaseResult;
   }
 }

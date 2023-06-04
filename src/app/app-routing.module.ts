@@ -32,6 +32,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'challenges',
+        loadChildren: () =>
+            import('./challenges/challenges.module').then(
+                module => module.ChallengesModule
+            ),
+    },
+    {
         path: '**',
         redirectTo: 'home',
     },

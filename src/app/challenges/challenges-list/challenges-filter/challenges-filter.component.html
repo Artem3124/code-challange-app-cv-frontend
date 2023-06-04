@@ -1,0 +1,40 @@
+<div class="font-poppins-600">
+    <div class="row filter-component">
+      <div class="container font-poppins-700">Find challenge</div>
+    </div>
+    <div class="row">
+      <div class="container filter-search-field">
+          <div class="input-group">
+            <input
+                [value]="challengeName"
+                class="form-control custom-search-input search-logo"
+                placeholder="Type name of the challenge"
+                id="problem-search-input"
+                formControlName="inputProblemName"
+                (change)="onNameChange($event)"/>
+            <span class="input-group-text custom-search-input">
+              <find-icon [iconSize]="22"></find-icon>
+            </span>
+          </div>
+      </div>
+    </div>
+    <div class="row filter-component justify-content-center align-items-center h-100">
+      <div class="col-12 m-2 justify-content-left">Languages</div>
+  
+      <div class="row filter-component">
+        <!-- <div class="col-5">Choose Filters:</div> -->
+        <div class="col-7 code-problem-tag-container p-1" style="display: contents;" *ngIf="codeLanguages">
+          <code-language-tag *ngFor="let codeLanguage of codeLanguages" [codeLanguage]="codeLanguage" [selected]="isTagSelected(codeLanguage)" (clickEventEmitter)="tagSwitch($event)"></code-language-tag>
+        </div>
+      </div>
+      <div class="row m-0">
+        <div
+          class="col back-btn custom-button font-poppins-700"
+          (click)="emitCancelFiltering()"
+        >
+          Reset
+        </div>
+      </div>
+    </div>
+  </div>
+  

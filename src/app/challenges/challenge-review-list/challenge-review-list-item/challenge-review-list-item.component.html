@@ -1,0 +1,14 @@
+<div
+    [routerLink]="['/challenges/review/', attempt.uuid]"
+    class="row bg-white m-2 p-3 d-flex align-items-center justify-content-center pl-0 list-element"
+    *ngIf="attempt">
+    <div class="col-5 text-capitalize">{{ user.login }}</div>
+    <div class="col-3" *ngIf="attempt.submittedDateTimeUtc">{{ attempt.submittedDateTimeUtc | toLocal }}</div>
+    <span
+        [ngStyle]="{'color': icon.color }"
+        class="material-symbols-outlined col-1"
+        *ngIf="attempt | attemptStateIcon as icon"
+        data-toggle="tooltip" data-placement="right" title="{{ icon.tooltip }}">
+        {{ icon.name }}
+    </span>
+</div>

@@ -115,6 +115,70 @@ export interface User {
   subscriptionType: SubscriptionType;
 }
 
+export enum ChallengeSubmitState {
+  InReview = 0,
+  Approved = 1,
+  Rejected = 2,
+}
+
+export interface ChallengeAttempt {
+  uuid: string;
+  userUUID: string;
+  state?: ChallengeSubmitState;
+  sourceCode: string;
+  codeLanguage: CodeLanguage;
+  startedDateTimeUtc: string;
+  submittedDateTimeUtc?: string;
+} 
+
+export class ChallengeSubmitRequest {
+  challengeUUID: string;
+  sourceCode: string;
+  codeLanguage: CodeLanguage;
+}
+
+export interface ChallengeUpdateRequest {
+  state: ChallengeSubmitState;
+}
+
+export class ChallengeCreateRequest {
+  name: string;
+  description: string;
+  timeLimitMinutes: string;
+  endDateTimeUtc: string;
+  isPrivate: boolean;
+  allowedLanguages: CodeLanguage[];
+  allowedUsers: string;
+  allowInvalidSyntaxSubmit: boolean;
+  methodInfo: CodeProblemMethodInfo;
+}
+
+export class CodeProblemMethodInfo {
+  name: string;
+  parameters: CodeProblemParameterInfo[];
+  returnType: number;
+}
+
+export class CodeProblemParameterInfo {
+  name: string;
+  type: number;
+}
+
+export interface Challenge {
+  uuid: string;
+  hostUUID: string;
+  name: string;
+  description: string;
+  timeLimitMinutes: number;
+  endDateTimeUtc: string;
+  allowedLanguages: CodeLanguage[];
+  isPrivate: boolean;
+  userAttempt?: ChallengeAttempt;
+  allowedUsers?: string[];
+  attempts: ChallengeAttempt[];
+  allowInvalidSyntaxSubmit: boolean;
+}
+
 export interface RegistrationRequest extends LoginRequest {
   login: string;
   repeatPassword: string;

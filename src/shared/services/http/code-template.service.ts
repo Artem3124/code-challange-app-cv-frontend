@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpBase } from "./http-base.service";
 import CodeLanguage from "src/models/enums/coding-languages.enum";
 import { Observable } from "rxjs";
-import { CodeProblem, CodeProblemTemplate } from "src/models";
+import { CodeProblemTemplate } from "src/models";
 
 @Injectable({
     providedIn: 'root'
@@ -15,5 +15,9 @@ import { CodeProblem, CodeProblemTemplate } from "src/models";
 
     getCodeTemplates(codeProblemUUID: string): Observable<CodeProblemTemplate[]> { 
         return this.http.get<CodeProblemTemplate[]>(`CodeTemplate?codeProblemUUID=${codeProblemUUID}`)
+    }
+
+    getCodeTemplatesForChallenge(challengeUUID: string): Observable<CodeProblemTemplate[]> {
+        return this.http.get<CodeProblemTemplate[]>(`CodeTemplate/Challenge/${challengeUUID}`);
     }
 }

@@ -59,7 +59,6 @@ export class ProblemListEffects {
     exhaustMap((action) => 
       this.problemVotesHttp.getVotes(action.codeProblemUUID).pipe(
         map((votes: Vote[]) => {
-          console.log(votes);
           return getVotesCompleted({votes});
         }),
         catchError(async (error: Error) => getVotesError({error}))

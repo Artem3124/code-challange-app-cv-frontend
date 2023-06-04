@@ -7,8 +7,6 @@ import { CompilationError, TestCaseResult } from "src/models";
     transform(error: CompilationError[] | TestCaseResult): CompilationError[] {
         const compilationError = error as CompilationError[];
     
-        console.log(compilationError);
-
         return compilationError;
     }
 }

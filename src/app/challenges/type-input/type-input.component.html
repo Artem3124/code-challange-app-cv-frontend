@@ -1,0 +1,12 @@
+<div class="form-group d-flex justify-content-start align-items-center text-center">
+    <h4 class="me-3 mb-0">{{label}}</h4>
+    <select class="form-control mb-1 w-50 me-5" (change)="onSelectChange($event)">
+        <option *ngFor="let type of availableTypes" [value]="type.id">{{type.name}}</option>
+    </select>
+    <div class="form-check m-0 text-center p-0">
+        <input (change)="onCheckboxChange($event)" class="form-check-input form-control checkbox p-0" type="checkbox" id="flexCheckChecked" [disabled]="selectedType === 255">
+        <label class="form-check-label" for="flexCheckChecked">
+          Array
+        </label>
+    </div>
+</div>

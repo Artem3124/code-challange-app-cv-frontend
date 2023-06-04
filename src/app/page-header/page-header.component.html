@@ -1,10 +1,18 @@
 <div class="container global-content-container header-component">
   <div class="row justify-content-between">
-    <div class="col d-flex align-items-center">
-      <span [routerLink]="['/home']" class="header-component-text font-poppins-600">Code Skills</span>
+    <div class="col justify-content-start d-flex">
+      <div class="me-4 d-flex align-items-center text-center">
+        <span [routerLink]="['/home']" class="header-component-text font-poppins-600">Code Skills</span>
+      </div>
+      <div class="d-flex align-items-center me-4">
+        <span role="link" [routerLink]="['/home']" routerLinkActive="active" class="header-component-text-small">Problems</span>
+      </div>
+      <div class="col d-flex align-items-center">
+        <span role="link" [routerLink]="['/challenges']" routerLinkActive="active" class="header-component-text-small">Challenges</span>
+      </div>
     </div>
     <div class="col-1" *ngIf="isLoggedIn">
-      <profile-icon [routerLink]="['/profile']"  class="profile-icon"/>
+      <profile-icon [routerLink]="['/profile']" class="profile-icon"/>
     </div>
     <div class="col-2" *ngIf="!isLoggedIn">
       <div class="row">

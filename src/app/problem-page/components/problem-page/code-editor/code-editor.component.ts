@@ -71,7 +71,6 @@ export class CodeEditorComponent implements AfterViewInit {
           this.currentLanguage = readonlyLanguage;
           this.setEditorLanguage(CodeLanguage[readonlyLanguage]);
           const sourceCode = this.sourceCodes![this.currentLanguage];
-          console.log(sourceCode);
           this.isReadonlyCode = false;
           if (sourceCode) {
             this.setEditorTemplate(sourceCode);
@@ -141,7 +140,6 @@ export class CodeEditorComponent implements AfterViewInit {
     this.setEditorLanguage(languageToSet);
     this.codeEditor.setShowFoldWidgets(true);
     this.codeEditor.on('change', () => {
-      console.log(this.isReadonlyCode);
       if (this.isReadonlyCode) {
         return;
       }
