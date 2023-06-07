@@ -47,7 +47,7 @@ export class ProblemPageDescriptionComponent implements OnInit {
             body: codeProblem.description,
             sampleInput: codeProblem.examples[0]?.input,
             sampleOutput: codeProblem.examples[0]?.output,
-            constraints: codeProblem.constraints.join('\n'),
+            constraints: codeProblem.constraints?.join('\n'),
             tags: codeProblem.tags,
             rating: codeProblem.upVotesCount - codeProblem.downVotesCount,
             uuid: codeProblem.uuid,
