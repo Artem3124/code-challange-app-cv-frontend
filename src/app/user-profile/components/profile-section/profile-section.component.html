@@ -1,0 +1,21 @@
+<div class="container profile-section global-content-container">
+  <div class="row">
+    <div class="col-3 avatar">
+      <img class="img-fluid avatar-img" src="https://avatars.githubusercontent.com/u/90896256?v=4" alt="Responsive image">
+    </div>
+    <div class="col-8">
+      <div class="row-5 mb-3">
+        <div class="container d-flex justify-content-center user-name font-poppins-600">@{{ user.login }}</div>
+      </div>
+      <div class="row mt-5"></div>
+      <div class="row mt-5  ms-1">
+        <profile-edit [user]="user"></profile-edit>
+      </div>
+      <div class="row mt-5">
+        <div class="container logout d-flex justify-content-center font-poppins-500 w-auto p-0" (click)="logOut()">
+          Log out
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

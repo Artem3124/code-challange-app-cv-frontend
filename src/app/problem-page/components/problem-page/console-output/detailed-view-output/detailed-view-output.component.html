@@ -1,0 +1,13 @@
+<div class="compile-error-output" *ngIf="(codeRunOutcome | outcomeTypeToDetailedView) as outcome">
+  <div class="row compile-error-output-header">
+    <div class="container font-poppins-700 console-output-header-text runtime-error-header">
+      {{outcome.header}}:
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="container error-output-details font-poppins-600">
+      <runtime-error-output [errorsInput]="errorFlow" *ngIf="outcome.isRuntimeError"></runtime-error-output>
+      <compile-error-output [errorsInput]="errorFlow" *ngIf="outcome.isCompilationError"></compile-error-output>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div
+  class="container font-poppins-500"
+  *ngIf="statistic && (getSolvedProblemsCount() / statistic.problemsCount) * 100 | parseInt as progress"
+>
+  <div class="row">
+    <div class="container d-flex justify-content-center w-auto">
+      <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series!"
+          [colors]="chartOptions.colors!"
+          [chart]="chartOptions.chart!"
+          [legend]="chartOptions.legend!"
+          [labels]="chartOptions.labels"
+          [plotOptions]="chartOptions.plotOptions!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [stroke]="chartOptions.stroke!"
+          [fill]="chartOptions.fill!"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div
+      class="container d-flex justify-content-center w-auto"
+      style="font-size: 20px"
+    >
+      <span style="color: #379a3c; font-weight: 600">{{ progress }}%</span>
+      <div style="margin-left: 0.5em">Solved.</div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="container w-50">
+      <section>
+        <mat-progress-bar
+          class="custom-progress-bar"
+          mode="determinate"
+          value="{{ progress }}"
+          style="height: 1em !important; border-radius: 1em"
+        />
+      </section>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div
+      class="container font-poppins-500 d-flex justify-content-center w-auto"
+    >
+      {{ getSolvedProblemsCount() }} / {{ statistic.problemsCount }} -
+      {{ getSolvedProblemsCount() }} solved out of {{ statistic.problemsCount }} problems.
+    </div>
+  </div>
+</div>

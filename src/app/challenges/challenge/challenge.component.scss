@@ -1,0 +1,55 @@
+.option-menu-element {
+    font-size: 20px;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+}
+
+.code-editor-manage-section { 
+    margin: 10px;
+}
+
+.highlight {
+    background-color: #FBFAFA;
+    color: #4D7F9D;
+}
+.description-part { 
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    min-height: 705px;
+    max-height: 705px;
+    max-width: 100em;
+    padding: 1em;
+    margin: inherit;
+}
+
+.rarity-icon-container { 
+    padding: 1.7em 1em 0;
+}
+
+.description-sample-title {
+    font-size: 17px;
+}
+
+.description-sample-content { 
+    font-size: 14px;
+    color: #535153;
+}
+
+.description-title {
+    font-size: 20px;
+}
+
+.description-element { 
+    margin: 0.5em 1em 0.5em 0;
+}
+
+.mt-custom {
+    overflow-x: scroll;
+    white-space: nowrap !important;
+    margin-top: 38%;
+}
+
+.vote-section { 
+    color: #4D7F9D;
+}

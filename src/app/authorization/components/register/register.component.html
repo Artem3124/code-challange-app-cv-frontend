@@ -1,0 +1,147 @@
+<div class="row justify-content-center mb-5">
+  <div
+    class="container fit-content-width font-poppins-600 form-default-color form-header"
+  >
+    Registration
+  </div>
+</div>
+<div class="row">
+  <div class="container w-50">
+    <form
+      #registration
+      [formGroup]="registrationForm!.form"
+      (ngSubmit)="submitRegistration()"
+    >
+      <div class="form-group mb-3">
+        <input type="email"
+          formControlName="inputEmail"
+          class="form-control"
+          id="registrationEmail"
+          placeholder="Enter email"
+          required
+        />
+      </div>
+      <div class="alert alert-danger"
+        *ngIf="
+          registrationForm.inputEmail.invalid &&
+          registrationForm.inputEmail.touched
+        "
+      >
+        Email is invalid
+      </div>
+      <div class="form-group">
+        <input
+          type="login"
+          formControlName="inputLogin"
+          class="form-control mb-3"
+          id="registrationLogin"
+          placeholder="Enter Login"
+          required
+        />
+      </div>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+        registrationForm.inputLogin.hasError(
+          'inputLengthError'
+        ) && registrationForm.inputLogin.touched
+        "
+      >
+        {{registrationForm.inputLogin.getError('inputLengthError')}}
+      </div>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+        registrationForm.inputLogin.hasError(
+          'inputLoginError'
+        ) && registrationForm.inputLogin.touched
+        "
+      >
+        {{registrationForm.inputLogin.getError('inputLoginError')}}
+      </div>
+      <div class="form-group">
+        <input
+          formControlName="inputFirstPassword"
+          type="password"
+          class="form-control mb-3"
+          id="registrationFirstPassword"
+          placeholder="Password from 8 to 16 symbols"
+          required
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="
+            registrationForm.inputFirstPassword.hasError(
+              'inputLengthError'
+            ) && registrationForm.inputFirstPassword.touched
+          "
+        >
+          {{
+            registrationForm.inputFirstPassword.getError(
+              "inputLengthError"
+            )
+          }}
+        </div>
+        <div class="form-group">
+          <input
+            formControlName="inputSecondPassword"
+            type="password"
+            class="form-control mb-3"
+            id="registrationSecondPassword"
+            placeholder="Password from 8 to 16 symbols"
+            required
+          />
+
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              registrationForm.inputSecondPassword.hasError(
+                'inputLengthError'
+              ) && registrationForm.inputSecondPassword.touched
+            "
+          >
+            {{
+              registrationForm.inputSecondPassword.getError(
+                "inputLengthError"
+              )
+            }}
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              (registrationForm.inputSecondPassword.hasError(
+                'passwordMatchError'
+              ) ||
+              registrationForm.inputFirstPassword.hasError('passwordMatchError')) && registrationForm.inputFirstPassword.touched
+            "
+          >
+            {{
+              registrationForm.inputSecondPassword.getError(
+                "passwordMatchError"
+              )
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col-4">
+          <a
+            class="form-default-color custom-button justify-content-center w-100"
+            routerLink="/login"
+          >
+            To Log in
+          </a>
+        </div>
+        <div class="col-4">
+          <button
+            type="submit"
+            [disabled]="registrationForm.form.invalid"
+            class="form-submit-color custom-button justify-content-center w-100"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

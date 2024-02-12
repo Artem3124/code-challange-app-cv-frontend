@@ -1,0 +1,16 @@
+::-webkit-scrollbar {
+  width: 0.5em; /* Remove scrollbar space */
+  transition: background ease-in-out 1s !important;
+  background: transparent;/* Optional: just make scrollbar invisible */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #78757775;
+  padding-right: 0.2em;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover { 
+  background: #787577;
+}
+

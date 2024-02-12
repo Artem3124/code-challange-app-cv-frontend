@@ -1,0 +1,34 @@
+<div [ngStyle]="{'background':backgroundColor}" class="icon-wrapper p-1" data-toggle="tooltip" data-placement="right" title="{{ complexity | rarityIconTooltip }}"><svg
+  *ngIf="complexity | problemComplexity:{
+    size: iconSize,
+    lengthSizeMultiplier: 1.318181
+  } as iconState"
+  viewBox="0 0 26 33"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  manageable-icon-size
+  [iconSizeState]="this.iconState.size">
+  <path
+    d="M13 1.34687C13 1.34687 24 8.31489 24 20.8044C23.8465 23.6852
+    22.6033 26.3858 20.5422 28.3159C18.4811 30.2461 15.7695 31.2489 13
+    31.1054V1.34687Z"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    manageable-icon-color
+    [iconStrokeWidth]="this.iconState.size"
+    [iconFillOpacity]="this.iconState.fillOpacity"
+    [iconStrokeColor]="this.iconState.strokeColor"
+    [iconFillColor]="this.iconState.fill"
+    />
+    <path
+      d="M13 1.34687C13 1.34687 2 8.31489 2 20.8044C2.15353 23.6852
+      3.39666 26.3858 5.45779 28.3159C7.51892 30.2461 10.2305 31.2489 13
+      31.1054V1.34687Z"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      manageable-icon-color
+      [iconStrokeWidth]="this.iconState.size"
+      [iconStrokeColor]="this.iconState.strokeColor"
+      />
+    </svg>
+</div>

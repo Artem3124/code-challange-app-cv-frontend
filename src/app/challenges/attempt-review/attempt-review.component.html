@@ -1,0 +1,13 @@
+<challenge *ngIf="challenge" [challenge]="challenge"></challenge>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between">
+        <div class="col">
+            <button class="custom-button" (click)="back()">Back</button>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <button class="custom-button text-danger" (click)="sendFeedback(ChallengeSubmitState.Rejected)">Reject</button>
+            <button class="custom-button form-submit-color" (click)="sendFeedback(ChallengeSubmitState.Approved)">Approve</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,26 @@
+.list-element { 
+  color: #535153 !important;
+  text-decoration: none !important; 
+  font-family: Poppins 'sans-serif';
+  font-weight: 600;
+}
+
+.list-element-section { 
+  font-family: 'Poppins' sans-serif;
+  font-weight: 600;
+  font-size: 1em;
+  border-bottom: 1px solid #535153;
+  margin: 0em 1em
+}
+
+.list-element-new {
+  transition: 0.3s;
+}
+
+.list-element-new:hover {
+  color: #457E9D !important;
+}
+
+.border-radius { 
+  border-radius: 15px;
+}

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 sidebar-col p-0 h-100 d-flex">
+      <sidebar class="sidebar-bg"></sidebar>
+    </div>
+    <div class="col-8 offset-4">
+      <div class="row">
+        <div class="container">
+          <div class="row justify-content-center">
+            <img
+              [routerLink]="['/home']"
+              src="../../../../assets/svg/main-logo/main-logo.svg"
+              style="width: 40%; margin: 2em; cursor: pointer;"
+            />
+          </div>
+          <router-outlet name='authRouter'></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

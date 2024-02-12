@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row problem-page-header">
+    <page-header></page-header>
+  </div>
+<div class="row">
+  <div class="col description-manage-section">
+    <div class="row">
+      <div
+        id="des"
+        class="col global-selection-menu-element option-menu-element"
+        [routerLink]="['description']"  
+        [ngClass]="{'highlight': activeComponent === 'des'}"   
+        (click)="setActive('des')"
+      >
+        Description
+      </div>
+      <div
+        id="sol"
+        class="col global-selection-menu-element option-menu-element"
+        [ngClass]="{'highlight': activeComponent === 'sol'}"   
+        (click)="setActive('sol')"
+      >
+        Solutions
+      </div>
+      <div
+        id="sub"
+        [routerLink]="['submissions']"        
+        class="col global-selection-menu-element option-menu-element"
+        [ngClass]="{'highlight': activeComponent === 'sub'}"   
+        (click)="setActive('sub')"
+      >
+        Submissions
+      </div>
+    </div>
+  </div>
+  <div class="col code-editor-manage-section">
+    <div class="row h-100-prc">
+          <code-editor-settings
+            (currentLanguageEvent)="setCurrentLanguage($event)"
+            [availableLanguagesInput]="availableLanguages"
+          ></code-editor-settings>
+        </div>
+      </div>
+    </div>
+<div class="row problem-page-fulfillness">
+  <div class="col probem-page-description">
+    <div class="row">
+      <router-outlet name="problemPage"></router-outlet>
+      
+      <!-- <problem-description
+        [descriptionState]="descriptionCodeProblemState"
+      ></problem-description> -->
+    </div>
+  </div>
+  <div class="col">
+    <div class="row">
+      <code-editor
+        [codeTemplate]="codeTemplateObserver"
+        (codeValueEmitter)="setSourceCodeState($event)"
+        [currentLanguageObservable]="currentLanguageObserver"
+      ></code-editor>
+    </div>
+    <div class="row">
+      <console-output-settings
+        (submitEvent)="submitCode($event)"
+      ></console-output-settings>
+    </div>
+    <div class="row">
+      <console-output
+        [errorFlow]="outputErrorView"
+        [codeRunOutcome]="codeRunOutcome"
+        [codeRunStage]="codeRunStage"
+      ></console-output>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,17 @@
+.side-bar {
+  display: flex;
+  height: 100%;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  line-height: 25px;
+  z-index: 8;
+  color: white;
+
+  p{
+      font-size: 20px;
+      a{
+          color: white;
+      }
+  }
+}

@@ -1,0 +1,20 @@
+.code-problem-tag {
+    width: fit-content;
+}
+
+.code-problem-tag-text-container {
+    font-weight: 200;
+}
+
+.code-problem-tag-selected {
+    background-color: #EDEDED;
+}
+
+.code-problem-tag-deselected {
+    background-color: white;
+}
+
+.code-problem-tag-deselected:hover {
+  background-color: #EDEDED;
+  transition: all 0.2s ease-in-out;
+}

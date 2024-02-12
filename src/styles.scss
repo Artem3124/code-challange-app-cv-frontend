@@ -1,0 +1,37 @@
+
+@use '@angular/material' as mat;
+@use './shared/styles/theme' as theme;
+
+// // regular style toast
+@import 'ngx-toastr/toastr';
+
+// // if you'd like to use it without importing all of bootstrap it requires
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+// boostrap 5
+@import 'ngx-toastr/toastr-bs5-alert';
+
+@include mat.core();
+
+$diplom-front-primary: mat.define-palette(theme.$my-palette, 100, 50);
+$diplom-front-accent: mat.define-palette(theme.$my-palette, 50, 100, 200);
+
+$diplom-front-warn: mat.define-palette(mat.$red-palette);
+
+$diplom-front-theme: mat.define-light-theme((
+  color: (
+    primary: $diplom-front-primary,
+    accent: $diplom-front-accent,
+    warn: $diplom-front-warn,
+  )
+));
+
+@include mat.all-component-themes($diplom-front-theme);
+
+body { 
+  background-color: #EDEDED;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Poppins, sans-serif; }

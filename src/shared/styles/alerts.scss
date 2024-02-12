@@ -1,0 +1,12 @@
+.alert-danger { 
+  margin-top: 1em;
+  border-radius: 15px;
+  padding: 0.5em 0.5em;
+  transition: all 0.3s ease-in-out;
+}
+
+.alert { 
+  transition: display 0.3s ease-in-out;
+  font-size: small;
+  font-family: 'Poppins', sans-serif;
+}

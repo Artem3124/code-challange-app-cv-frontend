@@ -1,0 +1,61 @@
+<div class="font-poppins-600">
+  <div class="row filter-component">
+    <div class="container font-poppins-700">Find problem</div>
+  </div>
+  <div class="row">
+    <div class="container filter-search-field">
+      <form [formGroup]="filterForm!.form">
+        <div class="input-group">
+          <input
+            class="form-control custom-search-input search-logo"
+            placeholder="Type name of the problem"
+            id="problem-search-input"
+            formControlName="inputProblemName"
+            (change)="emitFilter()"/>
+          <span class="input-group-text custom-search-input">
+            <find-icon [iconSize]="22"></find-icon>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row filter-component justify-content-center align-items-center h-100">
+    <div class="col-3">Complexity</div>
+    <div class="col-9">
+      <div class="row">
+        
+        <div class="col-12">
+          <div class="row justify-content-start">
+            <div
+              class="col-1 fit-content complexity-icon"
+              *ngFor="let complexity of availableComplexities"
+            >
+              <complexity-icon
+                [backgroundColor]="isComplexitySelected(complexity) ? '#EDEDED' : ''"
+                [complexity]="complexity"
+                [iconSize]="20"
+                (click)="switchComplexity(complexity)"
+              ></complexity-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 m-2 justify-content-left">Tags</div>
+
+    <div class="row filter-component">
+      <!-- <div class="col-5">Choose Filters:</div> -->
+      <div class="col-7 code-problem-tag-container p-1" *ngIf="tags">
+        <code-problem-tag *ngFor="let tag of tags" [tag]="tag" [selected]="isTagSelected(tag.name)" (clickEventEmitter)="tagSwitch($event)"></code-problem-tag>
+      </div>
+    </div>
+    <div class="row m-0">
+      <div
+        class="col back-btn custom-button font-poppins-700"
+        (click)="emitCancelFiltering()"
+      >
+        Reset
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="container d-flex justify-content-between align-items-center border p-2 rounded mb-2" *ngIf="parameter">
+    <div class="col-11">
+        <div class="form-group d-flex justify-content-start align-items-center">
+            <h4 class="col-1 m-0 me-2">Name</h4>
+            <input (change)="onNameChange($event)" [value]="parameter.model.name" class="form-control mb-1 w-25">
+            <type-input class="ms-2" (onTypeChange)="onTypeChange($event)"></type-input>
+        </div>
+    </div>
+    <div class="col ms-4">
+        <div class="material-symbols-outlined text-white bg-danger rounded" style="cursor: pointer;" (click)="onDelete()">
+            remove
+        </div>
+    </div>
+</div>

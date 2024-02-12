@@ -1,0 +1,4 @@
+<div role="button" *ngIf="tag" class="code-problem-tag cursor-pointer" (click)="onClick()">
+    <div [ngClass]="selected ? 'code-problem-tag-selected' : 'code-problem-tag-deselected'"
+        class="ms-1 me-1 ps-3 pe-3 text-center rounded mb-2 code-problem-tag-text-container">{{ tag.name }}</div>
+</div>

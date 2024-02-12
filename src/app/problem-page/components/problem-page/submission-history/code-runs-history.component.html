@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="row" *ngFor="let item of codeRuns; let i = index;"  >
+    <div class="container code-run" (click)="setCodeRun(i, item)" [ngClass]="{'highlight': selectedIndex === i}">
+      <div class="row">
+        <code-run [codeRun]="item"></code-run> 
+      </div>
+    </div>
+  </div>
+</div>

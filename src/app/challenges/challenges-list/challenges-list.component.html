@@ -1,0 +1,23 @@
+<div class="container" style="color: #535153 !important">
+    <div class="d-flex justify-content-between">
+        <challenge-list-navbar></challenge-list-navbar>
+        <button class="custom-button form-submit-color mt-4 me-0" routerLink="create">Create Challenge</button>
+    </div>
+    <div class="row justify-content-between problem-list mt-4">
+        <div class="col-4 global-content-container filter-col pt-3" style="min-height: 300px">
+            <challenges-filter (filterEmitter)="applyFilter($event)" (cancelFilterEmitter)="clearFilter()" [codeLanguages]="codeLanguages"></challenges-filter>
+        </div>
+        <div class="col ms-3 global-content-container">
+            <ng-container *ngIf="filteredChallenges?.length; else empty">
+                <challenges-list-item (onOpen)="selectChallenge($event)" *ngFor="let challenge of filteredChallenges" [challenge]="challenge"></challenges-list-item>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #empty>
+    <div class="text-center h-100 mt-5">
+        <h1>There is no challenges for you</h1>
+        <span class="material-symbols-outlined">sentiment_sad</span>
+    </div>    
+</ng-template>

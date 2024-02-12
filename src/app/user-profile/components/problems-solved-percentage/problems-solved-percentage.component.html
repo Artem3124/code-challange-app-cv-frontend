@@ -1,0 +1,22 @@
+<div class="container global-content-container">
+  <div class="row">
+    <div class="col d-flex justify-content-center w-auto">
+      <div class="row problem-solved-header font-poppins-600">
+        Problem Solved Percentage
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="row diagram-row"></div>
+      <div class="row diagram-description-row"></div>
+    </div>
+  </div>
+  <div class="row solved-percantage">
+    <div class="col">
+      <div class="row main-percantage mb-3">
+        <percentage-chart *ngIf="statistic" [statistic]="statistic"></percentage-chart>
+      </div>
+    </div>
+  </div>
+</div>

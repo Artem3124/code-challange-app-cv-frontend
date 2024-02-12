@@ -1,0 +1,11 @@
+<page-header></page-header>
+<div *ngIf="challenge" class="container" style="color: #535153 !important">
+    <h2 class="mt-4">Attempts of the '<span class="text-capitalize">{{challenge.name}}</span>'</h2>
+    <div class="global-content-container mt-2 p-2">
+        <challenge-review-list-item
+            *ngFor="let attempt of challenge.attempts"
+            [user]="getUser(attempt)"
+            [attempt]="attempt">
+        </challenge-review-list-item>
+    </div>
+</div>

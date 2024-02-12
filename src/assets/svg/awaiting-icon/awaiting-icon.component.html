@@ -1,0 +1,38 @@
+<svg
+  manageable-icon-size
+  [iconSizeState]="inputParameters.size!"
+  [iconSizeHeightCoefficient]="inputParameters.lengthSizeMultiplier"
+  width="0"
+  height="0"
+  viewBox="0 0 83 73"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect width="83" height="72.359" rx="30" fill="#E7E6DF" />
+  <ellipse
+    cx="41.5"
+    cy="36.07"
+    rx="21.5"
+    ry="21.07"
+    stroke="#535153"
+    stroke-width="5"
+  />
+  <path
+    spin-arrows
+    id="hours-arrow"
+    [isAnimate]="isAnimate"
+    d="M42 22V36"
+    stroke="#535153"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
+  <path
+    id="minutes-arrow"
+    spin-arrows
+    [isAnimate]="isAnimate"
+    d="M34 46L42 36"
+    stroke="#535153"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
+</svg>

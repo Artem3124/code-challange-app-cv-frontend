@@ -1,0 +1,62 @@
+<div class="row justify-content-center mb-5">
+    <div class="row">
+        <div class="container">
+            <form *ngIf="formModel" [formGroup]="formModel.form">
+                <div class="form-group d-flex justify-content-end align-items-center me-3">
+                <h4 class="col-2 w-50 m-0">Email</h4>
+                <input type="email"
+                    formControlName="email"
+                    class="form-control mb-1 col-10"
+                    id="registrationEmail"
+                    placeholder="Enter email"
+                    required/>
+                </div>
+                <small class="text-danger w-100 me-3 mb-3" [hidden]="!formModel.email.hasError('email')">Email is invalid</small>
+                <small class="text-danger w-100 me-3 mb-3" [hidden]="!formModel.email.hasError('duplicate')">User with such email already exists</small>
+                <small class="text-danger w-100 me-3 mb-3" [hidden]="!formModel.email.hasError('required')">Email is required</small>
+                <div class="form-group d-flex justify-content-end align-items-center me-3 mb-0 mt-3">
+                    <h4 class="col-2 w-50 m-0">New password</h4>
+                    <input
+                        formControlName="password"
+                        type="password"
+                        class="form-control mb-1 col-10"
+                        id="registrationFirstPassword"
+                        placeholder="Password from 8 to 16 symbols"/>
+                </div>
+                <small class="text-danger w-100 me-3 mb-3" [hidden]="!formModel.password.hasError('length')">Password should be between 8 and 16 symbols</small>
+                <div class="form-group d-flex justify-content-end align-items-center me-3 mt-3 mb-0">
+                    <h4 class="col-2 w-50 m-0">Old password</h4>
+                    <input
+                        formControlName="oldPassword"
+                        type="password"
+                        class="form-control mb-1 col-10"
+                        id="registrationSecondPassword"
+                        placeholder="********"
+                        required/>
+                </div>
+                <small class="text-danger w-100 me-3 mb-3"
+                    [hidden]="!formModel.oldPassword.hasError('requiredPassword') && !formModel.password.hasError('requiredPassword')
+                        || (formModel.oldPassword.pristine && formModel.password.pristine)">Current password must be provided
+                </small>
+                <small class="text-danger w-100 me-3 mb-3" [hidden]="!formModel.oldPassword.hasError('mismatch')">Current password is incorrect</small>
+                <div class="row justify-content-between me-2 mt-3">
+                    <div class="col-4">
+                        <button
+                            class="form-submit-color custom-button justify-content-center w-100"
+                            (click)="reset()">Reset</button>
+                    </div>
+                    <div class="col-4 justify-content-start">
+                        <button
+                            type="submit"
+                            (click)="update()"
+                            [disabled]="formModel.invalid || formModel.disabled || !formModel.isChanged() || loading"
+                            class="form-submit-color custom-button justify-content-center w-100">Update
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+  

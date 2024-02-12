@@ -1,0 +1,10 @@
+    <header class="inverted">
+    <h2>Description</h2>
+</header>
+<div class="content" role="main">
+    <ckeditor class="test"
+        [editor]="Editor"
+        data="{{immutableData}}"
+        (change)="onChange($event)">
+    </ckeditor>
+</div>

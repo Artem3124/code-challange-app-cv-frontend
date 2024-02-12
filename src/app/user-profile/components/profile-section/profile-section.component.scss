@@ -1,0 +1,22 @@
+.avatar-img { 
+  border-radius: 100px;
+  border: #9EBED8 solid 0.3em;
+  width: 80%;
+}
+
+.profile-section { 
+  padding: 1.5em;
+}
+
+.user-name { 
+  font-size: 20px;
+}
+
+.logout { 
+  cursor: pointer; 
+  text-decoration: none;
+}
+
+.logout:hover { 
+  text-decoration: underline;
+}
